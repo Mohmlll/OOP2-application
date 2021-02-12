@@ -1,8 +1,11 @@
 package practicumopdracht;
 
 import javafx.application.Application;
-
 import java.time.LocalDate;
+
+/**
+ * @author Mohammed Malloul
+ */
 
 public class Main {
 

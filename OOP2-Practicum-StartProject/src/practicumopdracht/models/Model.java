@@ -2,6 +2,11 @@ package practicumopdracht.models;
 
 import java.time.LocalDate;
 
+/**
+ * @author Mohammed Malloul
+ */
+
+
 public class Model {
     private final int NEUTRAL = 0;
     private final int SALE = 1;

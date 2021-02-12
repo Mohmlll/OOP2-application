@@ -1,5 +1,10 @@
 package practicumopdracht.models;
 
+/**
+ * @author Mohammed Malloul
+ */
+
+
 public class Brand {
     private final String brandName;
     private boolean netWorth;
