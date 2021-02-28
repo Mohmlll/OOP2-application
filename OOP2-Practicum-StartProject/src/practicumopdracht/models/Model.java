@@ -10,12 +10,12 @@ import java.time.LocalDate;
 public class Model {
     private final int NEUTRAL = 0;
     private final int SALE = 1;
-    private String lineUp;
     private final String modelName;
     private final double price;
+    private final int saleChoice;
+    private String lineUp;
     private String color;
     private LocalDate releaseDate;
-    private final int saleChoice;
 
     public Model(String lineUp, String modelName, double price, String color, LocalDate releaseDate) {
         this.lineUp = lineUp;

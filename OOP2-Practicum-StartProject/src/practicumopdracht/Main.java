@@ -1,6 +1,7 @@
 package practicumopdracht;
 
 import javafx.application.Application;
+
 import java.time.LocalDate;
 
 /**
@@ -9,10 +10,10 @@ import java.time.LocalDate;
 
 public class Main {
 
+    private static final boolean jaIkAccepteer = true;
     public static String studentNaam = "Mohammed Malloul";
     public static String studentNummer = "500760524";
     public static boolean launchedFromMain;
-    private static final boolean jaIkAccepteer = true;
 
     public static void main(String[] args) {
         launchedFromMain = true;

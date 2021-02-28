@@ -7,6 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * @author Mohammed Malloul
+ */
 
 public class PhoneView extends View {
 
@@ -56,13 +59,13 @@ public class PhoneView extends View {
         comboBoxBox = new HBox();
         comboBoxLabel = new Label("Combobox");
         comboBox = new ComboBox<>();
-        comboBox.setMinSize(500, 16);
-        comboBox.setPadding(new Insets(0, 0, 10, 0));
+        comboBox.setMinSize(500, 20);
+        comboBoxBox.setPadding(new Insets(0, 0, 10, 0));
         comboBoxBox.getChildren().addAll(comboBoxLabel, comboBox);
 
         textFieldBox = new HBox();
         textFieldLabel = new Label("TextField: ");
-        textFieldLabel.setMinSize(70, 16);
+        textFieldLabel.setMinSize(70, 20);
         textField = new TextField();
         textField.setMinSize(500, 16);
         textFieldBox.setPadding(new Insets(0, 0, 10, 0));
@@ -72,18 +75,17 @@ public class PhoneView extends View {
         textAreaLabel = new Label("textArea: ");
         textAreaLabel.setMinSize(70, 16);
         textArea = new TextArea();
-        textAreaBox.getChildren().addAll(textAreaLabel, textArea);
-        textArea.setMinSize(500, 30);
+        textArea.setMinSize(500, 50);
         textAreaBox.setPadding(new Insets(0, 0, 10, 0));
+        textAreaBox.getChildren().addAll(textAreaLabel, textArea);
 
         datePickerBox = new HBox();
         datePickerLabel = new Label("DatePicker: ");
         datePickerLabel.setMinSize(70, 16);
-
         datePicker = new DatePicker();
-        datePickerBox.getChildren().addAll(datePickerLabel, datePicker);
-        datePicker.setMinSize(80, 16);
+        datePicker.setMinSize(70, 20);
         datePickerBox.setPadding(new Insets(0, 0, 10, 0));
+        datePickerBox.getChildren().addAll(datePickerLabel, datePicker);
 
 
         checkBoxBox = new HBox();
@@ -91,21 +93,20 @@ public class PhoneView extends View {
         checkBoxLabel.setMinSize(70, 16);
         booleanLabel = new Label("(boolean)");
         checkBox = new CheckBox();
-        checkBox.setAlignment(Pos.CENTER_LEFT);
-        checkBoxBox.getChildren().addAll(checkBoxLabel, checkBox, booleanLabel);
         checkBoxBox.setPadding(new Insets(0, 0, 10, 0));
+        checkBoxBox.getChildren().addAll(checkBoxLabel, checkBox, booleanLabel);
 
         opslaanBox = new HBox();
         opslaan = new Button("Opslaan");
-        opslaanBox.getChildren().addAll(opslaan);
         opslaan.setMinWidth(600);
         opslaanBox.setPadding(new Insets(0, 0, 10, 0));
+        opslaanBox.getChildren().addAll(opslaan);
 
         listViewBox = new HBox();
         listView = new ListView();
-        listViewBox.getChildren().addAll(listView);
-        listView.setMinSize(600, 100);
+        listView.setMinSize(600, 80);
         listViewBox.setPadding(new Insets(0, 0, 10, 0));
+        listViewBox.getChildren().addAll(listView);
 
         buttons = new HBox();
         buttons.setMinSize(600, 30);
@@ -119,10 +120,6 @@ public class PhoneView extends View {
 
         vbox.getChildren().addAll(comboBoxBox, textFieldBox, textAreaBox, datePickerBox, checkBoxBox, opslaanBox, listViewBox, buttons);
         root = vbox;
-    }
-
-    public Label getComboBoxLabel() {
-        return comboBoxLabel;
     }
 
     public ComboBox getComboBox() {
