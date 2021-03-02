@@ -23,7 +23,7 @@ public class BrandController extends Controller {
 
         brandArrayList = new ArrayList<>();
         brandArrayList.add(new Brand("Samsung", "Kim Ki Num", "$300 Billion"));
-        brandArrayList.add(new Brand("Apple", "Tim Cook", "$1.3 Billion"));
+        brandArrayList.add(new Brand("Apple", "Tim Cook", "$1.3 Trillion"));
 
         brandObservableList = FXCollections.observableList(brandArrayList);
         brandView.getListView().setItems(brandObservableList);
@@ -36,20 +36,16 @@ public class BrandController extends Controller {
 
         //opens up the Model view
         brandView.getModels().setOnAction(actionEvent -> {
-            Brand selectedBrand = brandView.getGeselecteerdeBrand();
+            Controller modelController = new ModelController();
+            MainApplication.switchController(modelController);
+    });
 
-            if (selectedBrand != null) {
-                Controller modelController = new ModelController();
-                MainApplication.switchController(modelController);
-            }
-        });
-
-    }
+}
 
     private void onDeleteBrand() {
         Brand selectedBrand = brandView.getListView().getSelectionModel().getSelectedItem();
 
-        if (selectedBrand == null){
+        if (selectedBrand == null) {
             return;
         }
         brandObservableList.remove(selectedBrand);

@@ -34,9 +34,8 @@ public class MainApplication extends Application {
         stage.show();
 
         Controller controller = new BrandController();
-        Scene brandScene = new Scene(controller.getView().getRoot());
+        switchController(controller);
 
-        stage.setScene(brandScene);
     }
 
 
