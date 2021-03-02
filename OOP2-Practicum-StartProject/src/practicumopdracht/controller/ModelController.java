@@ -2,6 +2,7 @@ package practicumopdracht.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import practicumopdracht.MainApplication;
 import practicumopdracht.models.Model;
 import practicumopdracht.views.ModelView;
@@ -26,7 +27,9 @@ public class ModelController extends Controller {
         modelView.getSave().setOnAction(actionEvent -> onAddModel());
 
         //deletes a model from the list
-        modelView.getDelete().setOnAction(actionEvent -> onDeleteModel());
+        modelView.getDelete().setOnAction(actionEvent -> {
+            onDeleteModel();
+        });
 
         //opens up the Model view
         modelView.getBrandButton().setOnAction(actionEvent -> {

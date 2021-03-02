@@ -34,7 +34,13 @@ public class BrandController extends Controller {
         brandView.getSave().setOnAction(actionEvent -> onAddBrand());
 
         //deletes a brand name from the list
-        brandView.getDelete().setOnAction(actionEvent -> onDeleteBrand());
+        brandView.getDelete().setOnAction(actionEvent -> {
+            brandView.getDelete().setOnAction(e -> {
+                brandView.getAlert().showAndWait();
+                onDeleteBrand();
+            });
+
+        });
 
         //opens up the Model view
         brandView.getModels().setOnAction(actionEvent -> {

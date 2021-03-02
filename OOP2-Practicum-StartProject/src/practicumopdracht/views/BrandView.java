@@ -6,6 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import practicumopdracht.models.Brand;
 
 /**
@@ -22,8 +26,9 @@ public class BrandView extends View {
     private TextArea textArea;
     private Button save;
     private ListView<Brand> listView;
-    private Button Delete;
+    private Button delete;
     private Button models;
+    private Alert alert;
 
     public BrandView() {
         initializeRoot();
@@ -82,14 +87,20 @@ public class BrandView extends View {
         HBox buttons = new HBox();
         buttons.setMinSize(600, 30);
 
-        Delete = new Button("Delete");
-        Delete.setAlignment(Pos.CENTER);
+        delete = new Button("Delete");
+        delete.setAlignment(Pos.CENTER);
         models = new Button("Models");
         models.setAlignment(Pos.BOTTOM_RIGHT);
         buttons.setSpacing(480);
-        buttons.getChildren().addAll(Delete, models);
+        buttons.getChildren().addAll(delete, models);
 
-        vbox.getChildren().addAll(brandNameBox, nameCeoBox, networthBox, textAreaBox, saveBox, listViewBox, buttons);
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Alert");
+        alert.setContentText("Are you sure you want to delete this Brand?");
+        HBox pane = new HBox(15);
+        pane.getChildren().addAll( delete);
+
+        vbox.getChildren().addAll(brandNameBox, nameCeoBox, networthBox, textAreaBox, saveBox, listViewBox, buttons, pane);
         root = vbox;
     }
 
@@ -99,6 +110,10 @@ public class BrandView extends View {
 
     public TextField getBrandName() {
         return brandName;
+    }
+
+    public Alert getAlert() {
+        return alert;
     }
 
     public TextField getNameCeo() {
@@ -119,7 +134,7 @@ public class BrandView extends View {
 
 
     public Button getDelete() {
-        return Delete;
+        return delete;
     }
 
     public Button getModels() {
