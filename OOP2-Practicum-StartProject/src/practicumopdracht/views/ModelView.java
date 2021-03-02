@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 
 public class ModelView extends View {
 
+    private Parent root;
+
     private HBox comboBoxBox;
     private Label comboBoxLabel;
     private ComboBox comboBox;
@@ -58,11 +60,12 @@ public class ModelView extends View {
         brandButton = new Button("Brands");
         brandButton.setAlignment(Pos.CENTER_LEFT);
 
-        vbox.getChildren().addAll(comboBox, datePicker, checkBox);
+        vbox.getChildren().addAll(comboBox, datePicker, checkBox, brandButton);
+        root = vbox;
     }
 
     @Override
     public Parent getRoot() {
-        return null;
+        return root;
     }
 }

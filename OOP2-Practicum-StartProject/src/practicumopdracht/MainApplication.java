@@ -33,7 +33,7 @@ public class MainApplication extends Application {
         stage.setHeight(480);
         stage.show();
 
-        Controller controller = new BrandController();
+        BrandController controller = new BrandController();
         switchController(controller);
 
     }

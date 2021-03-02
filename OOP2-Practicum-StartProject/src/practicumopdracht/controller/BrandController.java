@@ -36,7 +36,7 @@ public class BrandController extends Controller {
 
         //opens up the Model view
         brandView.getModels().setOnAction(actionEvent -> {
-            Controller modelController = new ModelController();
+            ModelController modelController = new ModelController();
             MainApplication.switchController(modelController);
     });
 
