@@ -33,7 +33,6 @@ public class BrandView extends View {
     private Label textAreaLabel;
     private TextArea textArea;
 
-
     private HBox saveBox;
     private Button save;
 
@@ -41,7 +40,6 @@ public class BrandView extends View {
     private ListView<Brand> listView;
 
     private HBox buttons;
-
     private Button Delete;
     private Button models;
 
@@ -115,10 +113,6 @@ public class BrandView extends View {
 
     public ListView<Brand> getListView() {
         return listView;
-    }
-
-    public TextField getTextField() {
-        return brandName;
     }
 
     public TextField getBrandName() {

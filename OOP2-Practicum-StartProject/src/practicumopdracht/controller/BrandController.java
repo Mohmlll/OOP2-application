@@ -47,9 +47,12 @@ public class BrandController extends Controller {
     }
 
     private void onDeleteBrand() {
-        brandView.getListView().getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            brandObservableList.remove(oldValue);
-        });
+        Brand selectedBrand = brandView.getListView().getSelectionModel().getSelectedItem();
+
+        if (selectedBrand == null){
+            return;
+        }
+        brandObservableList.remove(selectedBrand);
     }
 
     private void onAddBrand() {
