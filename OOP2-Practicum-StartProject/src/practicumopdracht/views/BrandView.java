@@ -6,12 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import practicumopdracht.models.Brand;
 
 /**
  * @author Mohammed Malloul
  */
 
-public class PhoneView extends View {
+public class BrandView extends View {
 
 
     private Parent root;
@@ -37,18 +38,18 @@ public class PhoneView extends View {
     private Label booleanLabel;
     private CheckBox checkBox;
 
-    private HBox opslaanBox;
-    private Button opslaan;
+    private HBox saveBox;
+    private Button save;
 
     private HBox listViewBox;
-    private ListView listView;
+    private ListView<Brand> listView;
 
     private HBox buttons;
-    private Button nieuw;
-    private Button verwijderen;
-    private Button terugNaarOverzicht;
+    private Button brand;
+    private Button Delete;
+    private Button models;
 
-    public PhoneView() {
+    public BrandView() {
         initializeRoot();
     }
 
@@ -96,11 +97,11 @@ public class PhoneView extends View {
         checkBoxBox.setPadding(new Insets(0, 0, 10, 0));
         checkBoxBox.getChildren().addAll(checkBoxLabel, checkBox, booleanLabel);
 
-        opslaanBox = new HBox();
-        opslaan = new Button("Opslaan");
-        opslaan.setMinWidth(600);
-        opslaanBox.setPadding(new Insets(0, 0, 10, 0));
-        opslaanBox.getChildren().addAll(opslaan);
+        saveBox = new HBox();
+        save = new Button("Save");
+        save.setMinWidth(600);
+        saveBox.setPadding(new Insets(0, 0, 10, 0));
+        saveBox.getChildren().addAll(save);
 
         listViewBox = new HBox();
         listView = new ListView();
@@ -110,20 +111,41 @@ public class PhoneView extends View {
 
         buttons = new HBox();
         buttons.setMinSize(600, 30);
-        nieuw = new Button("Opslaan");
-        nieuw.setAlignment(Pos.CENTER_LEFT);
-        verwijderen = new Button("Verwijderen");
-        verwijderen.setAlignment(Pos.CENTER);
-        terugNaarOverzicht = new Button("Terug naar overzicht");
-        terugNaarOverzicht.setAlignment(Pos.CENTER_RIGHT);
-        buttons.getChildren().addAll(nieuw, verwijderen, terugNaarOverzicht);
+        brand = new Button("Brands");
+        brand.setAlignment(Pos.CENTER_LEFT);
+        Delete = new Button("Delete");
+        Delete.setAlignment(Pos.CENTER);
+        models = new Button("Models");
+        models.setAlignment(Pos.CENTER_RIGHT);
+        buttons.getChildren().addAll(brand, Delete, models);
 
-        vbox.getChildren().addAll(comboBoxBox, textFieldBox, textAreaBox, datePickerBox, checkBoxBox, opslaanBox, listViewBox, buttons);
+        vbox.getChildren().addAll(comboBoxBox, textFieldBox, textAreaBox, datePickerBox, checkBoxBox, saveBox, listViewBox, buttons);
         root = vbox;
     }
 
-    public ComboBox getComboBox() {
-        return comboBox;
+    public ListView<Brand> getListView() {
+        return listView;
+    }
+
+    public TextField getTextField() {
+        return textField;
+    }
+
+
+    public Button getSave() {
+        return save;
+    }
+
+    public Button getBrand() {
+        return brand;
+    }
+
+    public Button getDelete() {
+        return Delete;
+    }
+
+    public Button getModels() {
+        return models;
     }
 
     @Override

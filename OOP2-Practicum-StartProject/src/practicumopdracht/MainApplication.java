@@ -3,7 +3,7 @@ package practicumopdracht;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import practicumopdracht.controller.PhoneController;
+import practicumopdracht.controller.BrandController;
 
 /**
  * @author Mohammed Malloul
@@ -24,7 +24,7 @@ public class MainApplication extends Application {
         stage.setWidth(640);
         stage.setHeight(480);
         stage.show();
-        PhoneController controller = new PhoneController();
+        BrandController controller = new BrandController();
 
         Scene scene = new Scene(controller.getView().getRoot());
         stage.setScene(scene);

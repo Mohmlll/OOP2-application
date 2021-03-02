@@ -19,4 +19,21 @@ public class Brand {
     public Brand(String brandName) {
         this.brandName = brandName;
     }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public boolean isNetWorth() {
+        return netWorth;
+    }
+
+    public String getCeo() {
+        return ceo;
+    }
+
+    @Override
+    public String toString() {
+        return brandName;
+    }
 }
