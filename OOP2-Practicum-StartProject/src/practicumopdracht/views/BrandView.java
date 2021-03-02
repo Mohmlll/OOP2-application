@@ -17,26 +17,22 @@ public class BrandView extends View {
 
     private Parent root;
 
-    private HBox comboBoxBox;
-    private Label comboBoxLabel;
-    private ComboBox comboBox;
+    private HBox brandNameBox;
+    private TextField brandName;
+    private Label brandNameLabel;
 
-    private HBox textFieldBox;
-    private TextField textField;
-    private Label textFieldLabel;
+    private HBox nameCeoBox;
+    private TextField nameCeo;
+    private Label nameCeoLabel;
+
+    private HBox networthBox;
+    private TextField networth;
+    private Label networthLabel;
 
     private HBox textAreaBox;
     private Label textAreaLabel;
     private TextArea textArea;
 
-    private HBox datePickerBox;
-    private Label datePickerLabel;
-    private DatePicker datePicker;
-
-    private HBox checkBoxBox;
-    private Label checkBoxLabel;
-    private Label booleanLabel;
-    private CheckBox checkBox;
 
     private HBox saveBox;
     private Button save;
@@ -45,7 +41,7 @@ public class BrandView extends View {
     private ListView<Brand> listView;
 
     private HBox buttons;
-    private Button brand;
+
     private Button Delete;
     private Button models;
 
@@ -57,45 +53,39 @@ public class BrandView extends View {
         VBox vbox = new VBox();
         vbox.setPadding(new Insets(10, 10, 10, 10));
 
-        comboBoxBox = new HBox();
-        comboBoxLabel = new Label("Combobox");
-        comboBox = new ComboBox<>();
-        comboBox.setMinSize(500, 20);
-        comboBoxBox.setPadding(new Insets(0, 0, 10, 0));
-        comboBoxBox.getChildren().addAll(comboBoxLabel, comboBox);
 
-        textFieldBox = new HBox();
-        textFieldLabel = new Label("TextField: ");
-        textFieldLabel.setMinSize(70, 20);
-        textField = new TextField();
-        textField.setMinSize(500, 16);
-        textFieldBox.setPadding(new Insets(0, 0, 10, 0));
-        textFieldBox.getChildren().addAll(textFieldLabel, textField);
+        brandNameBox = new HBox();
+        brandNameLabel = new Label("brand name: ");
+        brandNameLabel.setMinSize(70, 20);
+        brandName = new TextField();
+        brandName.setMinSize(500, 16);
+        brandNameBox.setPadding(new Insets(0, 0, 10, 0));
+        brandNameBox.getChildren().addAll(brandNameLabel, brandName);
+
+        nameCeoBox = new HBox();
+        nameCeoLabel = new Label("name CEO: ");
+        nameCeoLabel.setMinSize(70, 20);
+        nameCeo = new TextField();
+        nameCeo.setMinSize(500, 16);
+        nameCeoBox.setPadding(new Insets(0, 0, 10, 0));
+        nameCeoBox.getChildren().addAll(nameCeoLabel, nameCeo);
+
+        networthBox = new HBox();
+        networthLabel = new Label("networth: ");
+        networthLabel.setMinSize(70, 20);
+        networth = new TextField();
+        networth.setMinSize(500, 16);
+        networthBox.setPadding(new Insets(0, 0, 10, 0));
+        networthBox.getChildren().addAll(networthLabel, networth);
 
         textAreaBox = new HBox();
-        textAreaLabel = new Label("textArea: ");
+        textAreaLabel = new Label("Description: ");
         textAreaLabel.setMinSize(70, 16);
         textArea = new TextArea();
         textArea.setMinSize(500, 50);
         textAreaBox.setPadding(new Insets(0, 0, 10, 0));
         textAreaBox.getChildren().addAll(textAreaLabel, textArea);
 
-        datePickerBox = new HBox();
-        datePickerLabel = new Label("DatePicker: ");
-        datePickerLabel.setMinSize(70, 16);
-        datePicker = new DatePicker();
-        datePicker.setMinSize(70, 20);
-        datePickerBox.setPadding(new Insets(0, 0, 10, 0));
-        datePickerBox.getChildren().addAll(datePickerLabel, datePicker);
-
-
-        checkBoxBox = new HBox();
-        checkBoxLabel = new Label("Checkbox:\t\t");
-        checkBoxLabel.setMinSize(70, 16);
-        booleanLabel = new Label("(boolean)");
-        checkBox = new CheckBox();
-        checkBoxBox.setPadding(new Insets(0, 0, 10, 0));
-        checkBoxBox.getChildren().addAll(checkBoxLabel, checkBox, booleanLabel);
 
         saveBox = new HBox();
         save = new Button("Save");
@@ -111,15 +101,15 @@ public class BrandView extends View {
 
         buttons = new HBox();
         buttons.setMinSize(600, 30);
-        brand = new Button("Brands");
-        brand.setAlignment(Pos.CENTER_LEFT);
+
         Delete = new Button("Delete");
         Delete.setAlignment(Pos.CENTER);
         models = new Button("Models");
-        models.setAlignment(Pos.CENTER_RIGHT);
-        buttons.getChildren().addAll(brand, Delete, models);
+        models.setAlignment(Pos.BOTTOM_RIGHT);
+        buttons.setSpacing(480);
+        buttons.getChildren().addAll(Delete, models);
 
-        vbox.getChildren().addAll(comboBoxBox, textFieldBox, textAreaBox, datePickerBox, checkBoxBox, saveBox, listViewBox, buttons);
+        vbox.getChildren().addAll(brandNameBox, nameCeoBox, networthBox, textAreaBox, saveBox, listViewBox, buttons);
         root = vbox;
     }
 
@@ -128,17 +118,29 @@ public class BrandView extends View {
     }
 
     public TextField getTextField() {
-        return textField;
+        return brandName;
     }
 
+    public TextField getBrandName() {
+        return brandName;
+    }
+
+    public TextField getNameCeo() {
+        return nameCeo;
+    }
+
+    public TextField getNetworth() {
+        return networth;
+    }
+
+    public TextArea getTextArea() {
+        return textArea;
+    }
 
     public Button getSave() {
         return save;
     }
 
-    public Button getBrand() {
-        return brand;
-    }
 
     public Button getDelete() {
         return Delete;
@@ -146,6 +148,10 @@ public class BrandView extends View {
 
     public Button getModels() {
         return models;
+    }
+
+    public Brand getGeselecteerdeBrand() {
+        return this.listView.getSelectionModel().getSelectedItem();
     }
 
     @Override

@@ -7,33 +7,26 @@ package practicumopdracht.models;
 
 public class Brand {
     private final String brandName;
-    private boolean netWorth;
-    private String ceo;
+    private final String ceo;
+    private final String netWorth;
+    private final String description;
 
-    public Brand(String brandName, boolean netWorth, String ceo) {
+    public Brand(String brandName, String ceo, String netWorth, String description) {
         this.brandName = brandName;
         this.netWorth = netWorth;
         this.ceo = ceo;
+        this.description = description;
     }
 
-    public Brand(String brandName) {
+    public Brand(String brandName, String ceo, String netWorth) {
         this.brandName = brandName;
-    }
-
-    public String getBrandName() {
-        return brandName;
-    }
-
-    public boolean isNetWorth() {
-        return netWorth;
-    }
-
-    public String getCeo() {
-        return ceo;
+        this.netWorth = netWorth;
+        this.ceo = ceo;
+        this.description = "No descriptrion";
     }
 
     @Override
     public String toString() {
-        return brandName;
+        return "Brand: " + brandName + ", CEO: " + this.ceo + ", networth: " + this.netWorth + "\nDescription: " + this.description;
     }
 }

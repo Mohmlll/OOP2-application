@@ -2,6 +2,7 @@ package practicumopdracht.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import practicumopdracht.MainApplication;
 import practicumopdracht.models.Brand;
 import practicumopdracht.views.BrandView;
 
@@ -11,34 +12,65 @@ import java.util.ArrayList;
  * @author Mohammed Malloul
  */
 
-public class BrandController {
+public class BrandController extends Controller {
 
-    private BrandView view;
-    private ObservableList<Brand> brandObservableList;
+    private final BrandView brandView;
+    private final ObservableList<Brand> brandObservableList;
+    private final ArrayList<Brand> brandArrayList;
 
     public BrandController() {
-        view = new BrandView();
+        brandView = new BrandView();
 
-        ArrayList<Brand> brandArrayList = new ArrayList<>();
-        brandArrayList.add(new Brand("Samsung"));
-        brandArrayList.add(new Brand("Apple"));
+        brandArrayList = new ArrayList<>();
+        brandArrayList.add(new Brand("Samsung", "Kim Ki Num", "$300 Billion"));
+        brandArrayList.add(new Brand("Apple", "Tim Cook", "$1.3 Billion"));
 
         brandObservableList = FXCollections.observableList(brandArrayList);
+        brandView.getListView().setItems(brandObservableList);
 
-        view.getListView().setItems(brandObservableList);
-        view.getSave().setOnAction(actionEvent -> onAddBrand());
+        //adds a new brand name
+        brandView.getSave().setOnAction(actionEvent -> onAddBrand());
+
+        //deletes a brand name from the list
+        brandView.getDelete().setOnAction(actionEvent -> onDeleteBrand());
+
+        //opens up the Model view
+        brandView.getModels().setOnAction(actionEvent -> {
+            Brand selectedBrand = brandView.getGeselecteerdeBrand();
+
+            if (selectedBrand != null) {
+                Controller modelController = new ModelController();
+                MainApplication.switchController(modelController);
+            }
+        });
+
+    }
+
+    private void onDeleteBrand() {
+        brandView.getListView().getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+            brandObservableList.remove(oldValue);
+        });
     }
 
     private void onAddBrand() {
         String brandName;
-        brandName = view.getTextField().getText();
+        brandName = brandView.getBrandName().getText();
+        String nameCEO = brandView.getNameCeo().getText();
+        String networthCEO = brandView.getNetworth().getText();
+        String descriptrion = brandView.getTextArea().getText();
+        if (descriptrion != null) {
+            Brand brand = new Brand(brandName, nameCEO, networthCEO, descriptrion);
+            brandObservableList.add(brand);
+        } else {
+            descriptrion = "No descriptrion";
+            Brand brand = new Brand(brandName, nameCEO, networthCEO, descriptrion);
+            brandObservableList.add(brand);
+        }
 
-        Brand brand = new Brand(brandName);
-        brandObservableList.add(brand);
     }
 
     public BrandView getView() {
-        return view;
+        return brandView;
     }
 
 }
