@@ -20,10 +20,14 @@ public class ModelController extends Controller {
 
         modelArrayList = new ArrayList<>();
         modelObservableList = FXCollections.observableList(modelArrayList);
+        modelView.getModelListView().setItems(modelObservableList);
 
+        //Adds a model to the list
         modelView.getSave().setOnAction(actionEvent -> onAddModel());
 
-        modelView.getModelListView().setItems(modelObservableList);
+        //deletes a model from the list
+        modelView.getDelete().setOnAction(actionEvent -> onDeleteModel());
+
         //opens up the Model view
         modelView.getBrandButton().setOnAction(actionEvent -> {
             BrandController brandController = new BrandController();
@@ -37,6 +41,14 @@ public class ModelController extends Controller {
         return modelView.getComboBox().getSelectionModel().getSelectedItem();
     }
 
+    private void onDeleteModel() {
+        Model selectedModel = (Model) modelView.getModelListView().getSelectionModel().getSelectedItem();
+
+        if (selectedModel == null) {
+            return;
+        }
+        modelObservableList.remove(selectedModel);
+    }
     private void onAddModel() {
         String modelName = modelView.getModelName().getText();
         String price = modelView.getPrice().getText();

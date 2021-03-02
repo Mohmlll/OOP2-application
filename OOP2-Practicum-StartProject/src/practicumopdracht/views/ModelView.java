@@ -20,6 +20,7 @@ public class ModelView extends View {
     private CheckBox checkBox;
     private Button save;
     private ListView modelListView;
+    private Button delete;
     private Button brandButton;
 
     public ModelView() {
@@ -80,10 +81,12 @@ public class ModelView extends View {
         modelListView = new ListView();
         modelListView.setMinSize(600, 80);
         modelListView.setPadding(new Insets(0, 0, 10, 0));
+        delete = new Button("Delete");
+
         brandButton = new Button("Brands");
         brandButton.setAlignment(Pos.CENTER_LEFT);
 
-        vbox.getChildren().addAll(comboBoxBox, modelNameBox, priceBox, datePickerBox, checkBoxBox, saveBox, modelListView, brandButton);
+        vbox.getChildren().addAll(comboBoxBox, modelNameBox, priceBox, datePickerBox, checkBoxBox, saveBox, modelListView, delete, brandButton);
         root = vbox;
     }
 
@@ -97,6 +100,10 @@ public class ModelView extends View {
 
     public TextField getPrice() {
         return price;
+    }
+
+    public Button getDelete() {
+        return delete;
     }
 
     public Button getSave() {
