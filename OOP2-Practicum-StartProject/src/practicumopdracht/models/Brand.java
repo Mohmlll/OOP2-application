@@ -7,22 +7,20 @@ package practicumopdracht.models;
 
 public class Brand {
     private final String brandName;
-    private final String ceo;
-    private final String netWorth;
-    private final String description;
+    private String ceo;
+    private String netWorth;
+    private String description;
+
 
     public Brand(String brandName, String ceo, String netWorth, String description) {
         this.brandName = brandName;
-        this.netWorth = netWorth;
         this.ceo = ceo;
+        this.netWorth = netWorth;
         this.description = description;
     }
 
-    public Brand(String brandName, String ceo, String netWorth) {
+    public Brand(String brandName) {
         this.brandName = brandName;
-        this.netWorth = netWorth;
-        this.ceo = ceo;
-        this.description = "No descriptrion";
     }
 
     @Override

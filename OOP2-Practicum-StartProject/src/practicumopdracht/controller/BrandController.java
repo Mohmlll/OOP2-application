@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import practicumopdracht.MainApplication;
 import practicumopdracht.models.Brand;
 import practicumopdracht.views.BrandView;
+import practicumopdracht.views.ModelView;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class BrandController extends Controller {
 
     private final BrandView brandView;
+    private ModelView modelView;
     private final ObservableList<Brand> brandObservableList;
     private final ArrayList<Brand> brandArrayList;
 
@@ -22,8 +24,8 @@ public class BrandController extends Controller {
         brandView = new BrandView();
 
         brandArrayList = new ArrayList<>();
-        brandArrayList.add(new Brand("Samsung", "Kim Ki Num", "$300 Billion"));
-        brandArrayList.add(new Brand("Apple", "Tim Cook", "$1.3 Trillion"));
+        brandArrayList.add(new Brand("Samsung", "Kim Ki Num", "$300 Billion", "No descriptrion"));
+        brandArrayList.add(new Brand("Apple", "Tim Cook", "$1.3 Trillion", "No descriptrion"));
 
         brandObservableList = FXCollections.observableList(brandArrayList);
         brandView.getListView().setItems(brandObservableList);
@@ -38,9 +40,9 @@ public class BrandController extends Controller {
         brandView.getModels().setOnAction(actionEvent -> {
             ModelController modelController = new ModelController();
             MainApplication.switchController(modelController);
-    });
+        });
 
-}
+    }
 
     private void onDeleteBrand() {
         Brand selectedBrand = brandView.getListView().getSelectionModel().getSelectedItem();
@@ -66,6 +68,10 @@ public class BrandController extends Controller {
             brandObservableList.add(brand);
         }
 
+    }
+
+    public ObservableList<Brand> getBrandObservableList() {
+        return brandObservableList;
     }
 
     public BrandView getView() {

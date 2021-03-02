@@ -7,34 +7,35 @@ import java.time.LocalDate;
  */
 
 
-public class Model {
-    private final int NEUTRAL = 0;
-    private final int SALE = 1;
-    private final String modelName;
-    private final double price;
-    private final int saleChoice;
-    private String lineUp;
+public class Model extends Brand {
+
+    private String modelName;
+    private double price;
+    private boolean saleChoice;
     private String color;
     private LocalDate releaseDate;
 
-    public Model(String lineUp, String modelName, double price, String color, LocalDate releaseDate) {
-        this.lineUp = lineUp;
+    public Model(String brandName, String modelName, double price, LocalDate releaseDate) {
+        super(brandName);
         this.modelName = modelName;
         this.price = price;
-        this.color = color;
         this.releaseDate = releaseDate;
-        this.saleChoice = 0;
     }
 
-    public Model(String modelName, int saleChoice, double price) {
-        this.modelName = modelName;
-        this.saleChoice = saleChoice;
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public boolean onSale() {
-        return this.saleChoice == SALE;
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
     }
 
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
+    }
 
+    @Override
+    public String toString() {
+        return "Brand: test" + ":, Model: " + modelName + ", Price: $" + price + ", Releasedate: " + releaseDate;
+    }
 }

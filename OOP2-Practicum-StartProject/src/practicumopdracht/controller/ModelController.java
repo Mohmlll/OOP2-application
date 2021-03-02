@@ -1,19 +1,62 @@
 package practicumopdracht.controller;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import practicumopdracht.MainApplication;
 import practicumopdracht.models.Model;
 import practicumopdracht.views.ModelView;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class ModelController extends Controller {
 
     private final ModelView modelView;
-    private ObservableList<Model> modelObservableList;
-
+    private final ObservableList<Model> modelObservableList;
+    private final ArrayList<Model> modelArrayList;
 
     public ModelController() {
         modelView = new ModelView();
+
+        modelArrayList = new ArrayList<>();
+        modelObservableList = FXCollections.observableList(modelArrayList);
+
+        modelView.getSave().setOnAction(actionEvent -> onAddModel());
+
+        modelView.getModelListView().setItems(modelObservableList);
+        //opens up the Model view
+        modelView.getBrandButton().setOnAction(actionEvent -> {
+            BrandController brandController = new BrandController();
+            MainApplication.switchController(brandController);
+
+        });
+
     }
 
+    private Object selectedComboBox() {
+        return modelView.getComboBox().getSelectionModel().getSelectedItem();
+    }
+
+    private void onAddModel() {
+        String modelName = modelView.getModelName().getText();
+        String price = modelView.getPrice().getText();
+        LocalDate releaseDate = modelView.getDatePicker().getValue();
+        Model model = (Model) modelView.getModelListView().getSelectionModel().getSelectedItem();
+
+        if (model == null) {
+            model = new Model("brandname", modelName, Double.parseDouble(price), releaseDate);
+            modelObservableList.add(model);
+        } else {
+
+            model.setModelName(modelName);
+            model.setPrice(Double.parseDouble(price));
+            model.setReleaseDate(releaseDate);
+
+            int index = modelObservableList.indexOf(model);
+            modelObservableList.set(index, model);
+        }
+
+    }
 
     public ModelView getView() {
         return modelView;
