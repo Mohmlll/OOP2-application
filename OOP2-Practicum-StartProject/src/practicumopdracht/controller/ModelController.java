@@ -13,7 +13,7 @@ public class ModelController extends Controller {
 
     private final ModelView modelView;
     private final ObservableList<Model> modelObservableList;
-
+    String TODO = "TODO";
     public ModelController() {
         modelView = new ModelView();
 
@@ -29,6 +29,7 @@ public class ModelController extends Controller {
             onDeleteModel();
         });
 
+        modelView.getComboBox().getItems().add(TODO);
         //opens up the Model view
         modelView.getBrandButton().setOnAction(actionEvent -> {
             BrandController brandController = new BrandController();

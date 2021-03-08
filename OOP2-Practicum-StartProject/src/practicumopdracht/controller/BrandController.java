@@ -72,7 +72,7 @@ public class BrandController extends Controller {
         String networthCEO = brandView.getNetworth().getText();
         String descriptrion = brandView.getTextArea().getText();
 
-        if (checkString(brandName) && checkString(nameCEO) && checkString(networthCEO) && checkString(descriptrion)) {
+        if (checkString(brandName) && checkString(nameCEO) && checkDouble(networthCEO) && checkString(descriptrion)) {
             Brand brandInput = new Brand(brandName, nameCEO, networthCEO, descriptrion);
             brandDAO.addOrUpdate(brandInput);
             updateListView();
@@ -82,11 +82,11 @@ public class BrandController extends Controller {
     }
 
     public boolean checkString(String text) {
-        return text.matches("\"[a-zA-Z]\"");
+        return text.matches("^[a-zA-Z]*$");
     }
 
     public boolean checkDouble(String text) {
-        return text.matches("\"^(-?)(0|([1-9][0-9]*))(\\\\.[0-9]+)?$\"");
+        return text.matches("[0-9]+");
     }
 
     public BrandView getView() {
