@@ -1,6 +1,7 @@
 package practicumopdracht.models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author Mohammed Malloul
@@ -26,16 +27,11 @@ public class Model extends Brand {
         this.price = price;
     }
 
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
-
-    public void setReleaseDate(LocalDate releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
     @Override
     public String toString() {
-        return "Brand: test" + ":, Model: " + modelName + ", Price: $" + price + ", Releasedate: " + releaseDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        String formattedDate = this.releaseDate.format(formatter);
+
+        return "Brand: test" + ":, Model: " + modelName + ", Price: $" + price + ", Releasedate: " + formattedDate;
     }
 }

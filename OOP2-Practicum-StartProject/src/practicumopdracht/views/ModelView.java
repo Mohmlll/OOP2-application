@@ -23,6 +23,9 @@ public class ModelView extends View {
     private Button delete;
     private Button brandButton;
     private MenuBar menuBar;
+    private Alert alertDelete;
+    private Alert alertSave;
+    private Alert alertDeleteList;
 
     public ModelView() {
         initializeRoot();
@@ -89,6 +92,17 @@ public class ModelView extends View {
         hBoxButtons.setSpacing(20);
         hBoxButtons.getChildren().addAll(delete, brandButton);
 
+        alertDelete = new Alert(Alert.AlertType.CONFIRMATION);
+        alertDelete.setTitle("Alert");
+        alertDelete.setContentText("Are you sure you want to delete this Model?");
+
+        alertSave = new Alert(Alert.AlertType.WARNING);
+        alertSave.setTitle("Save");
+
+        alertDeleteList = new Alert(Alert.AlertType.WARNING);
+        alertDeleteList.setTitle("Delete");
+        alertDeleteList.setContentText("- Geen veld geselecteerd");
+
         gridPaneModel.add(hBoxComboBox, 0, 1);
         gridPaneModel.add(hBoxModelName, 0, 2);
         gridPaneModel.add(hBoxPrice, 0, 3);
@@ -147,6 +161,18 @@ public class ModelView extends View {
 
     public Button getBrandButton() {
         return brandButton;
+    }
+
+    public Alert getAlertDelete() {
+        return alertDelete;
+    }
+
+    public Alert getAlertSave() {
+        return alertSave;
+    }
+
+    public Alert getAlertDeleteList() {
+        return alertDeleteList;
     }
 
     @Override
