@@ -81,7 +81,7 @@ public class ModelView extends View {
         save.setMinWidth(600);
         hBoxSave.getChildren().addAll(save);
 
-        modelListView = new ListView<Model> ();
+        modelListView = new ListView<Model>();
         modelListView.setMinSize(600, 80);
 
         HBox hBoxButtons = new HBox();

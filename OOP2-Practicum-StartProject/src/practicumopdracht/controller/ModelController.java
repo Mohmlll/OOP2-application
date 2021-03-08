@@ -7,9 +7,7 @@ import practicumopdracht.models.Model;
 import practicumopdracht.views.ModelView;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ModelController extends Controller {
 
@@ -17,6 +15,7 @@ public class ModelController extends Controller {
     private final ObservableList<Model> modelObservableList;
     BrandController brandController = new BrandController();
     String TODO = "TODO";
+
     public ModelController() {
         modelView = new ModelView();
 
@@ -59,24 +58,26 @@ public class ModelController extends Controller {
         if (validateText(modelName) && validateDouble(price)) {
             Model model = new Model("brandname", modelName, Double.parseDouble(price), releaseDate);
             modelObservableList.add(model);
-        } else if(validateText(modelName) && !validateDouble(price)){
+        } else if (validateText(modelName) && !validateDouble(price)) {
             modelView.getAlertSave().setContentText("- Price mag alleen nummers hebben");
             modelView.getAlertSave().showAndWait();
-        } else if (!validateText(modelName) && validateDouble(price)){
+        } else if (!validateText(modelName) && validateDouble(price)) {
             modelView.getAlertSave().setContentText("- Niet alle velden zijn ingevuld");
             modelView.getAlertSave().showAndWait();
-        }else{
+        } else {
             modelView.getAlertSave().setContentText("- Niet alle velden zijn ingevuld\n- Price mag alleen nummers hebben");
             modelView.getAlertSave().showAndWait();
         }
     }
 
-    private boolean validateText(String text){
+    private boolean validateText(String text) {
         return brandController.checkString(text);
     }
-    private boolean validateDouble(String text){
+
+    private boolean validateDouble(String text) {
         return brandController.checkDouble(text);
     }
+
     public ModelView getView() {
         return modelView;
     }

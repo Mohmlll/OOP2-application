@@ -10,11 +10,11 @@ import java.time.format.DateTimeFormatter;
 
 public class Model extends Brand {
 
-    private String modelName;
+    private final String modelName;
     private double price;
     private boolean saleChoice;
     private String color;
-    private LocalDate releaseDate;
+    private final LocalDate releaseDate;
 
     public Model(String brandName, String modelName, double price, LocalDate releaseDate) {
         super(brandName);
