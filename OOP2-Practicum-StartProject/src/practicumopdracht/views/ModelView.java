@@ -1,13 +1,13 @@
 package practicumopdracht.views;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import practicumopdracht.controller.BrandController;
 import practicumopdracht.models.Brand;
+import practicumopdracht.models.Model;
 
 public class ModelView extends View {
 
@@ -19,76 +19,99 @@ public class ModelView extends View {
     private DatePicker datePicker;
     private CheckBox checkBox;
     private Button save;
-    private ListView modelListView;
+    private ListView<Model> modelListView;
     private Button delete;
     private Button brandButton;
+    private MenuBar menuBar;
 
     public ModelView() {
         initializeRoot();
     }
 
     private void initializeRoot() {
-        BrandController brandController = new BrandController();
-        VBox vbox = new VBox();
-        vbox.setPadding(new Insets(10, 10, 10, 10));
 
-        HBox comboBoxBox = new HBox();
+        GridPane gridPaneModel = new GridPane();
+        menuBar = new MenuBar();
+        Menu menuLoad = new Menu("Load");
+        Menu menuSave = new Menu("Save");
+        menuBar.getMenus().addAll(menuLoad, menuSave);
+        VBox vbox = new VBox(menuBar);
+
+        HBox hBoxComboBox = new HBox();
         Label comboBoxLabel = new Label("Brand");
+        comboBoxLabel.setMinSize(70, 20);
         comboBox = new ComboBox<Brand>();
-        for (int i = 0; i < brandController.getBrandObservableList().size(); i++) {
-            comboBox.getItems().add(brandController.getBrandObservableList().get(i));
-        }
         comboBox.setMinSize(500, 20);
-        comboBoxBox.setPadding(new Insets(0, 0, 10, 0));
-        comboBoxBox.getChildren().addAll(comboBoxLabel, comboBox);
+        hBoxComboBox.getChildren().addAll(comboBoxLabel, comboBox);
 
-        HBox modelNameBox = new HBox();
+        HBox hBoxModelName = new HBox();
         Label modelNameLabel = new Label("Model: ");
+        modelNameLabel.setMinSize(70, 20);
         modelName = new TextField();
-        modelName.setMinSize(500, 16);
-        modelNameBox.getChildren().addAll(modelNameLabel, modelName);
-        modelNameBox.setPadding(new Insets(0, 0, 10, 0));
+        modelName.setMinSize(500, 20);
+        hBoxModelName.getChildren().addAll(modelNameLabel, modelName);
 
-        HBox priceBox = new HBox();
+        HBox hBoxPrice = new HBox();
         Label priceLabel = new Label("Price: ");
+        priceLabel.setMinSize(70, 20);
         price = new TextField();
-        price.setMinSize(500, 16);
-        priceBox.getChildren().addAll(priceLabel, price);
-        priceBox.setPadding(new Insets(0, 0, 10, 0));
+        price.setMinSize(500, 20);
+        hBoxPrice.getChildren().addAll(priceLabel, price);
 
-        HBox datePickerBox = new HBox();
+        HBox hBoxDataPicker = new HBox();
         Label datePickerLabel = new Label("Release date: ");
-        datePickerLabel.setMinSize(70, 16);
+        datePickerLabel.setMinSize(70, 20);
+        datePickerLabel.setMinSize(70, 20);
         datePicker = new DatePicker();
         datePicker.setMinSize(70, 20);
-        datePickerBox.setPadding(new Insets(0, 0, 10, 0));
-        datePickerBox.getChildren().addAll(datePickerLabel, datePicker);
+        hBoxDataPicker.getChildren().addAll(datePickerLabel, datePicker);
 
-        HBox checkBoxBox = new HBox();
+        HBox hBoxCheckBox = new HBox();
         Label checkBoxLabel = new Label("On sale:\t\t");
-        checkBoxLabel.setMinSize(70, 16);
+        hBoxCheckBox.setMinSize(70, 20);
         Label booleanLabel = new Label("(boolean)");
         checkBox = new CheckBox();
-        checkBoxBox.setPadding(new Insets(0, 0, 10, 0));
-        checkBoxBox.getChildren().addAll(checkBoxLabel, checkBox, booleanLabel);
+        hBoxCheckBox.getChildren().addAll(checkBoxLabel, checkBox, booleanLabel);
 
-        HBox saveBox = new HBox();
+        HBox hBoxSave = new HBox();
         save = new Button("Save");
         save.setMinWidth(600);
-        saveBox.setPadding(new Insets(0, 0, 10, 0));
-        saveBox.getChildren().addAll(save);
+        hBoxSave.getChildren().addAll(save);
 
-        modelListView = new ListView();
+        modelListView = new ListView<Model> ();
         modelListView.setMinSize(600, 80);
-        modelListView.setPadding(new Insets(0, 0, 10, 0));
+
+        HBox hBoxButtons = new HBox();
         delete = new Button("Delete");
-
+        delete.setMinWidth(200);
         brandButton = new Button("Brands");
-        brandButton.setAlignment(Pos.CENTER_LEFT);
+        brandButton.setMinWidth(200);
+        hBoxButtons.setSpacing(20);
+        hBoxButtons.getChildren().addAll(delete, brandButton);
 
-        vbox.getChildren().addAll(comboBoxBox, modelNameBox, priceBox, datePickerBox, checkBoxBox, saveBox, modelListView, delete, brandButton);
+        gridPaneModel.add(hBoxComboBox, 0, 1);
+        gridPaneModel.add(hBoxModelName, 0, 2);
+        gridPaneModel.add(hBoxPrice, 0, 3);
+        gridPaneModel.add(hBoxDataPicker, 0, 4);
+        gridPaneModel.add(hBoxCheckBox, 0, 5);
+        gridPaneModel.add(hBoxSave, 0, 6);
+        gridPaneModel.add(modelListView, 0, 7);
+        gridPaneModel.add(hBoxButtons, 0, 8);
+
+        //horizontal gap in pixels
+        gridPaneModel.setHgap(10);
+        //vertical gap in pixels
+        gridPaneModel.setVgap(10);
+        // a 10 pixel margin around the whole grid
+        gridPaneModel.setPadding(new Insets(10, 10, 10, 10));
+
+        vbox.getChildren().addAll(gridPaneModel);
+
         root = vbox;
+
+
     }
+
 
     public TextField getModelName() {
         return modelName;

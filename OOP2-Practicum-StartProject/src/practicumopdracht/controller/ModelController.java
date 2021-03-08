@@ -2,7 +2,6 @@ package practicumopdracht.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 import practicumopdracht.MainApplication;
 import practicumopdracht.models.Model;
 import practicumopdracht.views.ModelView;
@@ -14,12 +13,11 @@ public class ModelController extends Controller {
 
     private final ModelView modelView;
     private final ObservableList<Model> modelObservableList;
-    private final ArrayList<Model> modelArrayList;
 
     public ModelController() {
         modelView = new ModelView();
 
-        modelArrayList = new ArrayList<>();
+        ArrayList<Model> modelArrayList = new ArrayList<>();
         modelObservableList = FXCollections.observableList(modelArrayList);
         modelView.getModelListView().setItems(modelObservableList);
 
@@ -37,11 +35,6 @@ public class ModelController extends Controller {
             MainApplication.switchController(brandController);
 
         });
-
-    }
-
-    private Object selectedComboBox() {
-        return modelView.getComboBox().getSelectionModel().getSelectedItem();
     }
 
     private void onDeleteModel() {
@@ -52,6 +45,7 @@ public class ModelController extends Controller {
         }
         modelObservableList.remove(selectedModel);
     }
+
     private void onAddModel() {
         String modelName = modelView.getModelName().getText();
         String price = modelView.getPrice().getText();
@@ -62,7 +56,6 @@ public class ModelController extends Controller {
             model = new Model("brandname", modelName, Double.parseDouble(price), releaseDate);
             modelObservableList.add(model);
         } else {
-
             model.setModelName(modelName);
             model.setPrice(Double.parseDouble(price));
             model.setReleaseDate(releaseDate);
@@ -70,7 +63,6 @@ public class ModelController extends Controller {
             int index = modelObservableList.indexOf(model);
             modelObservableList.set(index, model);
         }
-
     }
 
     public ModelView getView() {

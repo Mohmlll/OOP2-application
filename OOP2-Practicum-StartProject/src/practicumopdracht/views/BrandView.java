@@ -1,15 +1,11 @@
 package practicumopdracht.views;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import practicumopdracht.models.Brand;
 
 /**
@@ -28,79 +24,97 @@ public class BrandView extends View {
     private ListView<Brand> listView;
     private Button delete;
     private Button models;
-    private Alert alert;
+    private Alert alertDelete;
+    private Alert alertSave;
+    private Alert alertDeleteList;
+    private MenuBar menuBar;
+    private Menu menuLoad;
+    private Menu menuSave;
 
     public BrandView() {
         initializeRoot();
     }
 
     private void initializeRoot() {
-        VBox vbox = new VBox();
-        vbox.setPadding(new Insets(10, 10, 10, 10));
 
+        GridPane gridPane = new GridPane();
+        menuBar = new MenuBar();
+        menuLoad = new Menu("Load");
+        menuSave = new Menu("Save");
+        menuBar.getMenus().addAll(menuLoad, menuSave);
+        VBox vbox = new VBox(menuBar);
 
-        HBox brandNameBox = new HBox();
+        HBox hBoxName = new HBox();
         Label brandNameLabel = new Label("brand name: ");
         brandNameLabel.setMinSize(70, 20);
         brandName = new TextField();
         brandName.setMinSize(500, 16);
-        brandNameBox.setPadding(new Insets(0, 0, 10, 0));
-        brandNameBox.getChildren().addAll(brandNameLabel, brandName);
+        hBoxName.getChildren().addAll(brandNameLabel, brandName);
 
-        HBox nameCeoBox = new HBox();
+        HBox hBoxCeo = new HBox();
         Label nameCeoLabel = new Label("name CEO: ");
         nameCeoLabel.setMinSize(70, 20);
         nameCeo = new TextField();
         nameCeo.setMinSize(500, 16);
-        nameCeoBox.setPadding(new Insets(0, 0, 10, 0));
-        nameCeoBox.getChildren().addAll(nameCeoLabel, nameCeo);
+        hBoxCeo.getChildren().addAll(nameCeoLabel, nameCeo);
 
-        HBox networthBox = new HBox();
+        HBox hBoxNetworth = new HBox();
         Label networthLabel = new Label("networth: ");
         networthLabel.setMinSize(70, 20);
         networth = new TextField();
         networth.setMinSize(500, 16);
-        networthBox.setPadding(new Insets(0, 0, 10, 0));
-        networthBox.getChildren().addAll(networthLabel, networth);
+        hBoxNetworth.getChildren().addAll(networthLabel, networth);
 
-        HBox textAreaBox = new HBox();
+        HBox hBoxTextArea = new HBox();
         Label textAreaLabel = new Label("Description: ");
         textAreaLabel.setMinSize(70, 16);
         textArea = new TextArea();
         textArea.setMinSize(500, 50);
-        textAreaBox.setPadding(new Insets(0, 0, 10, 0));
-        textAreaBox.getChildren().addAll(textAreaLabel, textArea);
+        hBoxTextArea.getChildren().addAll(textAreaLabel, textArea);
 
-
-        HBox saveBox = new HBox();
         save = new Button("Save");
         save.setMinWidth(600);
-        saveBox.setPadding(new Insets(0, 0, 10, 0));
-        saveBox.getChildren().addAll(save);
 
-        HBox listViewBox = new HBox();
-        listView = new ListView();
+        listView = new ListView<>();
         listView.setMinSize(600, 80);
-        listViewBox.setPadding(new Insets(0, 0, 10, 0));
-        listViewBox.getChildren().addAll(listView);
 
-        HBox buttons = new HBox();
-        buttons.setMinSize(600, 30);
-
+        HBox hBoxButtons = new HBox();
         delete = new Button("Delete");
-        delete.setAlignment(Pos.CENTER);
+        delete.setMinWidth(200);
         models = new Button("Models");
-        models.setAlignment(Pos.BOTTOM_RIGHT);
-        buttons.setSpacing(480);
-        buttons.getChildren().addAll(delete, models);
+        models.setMinWidth(200);
+        hBoxButtons.setSpacing(20);
+        hBoxButtons.getChildren().addAll(delete, models);
 
-        alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Alert");
-        alert.setContentText("Are you sure you want to delete this Brand?");
-        HBox pane = new HBox(15);
-        pane.getChildren().addAll( delete);
+        alertDelete = new Alert(Alert.AlertType.CONFIRMATION);
+        alertDelete.setTitle("Alert");
+        alertDelete.setContentText("Are you sure you want to delete this Brand?");
 
-        vbox.getChildren().addAll(brandNameBox, nameCeoBox, networthBox, textAreaBox, saveBox, listViewBox, buttons, pane);
+        alertSave = new Alert(Alert.AlertType.WARNING);
+        alertSave.setTitle("Save");
+        alertSave.setContentText("- Niet alle velden zijn ingevuld\n- Networth mag alleen nummers hebben");
+
+        alertDeleteList = new Alert(Alert.AlertType.WARNING);
+        alertDeleteList.setTitle("Delete");
+        alertDeleteList.setContentText("- Geen veld geselecteerd");
+
+        gridPane.add(hBoxName, 0, 1);
+        gridPane.add(hBoxCeo, 0, 2);
+        gridPane.add(hBoxNetworth, 0, 3);
+        gridPane.add(hBoxTextArea, 0, 4);
+        gridPane.add(save, 0, 5);
+        gridPane.add(listView, 0, 6);
+        gridPane.add(hBoxButtons, 0, 7);
+
+        //horizontal gap in pixels
+        gridPane.setHgap(10);
+        //vertical gap in pixels
+        gridPane.setVgap(10);
+        // a 10 pixel margin around the whole grid
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+
+        vbox.getChildren().addAll(gridPane);
+
         root = vbox;
     }
 
@@ -112,8 +126,8 @@ public class BrandView extends View {
         return brandName;
     }
 
-    public Alert getAlert() {
-        return alert;
+    public Alert getAlertDelete() {
+        return alertDelete;
     }
 
     public TextField getNameCeo() {
@@ -132,6 +146,21 @@ public class BrandView extends View {
         return save;
     }
 
+    public Menu getMenuLoad() {
+        return menuLoad;
+    }
+
+    public Menu getMenuSave() {
+        return menuSave;
+    }
+
+    public Alert getAlertSave() {
+        return alertSave;
+    }
+
+    public Alert getAlertDeleteList() {
+        return alertDeleteList;
+    }
 
     public Button getDelete() {
         return delete;
@@ -139,10 +168,6 @@ public class BrandView extends View {
 
     public Button getModels() {
         return models;
-    }
-
-    public Brand getGeselecteerdeBrand() {
-        return this.listView.getSelectionModel().getSelectedItem();
     }
 
     @Override
