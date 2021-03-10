@@ -28,6 +28,7 @@ public class BrandController extends Controller {
         //adds a new brand name
         brandView.getSave().setOnAction(actionEvent -> {
             onAddBrand();
+
         });
 
         //deletes a brand name from the list
@@ -72,17 +73,40 @@ public class BrandController extends Controller {
         String networthCEO = brandView.getNetworth().getText();
         String descriptrion = brandView.getTextArea().getText();
 
-        if (checkString(brandName) && checkString(nameCEO) && checkDouble(networthCEO) && checkString(descriptrion)) {
+        validateBrand(brandName, networthCEO, nameCEO);
+
+        if (!checkString(brandName) && !checkString(nameCEO) && checkDouble(networthCEO)) {
             Brand brandInput = new Brand(brandName, nameCEO, networthCEO, descriptrion);
             brandDAO.addOrUpdate(brandInput);
             updateListView();
+            brandView.getBrandName().clear();
+            brandView.getNameCeo().clear();
+            brandView.getNetworth().clear();
+            brandView.getTextArea().clear();
         } else {
             brandView.getAlertSave().showAndWait();
         }
     }
 
+    private void validateBrand(String brandName, String networthCEO, String nameCEO) {
+        String alertString = "";
+
+        if (!checkDouble(networthCEO)) {
+            alertString = alertString + "- Networth is only valid with digits and is obligated\n";
+            brandView.getAlertSave().setContentText(alertString);
+        }
+        if (checkString(brandName)) {
+            alertString = alertString + "- Brand name is obligated\n";
+            brandView.getAlertSave().setContentText(alertString);
+        }
+        if (checkString(nameCEO)) {
+            alertString = alertString + "- Name CEO is obligated\n";
+            brandView.getAlertSave().setContentText(alertString);
+        }
+    }
+
     public boolean checkString(String text) {
-        return text.matches("^[a-zA-Z]*$");
+        return text.matches("^$");
     }
 
     public boolean checkDouble(String text) {

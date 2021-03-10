@@ -51,31 +51,53 @@ public class ModelController extends Controller {
 
     private void onAddModel() {
         String modelName = modelView.getModelName().getText();
+        String color = modelView.getColor().getText();
         String price = modelView.getPrice().getText();
         LocalDate releaseDate = modelView.getDatePicker().getValue();
+        boolean saleChoice = modelView.getSaleCheckBox().isSelected();
 
-
-        if (validateText(modelName) && validateDouble(price)) {
-            Model model = new Model("brandname", modelName, Double.parseDouble(price), releaseDate);
+        validateModel(modelName, price, color, releaseDate, saleChoice);
+        if (!checkString(modelName) && checkDouble(price) && !checkString(color) && dateChecker(releaseDate)) {
+            Model model = new Model("brandname", modelName, color, Double.parseDouble(price), releaseDate, saleChoice);
             modelObservableList.add(model);
-        } else if (validateText(modelName) && !validateDouble(price)) {
-            modelView.getAlertSave().setContentText("- Price mag alleen nummers hebben");
-            modelView.getAlertSave().showAndWait();
-        } else if (!validateText(modelName) && validateDouble(price)) {
-            modelView.getAlertSave().setContentText("- Niet alle velden zijn ingevuld");
-            modelView.getAlertSave().showAndWait();
-        } else {
-            modelView.getAlertSave().setContentText("- Niet alle velden zijn ingevuld\n- Price mag alleen nummers hebben");
+            modelView.getModelName().clear();
+            modelView.getColor().clear();
+            modelView.getPrice().clear();
+            modelView.getDatePicker().getEditor().clear();
+            modelView.getSaleCheckBox().setSelected(false);
+        }else{
             modelView.getAlertSave().showAndWait();
         }
     }
 
-    private boolean validateText(String text) {
-        return brandController.checkString(text);
+    private void validateModel(String modelName, String price, String color, LocalDate releaseDate, boolean saleChoice) {
+        String alertString = "";
+
+        if (!checkDouble(price)) {
+            alertString  =  alertString +"- Price is only valid with digits and is obligated\n";
+            modelView.getAlertSave().setContentText(alertString);
+        }if (checkString(modelName)) {
+            alertString  =  alertString + "- Model name is obligated\n";
+            modelView.getAlertSave().setContentText(alertString);
+        }if (checkString(color)) {
+            alertString  =  alertString + "- Color is obligated\n";
+            modelView.getAlertSave().setContentText(alertString);
+        }if (!dateChecker(releaseDate)) {
+            alertString  =  alertString + "- Release date has to be valid and is obligated\n";
+            modelView.getAlertSave().setContentText(alertString);
+        }
     }
 
-    private boolean validateDouble(String text) {
-        return brandController.checkDouble(text);
+    private boolean dateChecker(LocalDate date) {
+        return date != null;
+    }
+
+    public boolean checkString(String text) {
+        return text.matches("^$");
+    }
+
+    public boolean checkDouble(String text) {
+        return text.matches("[0-9]+");
     }
 
     public ModelView getView() {

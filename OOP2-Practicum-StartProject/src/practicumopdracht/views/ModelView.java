@@ -16,8 +16,9 @@ public class ModelView extends View {
     private ComboBox comboBox;
     private TextField modelName;
     private TextField price;
+    private TextField color;
     private DatePicker datePicker;
-    private CheckBox checkBox;
+    private CheckBox saleCheckbox;
     private Button save;
     private ListView<Model> modelListView;
     private Button delete;
@@ -61,6 +62,13 @@ public class ModelView extends View {
         price.setMinSize(500, 20);
         hBoxPrice.getChildren().addAll(priceLabel, price);
 
+        HBox hBoxColor = new HBox();
+        Label colorLabel = new Label("Color: ");
+        colorLabel.setMinSize(70, 20);
+        color = new TextField();
+        color.setMinSize(500, 20);
+        hBoxColor.getChildren().addAll(colorLabel, color);
+
         HBox hBoxDataPicker = new HBox();
         Label datePickerLabel = new Label("Release date: ");
         datePickerLabel.setMinSize(70, 20);
@@ -73,8 +81,8 @@ public class ModelView extends View {
         Label checkBoxLabel = new Label("On sale:\t\t");
         hBoxCheckBox.setMinSize(70, 20);
         Label booleanLabel = new Label("(boolean)");
-        checkBox = new CheckBox();
-        hBoxCheckBox.getChildren().addAll(checkBoxLabel, checkBox, booleanLabel);
+        saleCheckbox = new CheckBox();
+        hBoxCheckBox.getChildren().addAll(checkBoxLabel, saleCheckbox, booleanLabel);
 
         HBox hBoxSave = new HBox();
         save = new Button("Save");
@@ -106,11 +114,12 @@ public class ModelView extends View {
         gridPaneModel.add(hBoxComboBox, 0, 1);
         gridPaneModel.add(hBoxModelName, 0, 2);
         gridPaneModel.add(hBoxPrice, 0, 3);
-        gridPaneModel.add(hBoxDataPicker, 0, 4);
-        gridPaneModel.add(hBoxCheckBox, 0, 5);
-        gridPaneModel.add(hBoxSave, 0, 6);
-        gridPaneModel.add(modelListView, 0, 7);
-        gridPaneModel.add(hBoxButtons, 0, 8);
+        gridPaneModel.add(hBoxColor, 0 ,4);
+        gridPaneModel.add(hBoxDataPicker, 0, 5);
+        gridPaneModel.add(hBoxCheckBox, 0, 6);
+        gridPaneModel.add(hBoxSave, 0, 7);
+        gridPaneModel.add(modelListView, 0, 8);
+        gridPaneModel.add(hBoxButtons, 0, 9);
 
         //horizontal gap in pixels
         gridPaneModel.setHgap(10);
@@ -139,6 +148,10 @@ public class ModelView extends View {
         return price;
     }
 
+    public TextField getColor() {
+        return color;
+    }
+
     public Button getDelete() {
         return delete;
     }
@@ -155,8 +168,8 @@ public class ModelView extends View {
         return datePicker;
     }
 
-    public CheckBox getCheckBox() {
-        return checkBox;
+    public CheckBox getSaleCheckBox() {
+        return saleCheckbox;
     }
 
     public Button getBrandButton() {

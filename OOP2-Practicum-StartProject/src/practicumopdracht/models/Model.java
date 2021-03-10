@@ -16,11 +16,13 @@ public class Model extends Brand {
     private String color;
     private final LocalDate releaseDate;
 
-    public Model(String brandName, String modelName, double price, LocalDate releaseDate) {
+    public Model(String brandName, String modelName, String color, double price, LocalDate releaseDate, boolean saleChoice) {
         super(brandName);
         this.modelName = modelName;
+        this.color = color;
         this.price = price;
         this.releaseDate = releaseDate;
+        this.saleChoice = saleChoice;
     }
 
     public void setPrice(double price) {
@@ -32,6 +34,7 @@ public class Model extends Brand {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         String formattedDate = this.releaseDate.format(formatter);
 
-        return "Brand: test" + ":, Model: " + modelName + ", Price: $" + price + ", Releasedate: " + formattedDate;
+        return "Brand: test" + ":, Model: " + this.modelName + ", Color: " + this.color + ", Price: $"
+                + this.price + ", Releasedate: " + formattedDate + ", On sale: " + saleChoice;
     }
 }
