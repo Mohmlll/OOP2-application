@@ -114,7 +114,7 @@ public class ModelView extends View {
         gridPaneModel.add(hBoxComboBox, 0, 1);
         gridPaneModel.add(hBoxModelName, 0, 2);
         gridPaneModel.add(hBoxPrice, 0, 3);
-        gridPaneModel.add(hBoxColor, 0 ,4);
+        gridPaneModel.add(hBoxColor, 0, 4);
         gridPaneModel.add(hBoxDataPicker, 0, 5);
         gridPaneModel.add(hBoxCheckBox, 0, 6);
         gridPaneModel.add(hBoxSave, 0, 7);
