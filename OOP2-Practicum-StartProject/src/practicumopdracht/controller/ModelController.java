@@ -58,14 +58,14 @@ public class ModelController extends Controller {
 
         validateModel(modelName, price, color, releaseDate, saleChoice);
         if (!checkString(modelName) && checkDouble(price) && !checkString(color) && dateChecker(releaseDate)) {
-            Model model = new Model("brandname", modelName, color, Double.parseDouble(price), releaseDate, saleChoice);
+            Model model = new Model(modelName, color, Double.parseDouble(price), releaseDate, saleChoice);
             modelObservableList.add(model);
             modelView.getModelName().clear();
             modelView.getColor().clear();
             modelView.getPrice().clear();
             modelView.getDatePicker().getEditor().clear();
             modelView.getSaleCheckBox().setSelected(false);
-        }else{
+        } else {
             modelView.getAlertSave().showAndWait();
         }
     }
@@ -74,16 +74,19 @@ public class ModelController extends Controller {
         String alertString = "";
 
         if (!checkDouble(price)) {
-            alertString  =  alertString +"- Price is only valid with digits and is obligated\n";
+            alertString = alertString + "- Price is only valid with digits and is obligated\n";
             modelView.getAlertSave().setContentText(alertString);
-        }if (checkString(modelName)) {
-            alertString  =  alertString + "- Model name is obligated\n";
+        }
+        if (checkString(modelName)) {
+            alertString = alertString + "- Model name is obligated\n";
             modelView.getAlertSave().setContentText(alertString);
-        }if (checkString(color)) {
-            alertString  =  alertString + "- Color is obligated\n";
+        }
+        if (checkString(color)) {
+            alertString = alertString + "- Color is obligated\n";
             modelView.getAlertSave().setContentText(alertString);
-        }if (!dateChecker(releaseDate)) {
-            alertString  =  alertString + "- Release date has to be valid and is obligated\n";
+        }
+        if (!dateChecker(releaseDate)) {
+            alertString = alertString + "- Release date has to be valid and is obligated\n";
             modelView.getAlertSave().setContentText(alertString);
         }
     }

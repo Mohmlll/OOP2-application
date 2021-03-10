@@ -8,16 +8,15 @@ import java.time.format.DateTimeFormatter;
  */
 
 
-public class Model extends Brand {
+public class Model {
 
     private final String modelName;
-    private double price;
-    private boolean saleChoice;
-    private String color;
     private final LocalDate releaseDate;
+    private final boolean saleChoice;
+    private final String color;
+    private double price;
 
-    public Model(String brandName, String modelName, String color, double price, LocalDate releaseDate, boolean saleChoice) {
-        super(brandName);
+    public Model(String modelName, String color, double price, LocalDate releaseDate, boolean saleChoice) {
         this.modelName = modelName;
         this.color = color;
         this.price = price;
