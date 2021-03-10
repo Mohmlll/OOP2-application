@@ -23,7 +23,7 @@ public class BrandView extends View {
     private Button save;
     private ListView<Brand> listView;
     private Button delete;
-    private Button models;
+    private Button details;
     private Alert alertDelete;
     private Alert alertSave;
     private Alert alertDeleteList;
@@ -39,6 +39,8 @@ public class BrandView extends View {
     private void initializeRoot() {
 
         GridPane gridPane = new GridPane();
+
+        //menu on top
         menuBar = new MenuBar();
         menuLoad = new MenuItem("Load");
         menuSave = new MenuItem("Save");
@@ -46,6 +48,7 @@ public class BrandView extends View {
         menuBar.getMenus().addAll(menuFile);
         VBox vbox = new VBox(menuBar);
 
+        //brand name textfield for brand
         HBox hBoxName = new HBox();
         Label brandNameLabel = new Label("brand name: ");
         brandNameLabel.setMinSize(70, 20);
@@ -53,6 +56,7 @@ public class BrandView extends View {
         brandName.setMinSize(500, 16);
         hBoxName.getChildren().addAll(brandNameLabel, brandName);
 
+        //name of ceo textfield for brand
         HBox hBoxCeo = new HBox();
         Label nameCeoLabel = new Label("name CEO: ");
         nameCeoLabel.setMinSize(70, 20);
@@ -60,6 +64,7 @@ public class BrandView extends View {
         nameCeo.setMinSize(500, 16);
         hBoxCeo.getChildren().addAll(nameCeoLabel, nameCeo);
 
+        //networth textfield for brand
         HBox hBoxNetworth = new HBox();
         Label networthLabel = new Label("networth: ");
         networthLabel.setMinSize(70, 20);
@@ -67,6 +72,7 @@ public class BrandView extends View {
         networth.setMinSize(500, 16);
         hBoxNetworth.getChildren().addAll(networthLabel, networth);
 
+        //description textarea for brand
         HBox hBoxTextArea = new HBox();
         Label textAreaLabel = new Label("Description: ");
         textAreaLabel.setMinSize(70, 16);
@@ -74,28 +80,34 @@ public class BrandView extends View {
         textArea.setMinSize(500, 50);
         hBoxTextArea.getChildren().addAll(textAreaLabel, textArea);
 
+        //save brand button
         save = new Button("Save");
         save.setMinWidth(600);
 
+        //list of brands
         listView = new ListView<>();
         listView.setMinSize(600, 80);
 
+        //delete and details button
         HBox hBoxButtons = new HBox();
         delete = new Button("Delete");
         delete.setMinWidth(200);
-        models = new Button("Models");
-        models.setMinWidth(200);
+        details = new Button("Details");
+        details.setDisable(true);
+        details.setMinWidth(200);
         hBoxButtons.setSpacing(20);
-        hBoxButtons.getChildren().addAll(delete, models);
+        hBoxButtons.getChildren().addAll(delete, details);
 
+        //delete item alert
         alertDelete = new Alert(Alert.AlertType.CONFIRMATION);
         alertDelete.setTitle("Alert");
         alertDelete.setContentText("Are you sure you want to delete this Brand?");
 
+        //alert for wrong input
         alertSave = new Alert(Alert.AlertType.WARNING);
         alertSave.setTitle("Save");
-        alertSave.setContentText("- Niet alle velden zijn ingevuld\n- Networth mag alleen nummers hebben");
 
+        //no selected item to delete
         alertDeleteList = new Alert(Alert.AlertType.WARNING);
         alertDeleteList.setTitle("Delete");
         alertDeleteList.setContentText("- Geen veld geselecteerd");
@@ -118,6 +130,20 @@ public class BrandView extends View {
         vbox.getChildren().addAll(gridPane);
 
         root = vbox;
+    }
+
+    //If brand is null then the details button will be disabled
+    public void setBrand(Brand brand) {
+        if (brand == null) {
+            this.details.setDisable(true);
+        } else {
+            this.details.setDisable(false);
+        }
+    }
+
+    //method to get a selected brand
+    public Brand getSelectedBrand() {
+        return this.listView.getSelectionModel().getSelectedItem();
     }
 
     public ListView<Brand> getListView() {
@@ -168,8 +194,8 @@ public class BrandView extends View {
         return delete;
     }
 
-    public Button getModels() {
-        return models;
+    public Button getDetails() {
+        return details;
     }
 
     @Override

@@ -13,7 +13,7 @@ public class ModelView extends View {
 
     private Parent root;
 
-    private ComboBox comboBox;
+    private ComboBox<Brand> comboBox;
     private TextField modelName;
     private TextField price;
     private TextField color;
@@ -22,7 +22,7 @@ public class ModelView extends View {
     private Button save;
     private ListView<Model> modelListView;
     private Button delete;
-    private Button brandButton;
+    private Button backButton;
     private MenuBar menuBar;
     private Alert alertDelete;
     private Alert alertSave;
@@ -48,7 +48,7 @@ public class ModelView extends View {
         HBox hBoxComboBox = new HBox();
         Label comboBoxLabel = new Label("Brand");
         comboBoxLabel.setMinSize(70, 20);
-        comboBox = new ComboBox<Brand>();
+        comboBox = new ComboBox<>();
         comboBox.setMinSize(500, 20);
         hBoxComboBox.getChildren().addAll(comboBoxLabel, comboBox);
 
@@ -99,10 +99,10 @@ public class ModelView extends View {
         HBox hBoxButtons = new HBox();
         delete = new Button("Delete");
         delete.setMinWidth(200);
-        brandButton = new Button("Brands");
-        brandButton.setMinWidth(200);
+        backButton = new Button("Back");
+        backButton.setMinWidth(200);
         hBoxButtons.setSpacing(20);
-        hBoxButtons.getChildren().addAll(delete, brandButton);
+        hBoxButtons.getChildren().addAll(delete, backButton);
 
         alertDelete = new Alert(Alert.AlertType.CONFIRMATION);
         alertDelete.setTitle("Alert");
@@ -164,7 +164,7 @@ public class ModelView extends View {
         return save;
     }
 
-    public ComboBox getComboBox() {
+    public ComboBox<Brand> getComboBox() {
         return comboBox;
     }
 
@@ -176,8 +176,8 @@ public class ModelView extends View {
         return saleCheckbox;
     }
 
-    public Button getBrandButton() {
-        return brandButton;
+    public Button getBackButton() {
+        return backButton;
     }
 
     public MenuItem getMenuLoad() {

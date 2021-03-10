@@ -23,14 +23,12 @@ public class BrandController extends Controller {
         brandView = new BrandView();
 
 
-
         //load fake daoBrand
         brandView.getMenuLoad().setOnAction(actionEvent -> onLoadBrand());
 
         //adds a new brand name
         brandView.getSave().setOnAction(actionEvent -> {
             onAddBrand();
-
         });
 
         //deletes a brand name from the list
@@ -39,26 +37,42 @@ public class BrandController extends Controller {
                 onDeleteBrand();
             });
         });
-
+        //Detail button gets disabled, listener added to selection and value is send to the setBrand methor
+        brandView.getListView().getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+            brandView.setBrand(newValue);
+        });
         //opens up the Model view
-        brandView.getModels().setOnAction(actionEvent -> {
-            Controller modelController = new ModelController();
-            MainApplication.switchController(modelController);
+        brandView.getDetails().setOnAction(actionEvent -> {
+            moveToDetails();
         });
 
+        //updates the listView
         updateListView();
     }
 
+    //Checks if a brand is selected, if yes it allows acces to the switch controller
+    private void moveToDetails() {
+        Brand selectedBrand = brandView.getSelectedBrand();
+
+        if (selectedBrand != null) {
+            ModelController modelController = new ModelController(selectedBrand);
+            MainApplication.switchController(modelController);
+        }
+    }
+
+    //updates the listView with the observable list
     private void updateListView() {
         brandObservableList = FXCollections.observableArrayList(brandDAO.getAll());
         brandView.getListView().setItems(brandObservableList);
     }
 
+    //method that loads in the brands from the DAO and updates the list
     private void onLoadBrand() {
         brandDAO.load();
         updateListView();
     }
 
+    //methods that deletes a brand (outdated)
     private void onDeleteBrand() {
         Brand selectedBrand = brandView.getListView().getSelectionModel().getSelectedItem();
 
@@ -71,6 +85,7 @@ public class BrandController extends Controller {
 
     }
 
+    //method that adds a brand (outdated)
     private void onAddBrand() {
         String brandName = brandView.getBrandName().getText();
         String nameCEO = brandView.getNameCeo().getText();
@@ -92,6 +107,7 @@ public class BrandController extends Controller {
         }
     }
 
+    //method that checks what input is valid and creates an alert string for the Alert in the BrandView
     private void validateBrand(String brandName, String networthCEO, String nameCEO) {
         String alertString = "";
 
@@ -109,14 +125,17 @@ public class BrandController extends Controller {
         }
     }
 
+    //method checks if date textfield is not empty
     public boolean checkString(String text) {
         return text.matches("^$");
     }
 
+    //method checks if textfield input is not empty
     public boolean checkDouble(String text) {
         return text.matches("[0-9]+");
     }
 
+    //method checks if textfield input is a double
     public BrandView getView() {
         return brandView;
     }
