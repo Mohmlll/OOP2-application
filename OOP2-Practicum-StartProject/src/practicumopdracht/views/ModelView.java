@@ -27,6 +27,9 @@ public class ModelView extends View {
     private Alert alertDelete;
     private Alert alertSave;
     private Alert alertDeleteList;
+    private MenuItem menuLoad;
+    private MenuItem menuSave;
+    private Menu menuFile;
 
     public ModelView() {
         initializeRoot();
@@ -36,9 +39,10 @@ public class ModelView extends View {
 
         GridPane gridPaneModel = new GridPane();
         menuBar = new MenuBar();
-        Menu menuLoad = new Menu("Load");
-        Menu menuSave = new Menu("Save");
-        menuBar.getMenus().addAll(menuLoad, menuSave);
+        menuLoad = new MenuItem("Load");
+        menuSave = new MenuItem("Save");
+        menuFile = new Menu("File",null, menuLoad, menuSave);
+        menuBar.getMenus().addAll(menuFile);
         VBox vbox = new VBox(menuBar);
 
         HBox hBoxComboBox = new HBox();

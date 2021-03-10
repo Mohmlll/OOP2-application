@@ -28,8 +28,9 @@ public class BrandView extends View {
     private Alert alertSave;
     private Alert alertDeleteList;
     private MenuBar menuBar;
-    private Menu menuLoad;
-    private Menu menuSave;
+    private Menu menuFile;
+    private MenuItem menuLoad;
+    private MenuItem menuSave;
 
     public BrandView() {
         initializeRoot();
@@ -39,9 +40,10 @@ public class BrandView extends View {
 
         GridPane gridPane = new GridPane();
         menuBar = new MenuBar();
-        menuLoad = new Menu("Load");
-        menuSave = new Menu("Save");
-        menuBar.getMenus().addAll(menuLoad, menuSave);
+        menuLoad = new MenuItem("Load");
+        menuSave = new MenuItem("Save");
+        menuFile = new Menu("File",null, menuLoad, menuSave);
+        menuBar.getMenus().addAll(menuFile);
         VBox vbox = new VBox(menuBar);
 
         HBox hBoxName = new HBox();
@@ -146,11 +148,11 @@ public class BrandView extends View {
         return save;
     }
 
-    public Menu getMenuLoad() {
+    public MenuItem getMenuLoad() {
         return menuLoad;
     }
 
-    public Menu getMenuSave() {
+    public MenuItem getMenuSave() {
         return menuSave;
     }
 
