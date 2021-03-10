@@ -5,9 +5,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import practicumopdracht.controller.BrandController;
 import practicumopdracht.controller.Controller;
-import practicumopdracht.data.BrandTextDao;
+import practicumopdracht.data.FakeBrandDao;
 import practicumopdracht.data.DAO;
 import practicumopdracht.models.Brand;
+import practicumopdracht.models.Model;
 
 /**
  * @author Mohammed Malloul
@@ -16,6 +17,7 @@ import practicumopdracht.models.Brand;
 public class MainApplication extends Application {
 
     private static DAO<Brand> brandDAO;
+    private static DAO<Model> modelDAO;
     private static Stage mainStage;
 
     public static void switchController(Controller controller) {
@@ -24,6 +26,10 @@ public class MainApplication extends Application {
 
     public static DAO<Brand> getBrandDAO() {
         return brandDAO;
+    }
+
+    public static DAO<Model> getModelDAO() {
+        return modelDAO;
     }
 
     @Override
@@ -41,12 +47,13 @@ public class MainApplication extends Application {
         stage.setHeight(480);
         stage.show();
 
-        brandDAO = new BrandTextDao();
+        brandDAO = new FakeBrandDao();
 
         BrandController controller = new BrandController();
         switchController(controller);
 
     }
+
 
 
 }

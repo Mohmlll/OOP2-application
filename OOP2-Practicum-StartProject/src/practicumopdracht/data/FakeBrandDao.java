@@ -1,6 +1,6 @@
 package practicumopdracht.data;
 
-public class BrandTextDao extends BrandDAO {
+public class FakeBrandDao extends BrandDAO {
 
     @Override
     public boolean save() {
