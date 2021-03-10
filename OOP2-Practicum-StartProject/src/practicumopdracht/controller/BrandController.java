@@ -22,9 +22,11 @@ public class BrandController extends Controller {
         brandDAO = MainApplication.getBrandDAO();
         brandView = new BrandView();
 
-        updateListView();
 
+
+        //load fake daoBrand
         brandView.getMenuLoad().setOnAction(actionEvent -> onLoadBrand());
+
         //adds a new brand name
         brandView.getSave().setOnAction(actionEvent -> {
             onAddBrand();
@@ -43,6 +45,8 @@ public class BrandController extends Controller {
             Controller modelController = new ModelController();
             MainApplication.switchController(modelController);
         });
+
+        updateListView();
     }
 
     private void updateListView() {

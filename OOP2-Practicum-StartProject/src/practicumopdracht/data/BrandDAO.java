@@ -19,10 +19,6 @@ public abstract class BrandDAO implements DAO<Brand> {
         return objects;
     }
 
-    public Brand getById(int i) {
-        return this.objects.get(i);
-    }
-
     @Override
     public void addOrUpdate(Brand object) {
         if (!objects.contains(object)) {
@@ -40,4 +36,9 @@ public abstract class BrandDAO implements DAO<Brand> {
 
     @Override
     public abstract boolean load();
+
+    public Brand getById(int i) {
+        return this.objects.get(i);
+    }
+
 }

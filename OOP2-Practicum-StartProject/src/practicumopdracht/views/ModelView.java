@@ -41,7 +41,7 @@ public class ModelView extends View {
         menuBar = new MenuBar();
         menuLoad = new MenuItem("Load");
         menuSave = new MenuItem("Save");
-        menuFile = new Menu("File",null, menuLoad, menuSave);
+        menuFile = new Menu("File", null, menuLoad, menuSave);
         menuBar.getMenus().addAll(menuFile);
         VBox vbox = new VBox(menuBar);
 
@@ -118,7 +118,7 @@ public class ModelView extends View {
         gridPaneModel.add(hBoxComboBox, 0, 1);
         gridPaneModel.add(hBoxModelName, 0, 2);
         gridPaneModel.add(hBoxPrice, 0, 3);
-        gridPaneModel.add(hBoxColor, 0 ,4);
+        gridPaneModel.add(hBoxColor, 0, 4);
         gridPaneModel.add(hBoxDataPicker, 0, 5);
         gridPaneModel.add(hBoxCheckBox, 0, 6);
         gridPaneModel.add(hBoxSave, 0, 7);
@@ -180,17 +180,14 @@ public class ModelView extends View {
         return brandButton;
     }
 
-    public Alert getAlertDelete() {
-        return alertDelete;
+    public MenuItem getMenuLoad() {
+        return menuLoad;
     }
 
     public Alert getAlertSave() {
         return alertSave;
     }
 
-    public Alert getAlertDeleteList() {
-        return alertDeleteList;
-    }
 
     @Override
     public Parent getRoot() {

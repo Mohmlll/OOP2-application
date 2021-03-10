@@ -12,10 +12,10 @@ public class Model {
 
     private final String modelName;
     private double price;
-    private boolean saleChoice;
-    private String color;
+    private final boolean saleChoice;
+    private final String color;
     private final LocalDate releaseDate;
-    private Brand brand;
+    private final Brand brand;
 
     public Model(Brand brand, String modelName, String color, double price, LocalDate releaseDate, boolean saleChoice) {
         this.brand = brand;

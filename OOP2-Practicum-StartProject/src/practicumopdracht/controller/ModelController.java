@@ -3,27 +3,27 @@ package practicumopdracht.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import practicumopdracht.MainApplication;
+import practicumopdracht.data.DAO;
 import practicumopdracht.models.Brand;
 import practicumopdracht.models.Model;
 import practicumopdracht.views.ModelView;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class ModelController extends Controller {
 
-    private final ModelView modelView;
-    private final ObservableList<Model> modelObservableList;
-    BrandController brandController = new BrandController();
+    private DAO<Model> modelDAO;
+    private ModelView modelView;
+    private ObservableList<Model> modelObservableList;
     String TODO = "TODO";
 
     public ModelController() {
+        modelDAO = MainApplication.getModelDAO();
         modelView = new ModelView();
 
-        ArrayList<Model> modelArrayList = new ArrayList<>();
-        modelObservableList = FXCollections.observableList(modelArrayList);
-        modelView.getModelListView().setItems(modelObservableList);
 
+        updateListView();
+        //load fake daoModel
+        modelView.getMenuLoad().setOnAction(actionEvent -> onLoadModel());
         //Adds a model to the list
         modelView.getSave().setOnAction(actionEvent -> onAddModel());
 
@@ -39,6 +39,16 @@ public class ModelController extends Controller {
             MainApplication.switchController(brandController);
 
         });
+    }
+
+    private void updateListView() {
+        modelObservableList = FXCollections.observableArrayList(modelDAO.getAll());
+        modelView.getModelListView().setItems(modelObservableList);
+    }
+
+    private void onLoadModel() {
+        modelDAO.load();
+        updateListView();
     }
 
     private void onDeleteModel() {

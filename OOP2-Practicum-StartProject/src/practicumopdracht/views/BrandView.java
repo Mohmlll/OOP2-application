@@ -42,7 +42,7 @@ public class BrandView extends View {
         menuBar = new MenuBar();
         menuLoad = new MenuItem("Load");
         menuSave = new MenuItem("Save");
-        menuFile = new Menu("File",null, menuLoad, menuSave);
+        menuFile = new Menu("File", null, menuLoad, menuSave);
         menuBar.getMenus().addAll(menuFile);
         VBox vbox = new VBox(menuBar);
 

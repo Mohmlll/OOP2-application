@@ -14,10 +14,10 @@ public abstract class ModelDAO implements DAO<Model> {
         objects = new ArrayList<>();
     }
 
-    public List<Model> getAllFor (Brand brand){
+    public List<Model> getAllFor(Brand brand) {
         List<Model> results = new ArrayList<>();
-        for (Model model: objects){
-            if (model.getBrand() == brand){
+        for (Model model : objects) {
+            if (model.getBrand() == brand) {
 
             }
         }
@@ -27,10 +27,6 @@ public abstract class ModelDAO implements DAO<Model> {
     @Override
     public List<Model> getAll() {
         return objects;
-    }
-
-    public Model getById(int i) {
-        return this.objects.get(i);
     }
 
     @Override
