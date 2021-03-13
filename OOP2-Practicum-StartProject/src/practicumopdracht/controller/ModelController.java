@@ -2,10 +2,12 @@ package practicumopdracht.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import practicumopdracht.Main;
 import practicumopdracht.MainApplication;
 import practicumopdracht.data.DAO;
 import practicumopdracht.models.Brand;
 import practicumopdracht.models.Model;
+import practicumopdracht.views.BrandView;
 import practicumopdracht.views.ModelView;
 
 import java.time.LocalDate;
@@ -15,13 +17,14 @@ public class ModelController extends Controller {
     private DAO<Model> modelDAO;
     private ModelView modelView;
     private ObservableList<Model> modelObservableList;
+    private Brand brand;
 
     public ModelController(Brand selectedBrand) {
         modelDAO = MainApplication.getModelDAO();
         modelView = new ModelView();
-
+        brand = selectedBrand;
         //updates the ListView
-        updateListView();
+        updateListView(brand);
 
         //load fake daoModel
         modelView.getMenuLoad().setOnAction(actionEvent -> onLoadModel());
@@ -36,7 +39,7 @@ public class ModelController extends Controller {
 
         //Sets the combobox with a brand from the DAO
         this.modelView.getComboBox().setItems(FXCollections.observableArrayList(MainApplication.getBrandDAO().getAll()));
-
+        this.modelView.getComboBox().setValue(brand);
         //opens up the Model view
         modelView.getBackButton().setOnAction(actionEvent -> {
             BrandController brandController = new BrandController();
@@ -46,15 +49,16 @@ public class ModelController extends Controller {
     }
 
     //method to update the listview with the observableList
-    private void updateListView() {
-        modelObservableList = FXCollections.observableArrayList(modelDAO.getAll());
+    private void updateListView(Brand brand) {
+
+        modelObservableList = FXCollections.observableArrayList(MainApplication.getModelDAO().getAllFor(brand));
         modelView.getModelListView().setItems(modelObservableList);
     }
 
     //method that loads in the models from the DAO and updates the list
     private void onLoadModel() {
         modelDAO.load();
-        updateListView();
+        updateListView(brand);
     }
 
     //methods that deletes a model (outdated)
@@ -75,7 +79,7 @@ public class ModelController extends Controller {
         LocalDate releaseDate = modelView.getDatePicker().getValue();
         boolean saleChoice = modelView.getSaleCheckBox().isSelected();
         //tempory brand
-        Brand brand = null;
+        Brand brand = modelView.getComboBox().getValue();
         //checks what alert string to send to the alert
         validateModel(modelName, price, color, releaseDate);
         if (!checkString(modelName) && checkDouble(price) && !checkString(color) && dateChecker(releaseDate)) {

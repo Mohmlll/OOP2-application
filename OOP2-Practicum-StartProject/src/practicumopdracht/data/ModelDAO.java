@@ -24,10 +24,6 @@ public abstract class ModelDAO implements DAO<Model> {
         return results;
     }
 
-    public Model getById(int i) {
-        return this.objects.get(i);
-    }
-
     @Override
     public List<Model> getAll() {
         return objects;

@@ -110,7 +110,7 @@ public class BrandView extends View {
         //no selected item to delete
         alertDeleteList = new Alert(Alert.AlertType.WARNING);
         alertDeleteList.setTitle("Delete");
-        alertDeleteList.setContentText("- Geen veld geselecteerd");
+
 
         gridPane.add(hBoxName, 0, 1);
         gridPane.add(hBoxCeo, 0, 2);

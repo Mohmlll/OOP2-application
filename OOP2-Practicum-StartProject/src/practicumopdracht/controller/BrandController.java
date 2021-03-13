@@ -16,7 +16,7 @@ public class BrandController extends Controller {
     private final DAO<Brand> brandDAO;
     private final BrandView brandView;
     private ObservableList<Brand> brandObservableList;
-
+    private Brand brandValue;
 
     public BrandController() {
         brandDAO = MainApplication.getBrandDAO();
@@ -37,8 +37,9 @@ public class BrandController extends Controller {
                 onDeleteBrand();
             });
         });
-        //Detail button gets disabled, listener added to selection and value is send to the setBrand methor
+        //Detail button gets disabled, listener added to selection and value is send to the setBrand method
         brandView.getListView().getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+            brandValue = newValue;
             brandView.setBrand(newValue);
         });
         //opens up the Model view
@@ -80,6 +81,7 @@ public class BrandController extends Controller {
             brandView.getAlertDelete().showAndWait();
             brandObservableList.remove(selectedBrand);
         } else {
+            brandView.getAlertDeleteList().setContentText("- No field selected");
             brandView.getAlertDeleteList().showAndWait();
         }
 
@@ -140,4 +142,7 @@ public class BrandController extends Controller {
         return brandView;
     }
 
+    public Brand getBrandValue() {
+        return brandValue;
+    }
 }

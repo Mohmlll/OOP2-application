@@ -26,11 +26,11 @@ public class MainApplication extends Application {
         mainStage.setScene(new Scene(controller.getView().getRoot()));
     }
 
-    public static DAO<Brand> getBrandDAO() {
+    public static BrandDAO getBrandDAO() {
         return brandDAO;
     }
 
-    public static DAO<Model> getModelDAO() {
+    public static ModelDAO getModelDAO() {
         return modelDAO;
     }
 

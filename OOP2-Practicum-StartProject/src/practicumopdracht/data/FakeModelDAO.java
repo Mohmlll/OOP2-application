@@ -14,14 +14,15 @@ public class FakeModelDAO extends ModelDAO {
         return false;
     }
 
-//    @Override
-//    public boolean load() {
-//        Brand indexZero = MainApplication.getBrandDAO().getById(0);
-//        Brand indexOne = MainApplication.getBrandDAO();
-//
-//        objects.add(new Model(indexZero, "Galaxy s20+", "Black", 999, LocalDate.of(2020, 3, 15), false));
-//        return true;
-//    }
-//
+    @Override
+    public boolean load() {
+        Brand indexZero = MainApplication.getBrandDAO().getById(0);
+        Brand indexOne = MainApplication.getBrandDAO().getById(1);
+
+        objects.add(new Model(indexZero, "Galaxy s20+", "Black", 999, LocalDate.of(2020, 3, 15), false));
+        objects.add(new Model(indexOne, "IPhone 11", "Black", 700, LocalDate.of(2020, 9, 15), true));
+        return true;
+    }
+
 
 }
