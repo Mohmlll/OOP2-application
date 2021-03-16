@@ -23,13 +23,15 @@ public class BrandView extends View {
     private Button save;
     private ListView<Brand> listView;
     private Button delete;
-    private Button models;
+    private Button details;
+    private Button newBrand;
     private Alert alertDelete;
     private Alert alertSave;
     private Alert alertDeleteList;
     private MenuBar menuBar;
-    private Menu menuLoad;
-    private Menu menuSave;
+    private Menu menuFile;
+    private MenuItem menuLoad;
+    private MenuItem menuSave;
 
     public BrandView() {
         initializeRoot();
@@ -38,12 +40,16 @@ public class BrandView extends View {
     private void initializeRoot() {
 
         GridPane gridPane = new GridPane();
+
+        //menu on top
         menuBar = new MenuBar();
-        menuLoad = new Menu("Load");
-        menuSave = new Menu("Save");
-        menuBar.getMenus().addAll(menuLoad, menuSave);
+        menuLoad = new MenuItem("Load");
+        menuSave = new MenuItem("Save");
+        menuFile = new Menu("File", null, menuLoad, menuSave);
+        menuBar.getMenus().addAll(menuFile);
         VBox vbox = new VBox(menuBar);
 
+        //brand name textfield for brand
         HBox hBoxName = new HBox();
         Label brandNameLabel = new Label("brand name: ");
         brandNameLabel.setMinSize(70, 20);
@@ -51,6 +57,7 @@ public class BrandView extends View {
         brandName.setMinSize(500, 16);
         hBoxName.getChildren().addAll(brandNameLabel, brandName);
 
+        //name of ceo textfield for brand
         HBox hBoxCeo = new HBox();
         Label nameCeoLabel = new Label("name CEO: ");
         nameCeoLabel.setMinSize(70, 20);
@@ -58,6 +65,7 @@ public class BrandView extends View {
         nameCeo.setMinSize(500, 16);
         hBoxCeo.getChildren().addAll(nameCeoLabel, nameCeo);
 
+        //networth textfield for brand
         HBox hBoxNetworth = new HBox();
         Label networthLabel = new Label("networth: ");
         networthLabel.setMinSize(70, 20);
@@ -65,6 +73,7 @@ public class BrandView extends View {
         networth.setMinSize(500, 16);
         hBoxNetworth.getChildren().addAll(networthLabel, networth);
 
+        //description textarea for brand
         HBox hBoxTextArea = new HBox();
         Label textAreaLabel = new Label("Description: ");
         textAreaLabel.setMinSize(70, 16);
@@ -72,31 +81,39 @@ public class BrandView extends View {
         textArea.setMinSize(500, 50);
         hBoxTextArea.getChildren().addAll(textAreaLabel, textArea);
 
+        //save brand button
         save = new Button("Save");
         save.setMinWidth(600);
 
+        //list of brands
         listView = new ListView<>();
         listView.setMinSize(600, 80);
 
+        //delete and details button
         HBox hBoxButtons = new HBox();
         delete = new Button("Delete");
-        delete.setMinWidth(200);
-        models = new Button("Models");
-        models.setMinWidth(200);
+        delete.setMinWidth(150);
+        details = new Button("Details");
+        details.setDisable(true);
+        details.setMinWidth(150);
+        newBrand = new Button("New");
+        newBrand.setMinWidth(150);
         hBoxButtons.setSpacing(20);
-        hBoxButtons.getChildren().addAll(delete, models);
+        hBoxButtons.getChildren().addAll(newBrand, delete, details);
 
+        //delete item alert
         alertDelete = new Alert(Alert.AlertType.CONFIRMATION);
         alertDelete.setTitle("Alert");
         alertDelete.setContentText("Are you sure you want to delete this Brand?");
 
+        //alert for wrong input
         alertSave = new Alert(Alert.AlertType.WARNING);
         alertSave.setTitle("Save");
-        alertSave.setContentText("- Niet alle velden zijn ingevuld\n- Networth mag alleen nummers hebben");
 
+        //no selected item to delete
         alertDeleteList = new Alert(Alert.AlertType.WARNING);
         alertDeleteList.setTitle("Delete");
-        alertDeleteList.setContentText("- Geen veld geselecteerd");
+
 
         gridPane.add(hBoxName, 0, 1);
         gridPane.add(hBoxCeo, 0, 2);
@@ -116,6 +133,26 @@ public class BrandView extends View {
         vbox.getChildren().addAll(gridPane);
 
         root = vbox;
+    }
+
+    //If brand is null then the details button will be disabled
+    //if brand is not null the the details button will not be disabled
+    //and the fields will be filled in with data from the brand
+    public void setBrand(Brand brand) {
+        if (brand == null) {
+            this.details.setDisable(true);
+        } else {
+            this.details.setDisable(false);
+            this.brandName.setText(String.valueOf(brand.getBrandName()));
+            this.nameCeo.setText(String.valueOf(brand.getCeo()));
+            this.networth.setText(String.valueOf(brand.getNetWorth()));
+            this.textArea.setText(String.valueOf(brand.getDescription()));
+        }
+    }
+
+    //method to get a selected brand
+    public Brand getSelectedBrand() {
+        return this.listView.getSelectionModel().getSelectedItem();
     }
 
     public ListView<Brand> getListView() {
@@ -146,11 +183,11 @@ public class BrandView extends View {
         return save;
     }
 
-    public Menu getMenuLoad() {
+    public MenuItem getMenuLoad() {
         return menuLoad;
     }
 
-    public Menu getMenuSave() {
+    public MenuItem getMenuSave() {
         return menuSave;
     }
 
@@ -166,8 +203,12 @@ public class BrandView extends View {
         return delete;
     }
 
-    public Button getModels() {
-        return models;
+    public Button getDetails() {
+        return details;
+    }
+
+    public Button getNewBrand() {
+        return newBrand;
     }
 
     @Override

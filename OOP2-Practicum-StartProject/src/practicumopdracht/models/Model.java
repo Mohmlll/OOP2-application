@@ -11,12 +11,14 @@ import java.time.format.DateTimeFormatter;
 public class Model {
 
     private final String modelName;
-    private final LocalDate releaseDate;
+    private double price;
     private final boolean saleChoice;
     private final String color;
-    private double price;
+    private final LocalDate releaseDate;
+    private final Brand brand;
 
-    public Model(String modelName, String color, double price, LocalDate releaseDate, boolean saleChoice) {
+    public Model(Brand brand, String modelName, String color, double price, LocalDate releaseDate, boolean saleChoice) {
+        this.brand = brand;
         this.modelName = modelName;
         this.color = color;
         this.price = price;
@@ -33,7 +35,32 @@ public class Model {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         String formattedDate = this.releaseDate.format(formatter);
 
-        return "Brand: test" + ":, Model: " + this.modelName + ", Color: " + this.color + ", Price: $"
+        return "Brand: "+this.brand.getBrandName() + ", Model: " + this.modelName + ", Color: " + this.color + ", Price: $"
                 + this.price + ", Releasedate: " + formattedDate + ", On sale: " + saleChoice;
     }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public boolean isSaleChoice() {
+        return saleChoice;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public LocalDate getReleaseDate() {
+        return releaseDate;
+    }
 }
+

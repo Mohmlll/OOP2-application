@@ -1,24 +1,14 @@
 package practicumopdracht.data;
 
-import java.util.List;
 
-public class FakeModelDAO  extends ModelDAO{
+import practicumopdracht.MainApplication;
+import practicumopdracht.models.Brand;
+import practicumopdracht.models.Model;
 
-    @Override
-    public List getAll() {
-        return null;
-    }
 
-    @Override
-    public void addOrUpdate(Object object) {
+import java.time.LocalDate;
 
-    }
-
-    @Override
-    public void remove(Object object) {
-
-    }
-
+public class FakeModelDAO extends ModelDAO {
     @Override
     public boolean save() {
         return false;
@@ -26,6 +16,13 @@ public class FakeModelDAO  extends ModelDAO{
 
     @Override
     public boolean load() {
-        return false;
+        Brand indexZero = MainApplication.getBrandDAO().getById(0);
+        Brand indexOne = MainApplication.getBrandDAO().getById(1);
+
+        objects.add(new Model(indexZero, "Galaxy s20+", "Black", 999, LocalDate.of(2020, 3, 15), false));
+        objects.add(new Model(indexOne, "IPhone 11", "Black", 700, LocalDate.of(2020, 9, 15), true));
+        return true;
     }
+
+
 }

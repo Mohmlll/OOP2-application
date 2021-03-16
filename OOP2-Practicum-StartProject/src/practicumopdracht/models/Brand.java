@@ -19,8 +19,20 @@ public class Brand {
         this.description = description;
     }
 
-    public Brand(String brandName) {
-        this.brandName = brandName;
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public String getCeo() {
+        return ceo;
+    }
+
+    public String getNetWorth() {
+        return netWorth;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override

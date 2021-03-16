@@ -8,27 +8,27 @@ import java.util.List;
 
 public abstract class BrandDAO implements DAO<Brand> {
 
-    protected List<Brand> brands;
+    protected List<Brand> objects;
 
     public BrandDAO() {
-        brands = new ArrayList<>();
+        objects = new ArrayList<>();
     }
 
     @Override
     public List<Brand> getAll() {
-        return brands;
+        return objects;
     }
 
     @Override
     public void addOrUpdate(Brand object) {
-        if (!brands.contains(object)) {
-            brands.add(object);
+        if (!objects.contains(object)) {
+            objects.add(object);
         }
     }
 
     @Override
     public void remove(Brand object) {
-        brands.remove(object);
+        objects.remove(object);
     }
 
     @Override
@@ -36,4 +36,9 @@ public abstract class BrandDAO implements DAO<Brand> {
 
     @Override
     public abstract boolean load();
+
+    public Brand getById(int i) {
+        return this.objects.get(i);
+    }
+
 }
