@@ -1,6 +1,6 @@
 package practicumopdracht.data;
 
-import practicumopdracht.MainApplication;
+
 import practicumopdracht.models.Brand;
 import practicumopdracht.models.Model;
 

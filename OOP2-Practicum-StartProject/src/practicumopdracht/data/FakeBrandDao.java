@@ -12,8 +12,8 @@ public class FakeBrandDao extends BrandDAO {
 
     @Override
     public boolean load() {
-        objects.add(new Brand("Samsung", "test", "Billions", "yes"));
-        objects.add(new Brand("Apple", "test", "Trillion", "no"));
+        objects.add(new Brand("Samsung", "test", "20000000000", "yes"));
+        objects.add(new Brand("Apple", "test", "1000000000000", "no"));
         return true;
     }
 }
