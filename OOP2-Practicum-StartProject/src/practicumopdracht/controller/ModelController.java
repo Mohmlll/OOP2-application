@@ -2,12 +2,10 @@ package practicumopdracht.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import practicumopdracht.Main;
 import practicumopdracht.MainApplication;
 import practicumopdracht.data.DAO;
 import practicumopdracht.models.Brand;
 import practicumopdracht.models.Model;
-import practicumopdracht.views.BrandView;
 import practicumopdracht.views.ModelView;
 
 import java.time.LocalDate;
@@ -18,39 +16,57 @@ public class ModelController extends Controller {
     private ModelView modelView;
     private ObservableList<Model> modelObservableList;
     private Brand brand;
-
+    private Model model;
     public ModelController(Brand selectedBrand) {
+
         modelDAO = MainApplication.getModelDAO();
         modelView = new ModelView();
         brand = selectedBrand;
-        //updates the ListView
-        updateListView(brand);
 
-        //load fake daoModel
+        //load fake daoModel.
         modelView.getMenuLoad().setOnAction(actionEvent -> onLoadModel());
 
-        //Adds a model to the list
-        modelView.getSave().setOnAction(actionEvent -> onAddModel());
+        //Adds a model to the list.
+        modelView.getSave().setOnAction(actionEvent -> onAddOrUpdateModel());
 
-        //deletes a model from the list
+        //deletes a model from the list.
         modelView.getDelete().setOnAction(actionEvent -> {
-            onDeleteModel();
+            onRemoveModel();
+        });
+        //displays the data from the selected model in the fields.
+        modelView.getModelListView().getSelectionModel().selectedItemProperty().addListener((bs, oldValue, newValue) -> {
+            modelView.setModel((Model) newValue);
+            this.model = (Model)(newValue);
+        });
+        //Changes the listView to models only with the selected brand
+        modelView.getComboBox().getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+            updateListView(newValue);
         });
 
-        //Sets the combobox with a brand from the DAO
+        //Sets the combobox with a brand from the DAO.
         this.modelView.getComboBox().setItems(FXCollections.observableArrayList(MainApplication.getBrandDAO().getAll()));
         this.modelView.getComboBox().setValue(brand);
-        //opens up the Model view
+
+        //Opens up the Model view
         modelView.getBackButton().setOnAction(actionEvent -> {
             BrandController brandController = new BrandController();
             MainApplication.switchController(brandController);
 
         });
+
+        //clear model fields
+        modelView.getNewModel().setOnAction(actionEvent -> {
+            clearFields();
+        });
+
+        //updates the ListView.
+        updateListView(brand);
+
     }
 
-    //method to update the listview with the observableList
+    //method to update the listview with the observableList.
+    //It only adds models with the selected brand from the comboBox.
     private void updateListView(Brand brand) {
-
         modelObservableList = FXCollections.observableArrayList(MainApplication.getModelDAO().getAllFor(brand));
         modelView.getModelListView().setItems(modelObservableList);
     }
@@ -62,40 +78,50 @@ public class ModelController extends Controller {
     }
 
     //methods that deletes a model (outdated)
-    private void onDeleteModel() {
+    private void onRemoveModel() {
         Model selectedModel = (Model) modelView.getModelListView().getSelectionModel().getSelectedItem();
-
-        if (selectedModel == null) {
-            return;
+        if (selectedModel != null) {
+            modelView.getAlertDelete().showAndWait();
+            modelDAO.remove(selectedModel);
+        }else{
+            modelView.getAlertDeleteList().setContentText("- No field selected");
+            modelView.getAlertDeleteList().showAndWait();
         }
-        modelObservableList.remove(selectedModel);
+
+        updateListView(this.brand);
     }
 
     //method that adds a model (outdated)
-    private void onAddModel() {
+    private void onAddOrUpdateModel() {
         String modelName = modelView.getModelName().getText();
         String color = modelView.getColor().getText();
         String price = modelView.getPrice().getText();
         LocalDate releaseDate = modelView.getDatePicker().getValue();
         boolean saleChoice = modelView.getSaleCheckBox().isSelected();
-        //tempory brand
         Brand brand = modelView.getComboBox().getValue();
+
         //checks what alert string to send to the alert
         validateModel(modelName, price, color, releaseDate);
         if (!checkString(modelName) && checkDouble(price) && !checkString(color) && dateChecker(releaseDate)) {
-            Model model = new Model(brand, modelName, color, Double.parseDouble(price), releaseDate, saleChoice);
-            modelObservableList.add(model);
+
+            this.model = new Model(brand, modelName, color, Double.parseDouble(price), releaseDate, saleChoice);
+            modelDAO.addOrUpdate(model);
 
             //clears textfield and checkbox after submit
-            modelView.getModelName().clear();
-            modelView.getColor().clear();
-            modelView.getPrice().clear();
-            modelView.getDatePicker().getEditor().clear();
-            modelView.getSaleCheckBox().setSelected(false);
+            clearFields();
         } else {
             //calls in the alert incase input is not valid
             modelView.getAlertSave().showAndWait();
         }
+        updateListView(this.brand);
+    }
+
+    private void clearFields(){
+        modelView.getModelName().clear();
+        modelView.getColor().clear();
+        modelView.getPrice().clear();
+        modelView.getDatePicker().getEditor().clear();
+        modelView.getSaleCheckBox().setSelected(false);
     }
 
     //method that checks what input is valid and creates an alert string for the Alert in the ModelView
@@ -132,7 +158,7 @@ public class ModelController extends Controller {
 
     //method checks if textfield input is a double
     public boolean checkDouble(String text) {
-        return text.matches("[0-9]+");
+        return text.matches("^\\d+(\\.\\d+)+$");
     }
 
     public ModelView getView() {

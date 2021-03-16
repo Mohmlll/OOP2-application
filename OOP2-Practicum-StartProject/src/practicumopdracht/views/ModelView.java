@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import practicumopdracht.models.Brand;
 import practicumopdracht.models.Model;
 
+
 public class ModelView extends View {
 
     private Parent root;
@@ -17,16 +18,20 @@ public class ModelView extends View {
     private TextField modelName;
     private TextField price;
     private TextField color;
+
     private DatePicker datePicker;
     private CheckBox saleCheckbox;
-    private Button save;
     private ListView<Model> modelListView;
+
+    private Button save;
     private Button delete;
     private Button backButton;
-    private MenuBar menuBar;
+    private Button newModel;
     private Alert alertDelete;
     private Alert alertSave;
     private Alert alertDeleteList;
+
+    private MenuBar menuBar;
     private MenuItem menuLoad;
     private MenuItem menuSave;
     private Menu menuFile;
@@ -49,7 +54,7 @@ public class ModelView extends View {
         Label comboBoxLabel = new Label("Brand");
         comboBoxLabel.setMinSize(70, 20);
         comboBox = new ComboBox<>();
-        comboBox.setMinSize(500, 20);
+        comboBox.setMinSize(500, 26);
         hBoxComboBox.getChildren().addAll(comboBoxLabel, comboBox);
 
         HBox hBoxModelName = new HBox();
@@ -98,11 +103,13 @@ public class ModelView extends View {
 
         HBox hBoxButtons = new HBox();
         delete = new Button("Delete");
-        delete.setMinWidth(200);
+        delete.setMinWidth(150);
         backButton = new Button("Back");
-        backButton.setMinWidth(200);
+        backButton.setMinWidth(150);
+        newModel = new Button("New");
+        newModel.setMinWidth(150);
         hBoxButtons.setSpacing(20);
-        hBoxButtons.getChildren().addAll(delete, backButton);
+        hBoxButtons.getChildren().addAll(newModel, delete, backButton);
 
         alertDelete = new Alert(Alert.AlertType.CONFIRMATION);
         alertDelete.setTitle("Alert");
@@ -113,7 +120,7 @@ public class ModelView extends View {
 
         alertDeleteList = new Alert(Alert.AlertType.WARNING);
         alertDeleteList.setTitle("Delete");
-        alertDeleteList.setContentText("- Geen veld geselecteerd");
+
 
         gridPaneModel.add(hBoxComboBox, 0, 1);
         gridPaneModel.add(hBoxModelName, 0, 2);
@@ -139,6 +146,18 @@ public class ModelView extends View {
 
     }
 
+    //If brand is null then the details button will be disabled
+    //if brand is not null the the details button will not be disabled
+    //and the fields will be filled in with data from the brand
+    public void setModel(Model model) {
+        if (model != null) {
+            this.modelName.setText(String.valueOf(model.getModelName()));
+            this.price.setText(String.valueOf(model.getPrice()));
+            this.color.setText(String.valueOf(model.getColor()));
+            this.datePicker.setValue(model.getReleaseDate());
+            this.saleCheckbox.setSelected(model.isSaleChoice());
+        }
+    }
 
     public TextField getModelName() {
         return modelName;
@@ -188,7 +207,16 @@ public class ModelView extends View {
         return alertSave;
     }
 
+    public Alert getAlertDelete() {
+        return alertDelete;
+    }
 
+    public Alert getAlertDeleteList() {
+        return alertDeleteList;
+    }
+    public Button getNewModel() {
+        return newModel;
+    }
     @Override
     public Parent getRoot() {
         return root;

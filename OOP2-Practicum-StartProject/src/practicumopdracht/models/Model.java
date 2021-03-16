@@ -42,5 +42,25 @@ public class Model {
     public Brand getBrand() {
         return brand;
     }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public boolean isSaleChoice() {
+        return saleChoice;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public LocalDate getReleaseDate() {
+        return releaseDate;
+    }
 }
 

@@ -1,5 +1,6 @@
 package practicumopdracht.data;
 
+import practicumopdracht.MainApplication;
 import practicumopdracht.models.Brand;
 import practicumopdracht.models.Model;
 
@@ -18,7 +19,7 @@ public abstract class ModelDAO implements DAO<Model> {
         List<Model> results = new ArrayList<>();
         for (Model model : objects) {
             if (model.getBrand() == brand) {
-
+                results.add(model);
             }
         }
         return results;

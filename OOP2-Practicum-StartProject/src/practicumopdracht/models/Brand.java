@@ -23,6 +23,18 @@ public class Brand {
         return brandName;
     }
 
+    public String getCeo() {
+        return ceo;
+    }
+
+    public String getNetWorth() {
+        return netWorth;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return "Brand: " + brandName + ", CEO: " + this.ceo + ", networth: " + this.netWorth + "\nDescription: " + this.description;

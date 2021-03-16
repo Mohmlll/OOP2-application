@@ -16,7 +16,7 @@ public class BrandController extends Controller {
     private final DAO<Brand> brandDAO;
     private final BrandView brandView;
     private ObservableList<Brand> brandObservableList;
-    private Brand brandValue;
+    private Brand brand;
 
     public BrandController() {
         brandDAO = MainApplication.getBrandDAO();
@@ -34,17 +34,22 @@ public class BrandController extends Controller {
         //deletes a brand name from the list
         brandView.getDelete().setOnAction(actionEvent -> {
             brandView.getDelete().setOnAction(e -> {
-                onDeleteBrand();
+                onRemoveBrand();
             });
         });
         //Detail button gets disabled, listener added to selection and value is send to the setBrand method
         brandView.getListView().getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            brandValue = newValue;
+            brand = newValue;
             brandView.setBrand(newValue);
         });
         //opens up the Model view
         brandView.getDetails().setOnAction(actionEvent -> {
             moveToDetails();
+        });
+
+        //empties model fields
+        brandView.getNewBrand().setOnAction(actionEvent -> {
+            clearFields();
         });
 
         //updates the listView
@@ -74,17 +79,17 @@ public class BrandController extends Controller {
     }
 
     //methods that deletes a brand (outdated)
-    private void onDeleteBrand() {
+    private void onRemoveBrand() {
         Brand selectedBrand = brandView.getListView().getSelectionModel().getSelectedItem();
 
         if (selectedBrand != null) {
             brandView.getAlertDelete().showAndWait();
-            brandObservableList.remove(selectedBrand);
+            brandDAO.remove(selectedBrand);
         } else {
             brandView.getAlertDeleteList().setContentText("- No field selected");
             brandView.getAlertDeleteList().showAndWait();
         }
-
+        updateListView();
     }
 
     //method that adds a brand (outdated)
@@ -100,13 +105,18 @@ public class BrandController extends Controller {
             Brand brandInput = new Brand(brandName, nameCEO, networthCEO, descriptrion);
             brandDAO.addOrUpdate(brandInput);
             updateListView();
-            brandView.getBrandName().clear();
-            brandView.getNameCeo().clear();
-            brandView.getNetworth().clear();
-            brandView.getTextArea().clear();
+            clearFields();
         } else {
             brandView.getAlertSave().showAndWait();
         }
+    }
+
+    //methode that clears field of model list.
+    private void clearFields(){
+        brandView.getBrandName().clear();
+        brandView.getNameCeo().clear();
+        brandView.getNetworth().clear();
+        brandView.getTextArea().clear();
     }
 
     //method that checks what input is valid and creates an alert string for the Alert in the BrandView
@@ -134,7 +144,7 @@ public class BrandController extends Controller {
 
     //method checks if textfield input is not empty
     public boolean checkDouble(String text) {
-        return text.matches("[0-9]+");
+        return text.matches("^\\d+(\\.\\d+)+$");
     }
 
     //method checks if textfield input is a double
@@ -142,7 +152,4 @@ public class BrandController extends Controller {
         return brandView;
     }
 
-    public Brand getBrandValue() {
-        return brandValue;
-    }
 }

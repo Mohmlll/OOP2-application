@@ -24,6 +24,7 @@ public class BrandView extends View {
     private ListView<Brand> listView;
     private Button delete;
     private Button details;
+    private Button newBrand;
     private Alert alertDelete;
     private Alert alertSave;
     private Alert alertDeleteList;
@@ -91,12 +92,14 @@ public class BrandView extends View {
         //delete and details button
         HBox hBoxButtons = new HBox();
         delete = new Button("Delete");
-        delete.setMinWidth(200);
+        delete.setMinWidth(150);
         details = new Button("Details");
         details.setDisable(true);
-        details.setMinWidth(200);
+        details.setMinWidth(150);
+        newBrand = new Button("New");
+        newBrand.setMinWidth(150);
         hBoxButtons.setSpacing(20);
-        hBoxButtons.getChildren().addAll(delete, details);
+        hBoxButtons.getChildren().addAll(newBrand, delete, details);
 
         //delete item alert
         alertDelete = new Alert(Alert.AlertType.CONFIRMATION);
@@ -133,11 +136,17 @@ public class BrandView extends View {
     }
 
     //If brand is null then the details button will be disabled
+    //if brand is not null the the details button will not be disabled
+    //and the fields will be filled in with data from the brand
     public void setBrand(Brand brand) {
         if (brand == null) {
             this.details.setDisable(true);
         } else {
             this.details.setDisable(false);
+            this.brandName.setText(String.valueOf(brand.getBrandName()));
+            this.nameCeo.setText(String.valueOf(brand.getCeo()));
+            this.networth.setText(String.valueOf(brand.getNetWorth()));
+            this.textArea.setText(String.valueOf(brand.getDescription()));
         }
     }
 
@@ -196,6 +205,10 @@ public class BrandView extends View {
 
     public Button getDetails() {
         return details;
+    }
+
+    public Button getNewBrand() {
+        return newBrand;
     }
 
     @Override
