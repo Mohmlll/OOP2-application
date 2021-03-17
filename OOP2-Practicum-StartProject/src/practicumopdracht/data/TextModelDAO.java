@@ -9,27 +9,27 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class TextModelDAO extends ModelDAO{
+public class TextModelDAO extends ModelDAO {
 
     private final File FILENAME = new File("models.txt");
-    private BrandDAO brandDAO = MainApplication.getBrandDAO();
+    private final BrandDAO brandDAO = MainApplication.getBrandDAO();
 
     @Override
     public boolean save() {
         PrintWriter writer = null;
-        try{
+        try {
             writer = new PrintWriter(FILENAME);
-            for(Model models : this.objects){
+            for (Model models : this.objects) {
                 writer.write(String.format("%s,%s,%s,%s,%s,%s\n",
                         models.getBrand(), models.getModelName(), models.getColor(),
                         models.getPrice(), models.getReleaseDate(), models.isSaleChoice()));
             }
             return true;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             return false;
-        }finally {
-            if(writer != null){
+        } finally {
+            if (writer != null) {
                 writer.close();
             }
         }
@@ -37,14 +37,14 @@ public class TextModelDAO extends ModelDAO{
 
     @Override
     public boolean load() {
-        if(!FILENAME.exists()){
+        if (!FILENAME.exists()) {
             return true;
         }
 
         Scanner scanner = null;
-        try{
+        try {
             scanner = new Scanner(this.FILENAME);
-            while(scanner.hasNextLine()){
+            while (scanner.hasNextLine()) {
                 String rawLine = scanner.nextLine();
                 String[] parts = rawLine.split(",");
 
@@ -56,10 +56,10 @@ public class TextModelDAO extends ModelDAO{
                 this.objects.add(model);
             }
             return true;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             return false;
-        }finally{
+        } finally {
             scanner.close();
         }
     }

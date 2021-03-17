@@ -1,8 +1,5 @@
 package practicumopdracht.controller;
 
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import practicumopdracht.MainApplication;
 import practicumopdracht.data.BrandDAO;
@@ -12,7 +9,7 @@ import practicumopdracht.views.View;
 
 public class MenuController extends Controller {
 
-    private MenuView view;
+    private final MenuView view;
 
     public MenuController(Stage mainWindow) {
         BrandDAO brand = MainApplication.getBrandDAO();

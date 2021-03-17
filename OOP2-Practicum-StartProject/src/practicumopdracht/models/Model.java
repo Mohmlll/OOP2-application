@@ -35,7 +35,7 @@ public class Model {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         String formattedDate = this.releaseDate.format(formatter);
 
-        return "Brand: "+this.brand.getBrandName() + ", Model: " + this.modelName + ", Color: " + this.color + ", Price: $"
+        return "Brand: " + this.brand.getBrandName() + ", Model: " + this.modelName + ", Color: " + this.color + ", Price: $"
                 + this.price + ", Releasedate: " + formattedDate + ", On sale: " + saleChoice;
     }
 

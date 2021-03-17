@@ -12,11 +12,12 @@ import java.time.LocalDate;
 
 public class ModelController extends Controller {
 
-    private DAO<Model> modelDAO;
-    private ModelView modelView;
+    private final DAO<Model> modelDAO;
+    private final ModelView modelView;
     private ObservableList<Model> modelObservableList;
-    private Brand brand;
+    private final Brand brand;
     private Model model;
+
     public ModelController(Brand selectedBrand) {
 
         modelDAO = MainApplication.getModelDAO();
@@ -32,8 +33,8 @@ public class ModelController extends Controller {
         });
         //displays the data from the selected model in the fields.
         modelView.getModelListView().getSelectionModel().selectedItemProperty().addListener((bs, oldValue, newValue) -> {
-            modelView.setModel((Model) newValue);
-            this.model = (Model)(newValue);
+            modelView.setModel(newValue);
+            this.model = (newValue);
         });
         //Changes the listView to models only with the selected brand
         modelView.getComboBox().getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
@@ -76,11 +77,11 @@ public class ModelController extends Controller {
 
     //methods that deletes a model (outdated)
     private void onRemoveModel() {
-        Model selectedModel = (Model) modelView.getModelListView().getSelectionModel().getSelectedItem();
+        Model selectedModel = modelView.getModelListView().getSelectionModel().getSelectedItem();
         if (selectedModel != null) {
             modelView.getAlertDelete().showAndWait();
             modelDAO.remove(selectedModel);
-        }else{
+        } else {
             modelView.getAlertDeleteList().setContentText("- No field selected");
             modelView.getAlertDeleteList().showAndWait();
         }
@@ -100,15 +101,14 @@ public class ModelController extends Controller {
         Brand brand = modelView.getComboBox().getValue();
 
 
-
         //checks what alert string to send to the alert
         validateModel(modelName, price, color, releaseDate);
         if (!checkString(modelName) && checkDouble(price) && !checkString(color) && dateChecker(releaseDate)) {
-            if (model == null){
+            if (model == null) {
                 //if there is no selected model a new model will be added
                 this.model = new Model(brand, modelName, color, Double.parseDouble(price), releaseDate, saleChoice);
                 modelDAO.addOrUpdate(this.model);
-            }else {
+            } else {
                 //if there is a selected model than the new values of the model wil be set here.
                 model.setBrand(brand);
                 model.setModelName(modelName);
@@ -129,7 +129,7 @@ public class ModelController extends Controller {
     }
 
 
-    private void clearFields(){
+    private void clearFields() {
         modelView.getModelListView().getSelectionModel().clearSelection();
         modelView.getModelName().clear();
         modelView.getColor().clear();

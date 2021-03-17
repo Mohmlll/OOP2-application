@@ -16,7 +16,7 @@ public class BrandController extends Controller {
     private final DAO<Brand> brandDAO;
     private final BrandView brandView;
     private ObservableList<Brand> brandObservableList;
-    private Brand brand;
+
 
     public BrandController() {
         brandDAO = MainApplication.getBrandDAO();
@@ -35,7 +35,6 @@ public class BrandController extends Controller {
         });
         //Detail button gets disabled, listener added to selection and value is send to the setBrand method
         brandView.getListView().getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            brand = newValue;
             brandView.setBrand(newValue);
         });
         //opens up the Model view
@@ -99,12 +98,12 @@ public class BrandController extends Controller {
         validateBrand(brandName, networthCEO, nameCEO);
         if (!checkString(brandName) && !checkString(nameCEO) && checkDouble(networthCEO)) {
 
-            if(brand == null){
+            if (brand == null) {
                 //if there is no selected brand a new brand will be added
                 Brand brandInput = new Brand(brandName, nameCEO, networthCEO, descriptrion);
 
                 brandDAO.addOrUpdate(brandInput);
-            }else{
+            } else {
                 //if there is a selected brand than the new values of the brand wil be set here.
                 brand.setBrandName(brandName);
                 brand.setCeo(nameCEO);
@@ -123,7 +122,7 @@ public class BrandController extends Controller {
     }
 
     //methode that clears field of model list.
-    private void clearFields(){
+    private void clearFields() {
         brandView.getListView().getSelectionModel().clearSelection();
         brandView.getBrandName().clear();
         brandView.getNameCeo().clear();

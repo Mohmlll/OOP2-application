@@ -5,7 +5,6 @@ import practicumopdracht.MainApplication;
 import practicumopdracht.models.Brand;
 import practicumopdracht.models.Model;
 
-
 import java.time.LocalDate;
 
 public class FakeModelDAO extends ModelDAO {
