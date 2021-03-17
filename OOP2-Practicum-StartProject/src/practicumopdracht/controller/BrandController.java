@@ -90,25 +90,41 @@ public class BrandController extends Controller {
 
     //method that adds a brand (outdated)
     private void onAddBrand() {
+        Brand brand = brandView.getListView().getSelectionModel().getSelectedItem();
+
         String brandName = brandView.getBrandName().getText();
         String nameCEO = brandView.getNameCeo().getText();
         String networthCEO = brandView.getNetworth().getText();
         String descriptrion = brandView.getTextArea().getText();
-
         validateBrand(brandName, networthCEO, nameCEO);
-
         if (!checkString(brandName) && !checkString(nameCEO) && checkDouble(networthCEO)) {
-            Brand brandInput = new Brand(brandName, nameCEO, networthCEO, descriptrion);
-            brandDAO.addOrUpdate(brandInput);
-            updateListView();
+
+            if(brand == null){
+                //if there is no selected brand a new brand will be added
+                Brand brandInput = new Brand(brandName, nameCEO, networthCEO, descriptrion);
+
+                brandDAO.addOrUpdate(brandInput);
+            }else{
+                //if there is a selected brand than the new values of the brand wil be set here.
+                brand.setBrandName(brandName);
+                brand.setCeo(nameCEO);
+                brand.setNetWorth(networthCEO);
+                brand.setDescription(descriptrion);
+            }
+            //clears textfield and checkbox after submit
             clearFields();
+            //updates list
+            updateListView();
+
         } else {
+            //calls in the alert incase input is not valid
             brandView.getAlertSave().showAndWait();
         }
     }
 
     //methode that clears field of model list.
     private void clearFields(){
+        brandView.getListView().getSelectionModel().clearSelection();
         brandView.getBrandName().clear();
         brandView.getNameCeo().clear();
         brandView.getNetworth().clear();

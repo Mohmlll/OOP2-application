@@ -6,7 +6,7 @@ package practicumopdracht.models;
 
 
 public class Brand {
-    private final String brandName;
+    private String brandName;
     private String ceo;
     private String netWorth;
     private String description;
@@ -39,5 +39,22 @@ public class Brand {
     @Override
     public String toString() {
         return "Brand: " + brandName + ", CEO: " + this.ceo + ", networth: " + this.netWorth + "\nDescription: " + this.description;
+    }
+
+    public void setCeo(String ceo) {
+        this.ceo = ceo;
+    }
+
+
+    public void setNetWorth(String netWorth) {
+        this.netWorth = netWorth;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 }

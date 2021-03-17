@@ -88,8 +88,10 @@ public class ModelController extends Controller {
         updateListView(this.brand);
     }
 
-    //method that adds a model (outdated)
+    //method that adds a model
     private void onAddOrUpdateModel() {
+        Model model = modelView.getModelListView().getSelectionModel().getSelectedItem();
+
         String modelName = modelView.getModelName().getText();
         String color = modelView.getColor().getText();
         String price = modelView.getPrice().getText();
@@ -97,23 +99,38 @@ public class ModelController extends Controller {
         boolean saleChoice = modelView.getSaleCheckBox().isSelected();
         Brand brand = modelView.getComboBox().getValue();
 
+
+
         //checks what alert string to send to the alert
         validateModel(modelName, price, color, releaseDate);
         if (!checkString(modelName) && checkDouble(price) && !checkString(color) && dateChecker(releaseDate)) {
-
-            this.model = new Model(brand, modelName, color, Double.parseDouble(price), releaseDate, saleChoice);
-            modelDAO.addOrUpdate(model);
-
+            if (model == null){
+                //if there is no selected model a new model will be added
+                this.model = new Model(brand, modelName, color, Double.parseDouble(price), releaseDate, saleChoice);
+                modelDAO.addOrUpdate(this.model);
+            }else {
+                //if there is a selected model than the new values of the model wil be set here.
+                model.setBrand(brand);
+                model.setModelName(modelName);
+                model.setColor(color);
+                model.setPrice(Double.parseDouble(price));
+                model.setReleaseDate(releaseDate);
+                model.setSaleChoice(saleChoice);
+            }
             //clears textfield and checkbox after submit
             clearFields();
+            //updates list
+            updateListView(this.brand);
         } else {
             //calls in the alert incase input is not valid
             modelView.getAlertSave().showAndWait();
         }
-        updateListView(this.brand);
+
     }
 
+
     private void clearFields(){
+        modelView.getModelListView().getSelectionModel().clearSelection();
         modelView.getModelName().clear();
         modelView.getColor().clear();
         modelView.getPrice().clear();

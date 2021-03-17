@@ -17,7 +17,7 @@ public class MainApplication extends Application {
 
     private static BorderPane mainPane;
     private static BrandDAO brandDAO = new FakeBrandDAO();
-    private static ModelDAO modelDAO = new TextModelDAO();
+    private static ModelDAO modelDAO = new FakeModelDAO();
 
     private static Stage mainStage;
 
@@ -46,8 +46,8 @@ public class MainApplication extends Application {
             return;
         }
 
-        mainPane = new BorderPane();
-        mainPane.setTop(new MenuController(stage).getView().getRoot());
+//        mainPane = new BorderPane();
+//        mainPane.setTop(new MenuController(stage).getView().getRoot());
 
         stage.setTitle(String.format("Practicumopdracht OOP2 - %s", Main.studentNaam));
         stage.setWidth(640);

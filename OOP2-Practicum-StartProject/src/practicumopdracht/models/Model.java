@@ -10,12 +10,12 @@ import java.time.format.DateTimeFormatter;
 
 public class Model {
 
-    private final String modelName;
+    private String modelName;
     private double price;
-    private final boolean saleChoice;
-    private final String color;
-    private final LocalDate releaseDate;
-    private final Brand brand;
+    private boolean saleChoice;
+    private String color;
+    private LocalDate releaseDate;
+    private Brand brand;
 
     public Model(Brand brand, String modelName, String color, double price, LocalDate releaseDate, boolean saleChoice) {
         this.brand = brand;
@@ -61,6 +61,26 @@ public class Model {
 
     public LocalDate getReleaseDate() {
         return releaseDate;
+    }
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    public void setSaleChoice(boolean saleChoice) {
+        this.saleChoice = saleChoice;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 }
 
