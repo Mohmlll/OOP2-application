@@ -2,12 +2,12 @@ package practicumopdracht;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import practicumopdracht.controller.BrandController;
 import practicumopdracht.controller.Controller;
+import practicumopdracht.controller.MenuController;
 import practicumopdracht.data.*;
-import practicumopdracht.models.Brand;
-import practicumopdracht.models.Model;
 
 /**
  * @author Mohammed Malloul
@@ -15,10 +15,9 @@ import practicumopdracht.models.Model;
 
 public class MainApplication extends Application {
 
-    private static BrandDAO brandDAO = new FakeBrandDao();
-    private static ModelDAO modelDAO = new FakeModelDAO();
-//    private static BrandDAO brandDAO;
-//    private static DAO<Model> modelDAO;
+    private static BorderPane mainPane;
+    private static BrandDAO brandDAO = new FakeBrandDAO();
+    private static ModelDAO modelDAO = new TextModelDAO();
 
     private static Stage mainStage;
 
@@ -46,6 +45,9 @@ public class MainApplication extends Application {
 
             return;
         }
+
+        mainPane = new BorderPane();
+        mainPane.setTop(new MenuController(stage).getView().getRoot());
 
         stage.setTitle(String.format("Practicumopdracht OOP2 - %s", Main.studentNaam));
         stage.setWidth(640);

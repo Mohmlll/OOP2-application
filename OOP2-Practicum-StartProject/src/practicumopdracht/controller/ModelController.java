@@ -23,9 +23,6 @@ public class ModelController extends Controller {
         modelView = new ModelView();
         brand = selectedBrand;
 
-        //load fake daoModel.
-        modelView.getMenuLoad().setOnAction(actionEvent -> onLoadModel());
-
         //Adds a model to the list.
         modelView.getSave().setOnAction(actionEvent -> onAddOrUpdateModel());
 

@@ -31,11 +31,6 @@ public class ModelView extends View {
     private Alert alertSave;
     private Alert alertDeleteList;
 
-    private MenuBar menuBar;
-    private MenuItem menuLoad;
-    private MenuItem menuSave;
-    private Menu menuFile;
-
     public ModelView() {
         initializeRoot();
     }
@@ -43,12 +38,8 @@ public class ModelView extends View {
     private void initializeRoot() {
 
         GridPane gridPaneModel = new GridPane();
-        menuBar = new MenuBar();
-        menuLoad = new MenuItem("Load");
-        menuSave = new MenuItem("Save");
-        menuFile = new Menu("File", null, menuLoad, menuSave);
-        menuBar.getMenus().addAll(menuFile);
-        VBox vbox = new VBox(menuBar);
+
+        VBox vbox = new VBox();
 
         HBox hBoxComboBox = new HBox();
         Label comboBoxLabel = new Label("Brand");
@@ -163,7 +154,7 @@ public class ModelView extends View {
         return modelName;
     }
 
-    public ListView getModelListView() {
+    public ListView<Model> getModelListView() {
         return modelListView;
     }
 
@@ -199,10 +190,6 @@ public class ModelView extends View {
         return backButton;
     }
 
-    public MenuItem getMenuLoad() {
-        return menuLoad;
-    }
-
     public Alert getAlertSave() {
         return alertSave;
     }
@@ -214,9 +201,11 @@ public class ModelView extends View {
     public Alert getAlertDeleteList() {
         return alertDeleteList;
     }
+
     public Button getNewModel() {
         return newModel;
     }
+
     @Override
     public Parent getRoot() {
         return root;

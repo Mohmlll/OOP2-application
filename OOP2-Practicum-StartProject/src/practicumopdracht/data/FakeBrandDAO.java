@@ -2,7 +2,7 @@ package practicumopdracht.data;
 
 import practicumopdracht.models.Brand;
 
-public class FakeBrandDao extends BrandDAO {
+public class FakeBrandDAO extends BrandDAO {
 
     @Override
     public boolean save() {

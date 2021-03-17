@@ -22,10 +22,6 @@ public class BrandController extends Controller {
         brandDAO = MainApplication.getBrandDAO();
         brandView = new BrandView();
 
-
-        //load fake daoBrand
-        brandView.getMenuLoad().setOnAction(actionEvent -> onLoadBrand());
-
         //adds a new brand name
         brandView.getSave().setOnAction(actionEvent -> {
             onAddBrand();

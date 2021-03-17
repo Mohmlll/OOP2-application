@@ -19,6 +19,7 @@ public class Brand {
         this.description = description;
     }
 
+
     public String getBrandName() {
         return brandName;
     }
