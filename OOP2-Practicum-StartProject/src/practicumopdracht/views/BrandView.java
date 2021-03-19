@@ -8,6 +8,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import practicumopdracht.models.Brand;
 
+import java.util.List;
+
 /**
  * @author Mohammed Malloul
  */
@@ -29,6 +31,7 @@ public class BrandView extends View {
     private Alert alertSave;
     private Alert alertDeleteList;
 
+    private ListView<Brand> brands = new ListView<>();
 
     public BrandView() {
         initializeRoot();
@@ -127,9 +130,9 @@ public class BrandView extends View {
         root = vbox;
     }
 
-    //If brand is null then the details button will be disabled
-    //if brand is not null the the details button will not be disabled
-    //and the fields will be filled in with data from the brand
+//    If brand is null then the details button will be disabled
+//    if brand is not null the the details button will not be disabled
+//    and the fields will be filled in with data from the brand
     public void setBrand(Brand brand) {
         if (brand == null) {
             this.details.setDisable(true);
@@ -140,6 +143,14 @@ public class BrandView extends View {
             this.networth.setText(String.valueOf(brand.getNetWorth()));
             this.textArea.setText(String.valueOf(brand.getDescription()));
         }
+    }
+
+    public void setBrands(List<Brand> brands) {
+
+      this.setBrand(null);
+      this.brands.getItems().clear();
+      this.brands.getItems().addAll(brands);
+
     }
 
     //method to get a selected brand

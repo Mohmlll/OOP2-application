@@ -10,7 +10,7 @@ public class Brand {
     private String ceo;
     private String netWorth;
     private String description;
-
+    private int brandId;
 
     public Brand(String brandName, String ceo, String netWorth, String description) {
         this.brandName = brandName;

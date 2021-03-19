@@ -32,7 +32,7 @@ public class MenuView extends View {
 
     @Override
     public Parent getRoot() {
-        return null;
+        return root;
     }
 
 }

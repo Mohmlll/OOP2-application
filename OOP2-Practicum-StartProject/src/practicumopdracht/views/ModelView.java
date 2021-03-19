@@ -139,7 +139,7 @@ public class ModelView extends View {
 
     //If brand is null then the details button will be disabled
     //if brand is not null the the details button will not be disabled
-    //and the fields will be filled in with data from the brand
+    //and the fields will be filled with the data from the brand
     public void setModel(Model model) {
         if (model != null) {
             this.modelName.setText(String.valueOf(model.getModelName()));

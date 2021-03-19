@@ -11,7 +11,7 @@ public class MenuController extends Controller {
 
     private final MenuView view;
 
-    public MenuController(Stage mainWindow) {
+    public MenuController(Stage window) {
         BrandDAO brand = MainApplication.getBrandDAO();
         ModelDAO model = MainApplication.getModelDAO();
 
@@ -28,12 +28,12 @@ public class MenuController extends Controller {
         });
 
         this.view.getMenuClose().setOnAction(e -> {
-            mainWindow.close();
+            window.close();
         });
     }
 
     @Override
     public View getView() {
-        return null;
+        return view;
     }
 }

@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class TextBrandDAO extends BrandDAO {
 
-    private final File FILENAME = new File("/data/brands.txt");
+    private final File FILENAME = new File("brands.txt");
 
 
     @Override

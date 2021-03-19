@@ -7,12 +7,15 @@ import practicumopdracht.data.DAO;
 import practicumopdracht.models.Brand;
 import practicumopdracht.views.BrandView;
 
+import java.util.List;
+
 /**
  * @author Mohammed Malloul
  */
 
 public class BrandController extends Controller {
 
+    private List<Brand> brands;
     private final DAO<Brand> brandDAO;
     private final BrandView brandView;
     private ObservableList<Brand> brandObservableList;
@@ -35,7 +38,8 @@ public class BrandController extends Controller {
         });
         //Detail button gets disabled, listener added to selection and value is send to the setBrand method
         brandView.getListView().getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            brandView.setBrand(newValue);
+            brandView.setBrand( newValue);
+
         });
         //opens up the Model view
         brandView.getDetails().setOnAction(actionEvent -> {
@@ -49,6 +53,17 @@ public class BrandController extends Controller {
 
         //updates the listView
         updateListView();
+    }
+
+
+    public BrandController(List<Brand> brands) {
+        this();
+        this.setBrand(brands);
+    }
+
+    public void setBrand(List<Brand> brands){
+        this.brands = brands;
+        this.brandView.setBrands(brands);
     }
 
     //Checks if a brand is selected, if yes it allows acces to the switch controller
