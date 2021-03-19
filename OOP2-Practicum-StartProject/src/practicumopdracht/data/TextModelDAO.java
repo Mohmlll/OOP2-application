@@ -48,10 +48,10 @@ public class TextModelDAO extends ModelDAO {
                 String rawLine = scanner.nextLine();
                 String[] parts = rawLine.split(",");
 
-                
-                Brand brand = brandDAO.getById();
 
-                Model model = new Model(brand, parts[0], parts[1], Double.parseDouble(parts[2]), LocalDate.parse(parts[3]), Boolean.parseBoolean(parts[4]));
+                Brand brand = brandDAO.getById(Integer.parseInt(parts[0]));
+
+                Model model = new Model(brand, parts[1], parts[2], Double.parseDouble(parts[3]), LocalDate.parse(parts[4]), Boolean.parseBoolean(parts[5]));
 
                 this.objects.add(model);
             }
