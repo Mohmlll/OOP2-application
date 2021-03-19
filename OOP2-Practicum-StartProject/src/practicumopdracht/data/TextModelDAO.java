@@ -20,8 +20,9 @@ public class TextModelDAO extends ModelDAO {
         try {
             writer = new PrintWriter(FILENAME);
             for (Model models : this.objects) {
+                int brandId = brandDAO.getIdFor(models.getBrand());
                 writer.write(String.format("%s,%s,%s,%s,%s,%s\n",
-                        models.getBrand(), models.getModelName(), models.getColor(),
+                        brandId, models.getModelName(), models.getColor(),
                         models.getPrice(), models.getReleaseDate(), models.isSaleChoice()));
             }
             return true;
@@ -49,6 +50,7 @@ public class TextModelDAO extends ModelDAO {
                 String[] parts = rawLine.split(",");
 
                 int brandId = Integer.parseInt(parts[0]);
+
                 Brand brand = brandDAO.getById(brandId);
 
                 Model model = new Model(brand, parts[1], parts[2], Double.parseDouble(parts[3]), LocalDate.parse(parts[4]), Boolean.parseBoolean(parts[5]));
