@@ -38,7 +38,7 @@ public class BrandController extends Controller {
         });
         //Detail button gets disabled, listener added to selection and value is send to the setBrand method
         brandView.getListView().getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            brandView.setBrand( newValue);
+            brandView.setBrand(newValue);
 
         });
         //opens up the Model view
@@ -61,7 +61,7 @@ public class BrandController extends Controller {
         this.setBrand(brands);
     }
 
-    public void setBrand(List<Brand> brands){
+    public void setBrand(List<Brand> brands) {
         this.brands = brands;
         this.brandView.setBrands(brands);
     }

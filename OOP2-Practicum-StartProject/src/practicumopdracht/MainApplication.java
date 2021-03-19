@@ -20,8 +20,8 @@ public class MainApplication extends Application {
 
     private static BorderPane mainPane;
     private static MenuController menuController;
-    private static BrandDAO brandDAO = new TextBrandDAO();
-    private static ModelDAO modelDAO = new TextModelDAO();
+    private static final BrandDAO brandDAO = new TextBrandDAO();
+    private static final ModelDAO modelDAO = new TextModelDAO();
 
     public static BrandDAO getBrandDAO() {
         return brandDAO;

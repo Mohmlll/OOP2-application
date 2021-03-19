@@ -12,7 +12,7 @@ public class MenuView extends View {
     private final MenuItem menuSave = new MenuItem("Save");
     private final MenuItem menuClose = new MenuItem("Exit");
 
-    private Alert menuAlert;
+    private final Alert menuAlert;
 
     private final MenuBar root;
 

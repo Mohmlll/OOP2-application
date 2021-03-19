@@ -8,7 +8,6 @@ import practicumopdracht.data.ModelDAO;
 import practicumopdracht.views.MenuView;
 import practicumopdracht.views.View;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public class MenuController extends Controller {
@@ -26,7 +25,7 @@ public class MenuController extends Controller {
             view.getMenuAlert().setTitle("Save");
             view.getMenuAlert().setContentText("are you sure you want to save?");
             Optional<ButtonType> alert = view.getMenuAlert().showAndWait();
-            if (alert.get() == ButtonType.OK){
+            if (alert.get() == ButtonType.OK) {
                 brand.save();
                 model.save();
             }
@@ -38,7 +37,7 @@ public class MenuController extends Controller {
             view.getMenuAlert().setTitle("Load");
             view.getMenuAlert().setContentText("are you sure you want to load?");
             Optional<ButtonType> alert = view.getMenuAlert().showAndWait();
-            if (alert.get() == ButtonType.OK){
+            if (alert.get() == ButtonType.OK) {
                 brand.load();
                 model.load();
             }
@@ -48,7 +47,7 @@ public class MenuController extends Controller {
             view.getMenuAlert().setTitle("Exit");
             view.getMenuAlert().setContentText("Do you want to save before exiting?");
             Optional<ButtonType> alert = view.getMenuAlert().showAndWait();
-            if (alert.get() == ButtonType.OK){
+            if (alert.get() == ButtonType.OK) {
                 brand.save();
                 model.save();
             }

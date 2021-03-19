@@ -41,7 +41,7 @@ public abstract class BrandDAO implements DAO<Brand> {
         return this.objects.get(i);
     }
 
-    public int getIdFor(Brand brand){
+    public int getIdFor(Brand brand) {
         return this.objects.indexOf(brand);
     }
 

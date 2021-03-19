@@ -31,7 +31,7 @@ public class BrandView extends View {
     private Alert alertSave;
     private Alert alertDeleteList;
 
-    private ListView<Brand> brands = new ListView<>();
+    private final ListView<Brand> brands = new ListView<>();
 
     public BrandView() {
         initializeRoot();
@@ -130,7 +130,7 @@ public class BrandView extends View {
         root = vbox;
     }
 
-//    If brand is null then the details button will be disabled
+    //    If brand is null then the details button will be disabled
 //    if brand is not null the the details button will not be disabled
 //    and the fields will be filled in with data from the brand
     public void setBrand(Brand brand) {
@@ -147,9 +147,9 @@ public class BrandView extends View {
 
     public void setBrands(List<Brand> brands) {
 
-      this.setBrand(null);
-      this.brands.getItems().clear();
-      this.brands.getItems().addAll(brands);
+        this.setBrand(null);
+        this.brands.getItems().clear();
+        this.brands.getItems().addAll(brands);
 
     }
 
