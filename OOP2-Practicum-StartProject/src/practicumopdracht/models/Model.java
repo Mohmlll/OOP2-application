@@ -1,5 +1,6 @@
 package practicumopdracht.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -8,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  */
 
 
-public class Model {
+public class Model implements Serializable {
 
     private String modelName;
     private double price;

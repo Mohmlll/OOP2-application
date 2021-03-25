@@ -1,2 +1,0 @@
-Samsung,       CeoName,       99999999.99,       test
-Samsung,       CeoName,       99999999.99,       test

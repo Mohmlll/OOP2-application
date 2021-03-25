@@ -12,13 +12,16 @@ public class MenuView extends View {
     private final MenuItem menuSave = new MenuItem("Save");
     private final MenuItem menuClose = new MenuItem("Exit");
 
+    private final MenuItem ascending = new MenuItem("A-Z");
+    private final MenuItem descending = new MenuItem("Z-A");
     private final Alert menuAlert;
 
     private final MenuBar root;
 
     public MenuView() {
         Menu menu = new Menu("File", null, menuLoad, menuSave, menuClose);
-        this.root = new MenuBar(menu);
+        Menu soorteerMenu = new Menu("Sort", null, ascending, descending);
+        this.root = new MenuBar(menu, soorteerMenu);
 
         menuAlert = new Alert(Alert.AlertType.CONFIRMATION);
     }
@@ -37,6 +40,14 @@ public class MenuView extends View {
 
     public Alert getMenuAlert() {
         return menuAlert;
+    }
+
+    public MenuItem getAscending() {
+        return ascending;
+    }
+
+    public MenuItem getDescending() {
+        return descending;
     }
 
     @Override

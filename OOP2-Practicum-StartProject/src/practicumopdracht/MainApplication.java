@@ -7,10 +7,7 @@ import javafx.stage.Stage;
 import practicumopdracht.controller.BrandController;
 import practicumopdracht.controller.Controller;
 import practicumopdracht.controller.MenuController;
-import practicumopdracht.data.BrandDAO;
-import practicumopdracht.data.ModelDAO;
-import practicumopdracht.data.TextBrandDAO;
-import practicumopdracht.data.TextModelDAO;
+import practicumopdracht.data.*;
 
 /**
  * @author Mohammed Malloul
@@ -20,8 +17,12 @@ public class MainApplication extends Application {
 
     private static BorderPane mainPane;
     private static MenuController menuController;
-    private static final BrandDAO brandDAO = new TextBrandDAO();
-    private static final ModelDAO modelDAO = new TextModelDAO();
+    private static BrandDAO brandDAO = new BinaryBrandDAO();
+    private static ModelDAO modelDAO = new ObjectModelDAO();
+//    private static BrandDAO brandDAO = new TextBrandDAO();
+//    private static ModelDAO modelDAO = new TextModelDAO();
+//    private static ModelDAO modelDAO = new FakeModelDAO();
+//    private static BrandDAO brandDAO = new FakeBrandDAO();
 
     public static BrandDAO getBrandDAO() {
         return brandDAO;
@@ -33,9 +34,6 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-
-        menuController = new MenuController(stage);
-
         if (!Main.launchedFromMain) {
             System.err.println("Je moet deze applicatie opstarten vanuit de Main-class, niet de MainApplication-class!");
             System.exit(1337);
@@ -43,16 +41,18 @@ public class MainApplication extends Application {
             return;
         }
 
+        mainPane = new BorderPane();
+
         brandDAO.load();
         modelDAO.load();
 
-        mainPane = new BorderPane();
+        BrandController controller = new BrandController(brandDAO.getAll());
 
-        mainPane.setTop(menuController.getView().getRoot());
-
-        Controller controller = new BrandController(brandDAO.getAll());
+        menuController = new MenuController(stage, controller);
 
         switchController(controller);
+
+        mainPane.setTop(menuController.getView().getRoot());
 
         stage.setScene(new Scene(mainPane));
 
@@ -60,8 +60,6 @@ public class MainApplication extends Application {
         stage.setWidth(640);
         stage.setHeight(480);
         stage.show();
-
-
     }
 
     public static void switchController(Controller controller) {

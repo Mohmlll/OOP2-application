@@ -2,6 +2,7 @@ package practicumopdracht.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import practicumopdracht.Main;
 import practicumopdracht.MainApplication;
 import practicumopdracht.data.DAO;
 import practicumopdracht.models.Brand;
@@ -19,7 +20,6 @@ public class BrandController extends Controller {
     private final DAO<Brand> brandDAO;
     private final BrandView brandView;
     private ObservableList<Brand> brandObservableList;
-
 
     public BrandController() {
         brandDAO = MainApplication.getBrandDAO();
@@ -82,12 +82,10 @@ public class BrandController extends Controller {
         brandView.getListView().setItems(brandObservableList);
     }
 
-    //method that loads in the brands from the DAO and updates the list
-    private void onLoadBrand() {
-        brandDAO.load();
-        updateListView();
+    //refreshes listview
+    public void refresh(){
+        this.brandView.setBrands(MainApplication.getBrandDAO().getAll());
     }
-
     //methods that deletes a brand (outdated)
     private void onRemoveBrand() {
         Brand selectedBrand = brandView.getListView().getSelectionModel().getSelectedItem();
@@ -111,6 +109,7 @@ public class BrandController extends Controller {
         String networthCEO = brandView.getNetworth().getText();
         String descriptrion = brandView.getTextArea().getText();
         validateBrand(brandName, networthCEO, nameCEO);
+
         if (!checkString(brandName) && !checkString(nameCEO) && checkDouble(networthCEO)) {
 
             if (brand == null) {
