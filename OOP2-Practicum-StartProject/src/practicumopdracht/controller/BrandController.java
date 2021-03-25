@@ -4,10 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import practicumopdracht.Main;
 import practicumopdracht.MainApplication;
+import practicumopdracht.comparators.BrandComparator;
 import practicumopdracht.data.DAO;
 import practicumopdracht.models.Brand;
 import practicumopdracht.views.BrandView;
+import practicumopdracht.views.View;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -71,7 +74,8 @@ public class BrandController extends Controller {
         Brand selectedBrand = brandView.getSelectedBrand();
 
         if (selectedBrand != null) {
-            ModelController modelController = new ModelController(selectedBrand);
+            ModelController modelController;
+            modelController = new ModelController(selectedBrand);
             MainApplication.switchController(modelController);
         }
     }
@@ -86,6 +90,8 @@ public class BrandController extends Controller {
     public void refresh(){
         this.brandView.setBrands(MainApplication.getBrandDAO().getAll());
     }
+
+
     //methods that deletes a brand (outdated)
     private void onRemoveBrand() {
         Brand selectedBrand = brandView.getListView().getSelectionModel().getSelectedItem();
@@ -172,9 +178,13 @@ public class BrandController extends Controller {
         return text.matches("^\\d+(\\.\\d+)+$");
     }
 
-    //method checks if textfield input is a double
-    public BrandView getView() {
+    public View getView() {
         return brandView;
+    }
+
+
+    public void sort(BrandComparator brandComparator) {
+        brandView.getListView().getItems().sort(brandComparator);
     }
 
 }

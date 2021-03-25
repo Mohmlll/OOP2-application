@@ -7,6 +7,7 @@ import practicumopdracht.data.DAO;
 import practicumopdracht.models.Brand;
 import practicumopdracht.models.Model;
 import practicumopdracht.views.ModelView;
+import practicumopdracht.views.View;
 
 import java.time.LocalDate;
 
@@ -175,7 +176,7 @@ public class ModelController extends Controller {
         return text.matches("^\\d+(\\.\\d+)+$");
     }
 
-    public ModelView getView() {
+    public View getView() {
         return modelView;
     }
 }

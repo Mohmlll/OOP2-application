@@ -1,8 +1,13 @@
 package practicumopdracht.comparators;
 
-public class ModelComparator<Model> implements Comparable<Model>{
+import practicumopdracht.models.Model;
+
+import java.util.Comparator;
+
+public class ModelComparator implements Comparator<Model> {
+
     @Override
-    public int compareTo(Model o) {
-        return 0;
+    public int compare(Model o1, Model o2) {
+        return o1.toString().compareTo(o2.toString());
     }
 }
