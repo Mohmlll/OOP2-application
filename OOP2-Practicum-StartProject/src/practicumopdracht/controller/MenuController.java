@@ -2,8 +2,10 @@ package practicumopdracht.controller;
 
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import practicumopdracht.Main;
 import practicumopdracht.MainApplication;
 import practicumopdracht.comparators.BrandComparator;
+import practicumopdracht.comparators.ModelComparator;
 import practicumopdracht.data.BrandDAO;
 import practicumopdracht.data.ModelDAO;
 import practicumopdracht.views.MenuView;
@@ -14,11 +16,13 @@ import java.util.Optional;
 public class MenuController extends Controller {
 
     private final MenuView view;
+    private ModelController modelController;
+    private BrandController brandController;
 
-
-    public MenuController(Stage window, BrandController controller) {
+    public MenuController(Stage window) {
         this.view = new MenuView();
-
+        modelController = MainApplication.getModelController();
+        this.brandController = MainApplication.getBrandController();
 
         BrandDAO brand = MainApplication.getBrandDAO();
         ModelDAO model = MainApplication.getModelDAO();
@@ -31,8 +35,6 @@ public class MenuController extends Controller {
                 brand.save();
                 model.save();
             }
-
-
         });
 
         this.view.getMenuLoad().setOnAction(e -> {
@@ -44,7 +46,7 @@ public class MenuController extends Controller {
                 brand.load();
                 model.load();
 
-                controller.refresh();
+                brandController.refresh();
             }
         });
 
@@ -62,12 +64,16 @@ public class MenuController extends Controller {
 
         this.view.getAscending().setOnAction(e -> {
             BrandComparator brandComparator = new BrandComparator(true);
-            controller.sort(brandComparator);
+            ModelComparator modelComparator = new ModelComparator(true);
+            brandController.sort(brandComparator);
+//            modelController.sort(modelComparator);
         });
 
         this.view.getDescending().setOnAction(e -> {
             BrandComparator brandComparator = new BrandComparator(false);
-            controller.sort(brandComparator);
+            ModelComparator modelComparator = new ModelComparator(false);
+            brandController.sort(brandComparator);
+//            modelController.sort(modelComparator);
         });
     }
 

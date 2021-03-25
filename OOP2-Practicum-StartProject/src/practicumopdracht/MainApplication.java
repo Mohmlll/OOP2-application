@@ -19,8 +19,11 @@ public class MainApplication extends Application {
     private static BorderPane mainPane;
     private static MenuController menuController;
     private static BrandController brandController;
+    private static ModelController modelController;
+    
     private static BrandDAO brandDAO = new BinaryBrandDAO();
     private static ModelDAO modelDAO = new ObjectModelDAO();
+
 //    private static BrandDAO brandDAO = new TextBrandDAO();
 //    private static ModelDAO modelDAO = new TextModelDAO();
 //    private static ModelDAO modelDAO = new FakeModelDAO();
@@ -32,6 +35,18 @@ public class MainApplication extends Application {
 
     public static ModelDAO getModelDAO() {
         return modelDAO;
+    }
+
+    public static ModelController getModelController() {
+        return modelController;
+    }
+
+    public static BrandController getBrandController() {
+        return brandController;
+    }
+
+    public static void setModelController(ModelController modelController) {
+        MainApplication.modelController = modelController;
     }
 
     @Override
@@ -49,11 +64,9 @@ public class MainApplication extends Application {
         modelDAO.load();
 
         brandController = new BrandController(brandDAO.getAll());
-
-        menuController = new MenuController(stage, brandController);
-
         switchController(brandController);
 
+        menuController = new MenuController(stage);
         mainPane.setTop(menuController.getView().getRoot());
 
         stage.setScene(new Scene(mainPane));

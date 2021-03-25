@@ -131,8 +131,8 @@ public class BrandView extends View {
     }
 
     //    If brand is null then the details button will be disabled
-//    if brand is not null the the details button will not be disabled
-//    and the fields will be filled in with data from the brand
+    //    if brand is not null the the details button will not be disabled
+    //    and the fields will be filled in with data from the brand
     public void setBrand(Brand brand) {
         if (brand == null) {
             this.details.setDisable(true);

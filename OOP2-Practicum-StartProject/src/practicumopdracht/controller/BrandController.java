@@ -7,6 +7,7 @@ import practicumopdracht.MainApplication;
 import practicumopdracht.comparators.BrandComparator;
 import practicumopdracht.data.DAO;
 import practicumopdracht.models.Brand;
+import practicumopdracht.models.Model;
 import practicumopdracht.views.BrandView;
 import practicumopdracht.views.View;
 
@@ -22,9 +23,12 @@ public class BrandController extends Controller {
     private List<Brand> brands;
     private final DAO<Brand> brandDAO;
     private final BrandView brandView;
+    private ModelController modelController;
     private ObservableList<Brand> brandObservableList;
 
+
     public BrandController() {
+        modelController = MainApplication.getModelController();
         brandDAO = MainApplication.getBrandDAO();
         brandView = new BrandView();
 
@@ -56,6 +60,10 @@ public class BrandController extends Controller {
 
         //updates the listView
         updateListView();
+
+        //sorts the brands from A tot Z on start up
+        BrandComparator comparator = new BrandComparator(true);
+        sort(comparator);
     }
 
 
@@ -74,7 +82,6 @@ public class BrandController extends Controller {
         Brand selectedBrand = brandView.getSelectedBrand();
 
         if (selectedBrand != null) {
-            ModelController modelController;
             modelController = new ModelController(selectedBrand);
             MainApplication.switchController(modelController);
         }
@@ -150,6 +157,10 @@ public class BrandController extends Controller {
         brandView.getTextArea().clear();
     }
 
+    public void sort(BrandComparator brandComparator) {
+        brandView.getListView().getItems().sort(brandComparator);
+    }
+
     //method that checks what input is valid and creates an alert string for the Alert in the BrandView
     private void validateBrand(String brandName, String networthCEO, String nameCEO) {
         String alertString = "";
@@ -182,9 +193,5 @@ public class BrandController extends Controller {
         return brandView;
     }
 
-
-    public void sort(BrandComparator brandComparator) {
-        brandView.getListView().getItems().sort(brandComparator);
-    }
 
 }

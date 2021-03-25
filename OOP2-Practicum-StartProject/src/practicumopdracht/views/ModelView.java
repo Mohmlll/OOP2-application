@@ -23,10 +23,14 @@ public class ModelView extends View {
     private CheckBox saleCheckbox;
     private ListView<Model> modelListView;
 
+    private RadioButton ascending;
+    private RadioButton descending;
+
     private Button save;
     private Button delete;
     private Button backButton;
     private Button newModel;
+
     private Alert alertDelete;
     private Alert alertSave;
     private Alert alertDeleteList;
@@ -92,6 +96,18 @@ public class ModelView extends View {
         modelListView = new ListView<Model>();
         modelListView.setMinSize(600, 80);
 
+        HBox hBoxRadioButtons = new HBox();
+        ToggleGroup radioButtonGroup = new ToggleGroup();
+        Label sortLabel = new Label("Sort:");
+        descending = new RadioButton();
+        descending.setToggleGroup(radioButtonGroup);
+        descending.setSelected(true);
+        descending.setText("Type #1 (A-Z)");
+        ascending = new RadioButton();
+        ascending.setToggleGroup(radioButtonGroup);
+        ascending.setText("Type #1 (Z-A)");
+        hBoxCheckBox.getChildren().addAll(sortLabel, descending, ascending);
+
         HBox hBoxButtons = new HBox();
         delete = new Button("Delete");
         delete.setMinWidth(150);
@@ -121,7 +137,8 @@ public class ModelView extends View {
         gridPaneModel.add(hBoxCheckBox, 0, 6);
         gridPaneModel.add(hBoxSave, 0, 7);
         gridPaneModel.add(modelListView, 0, 8);
-        gridPaneModel.add(hBoxButtons, 0, 9);
+        gridPaneModel.add(hBoxRadioButtons, 1, 9);
+        gridPaneModel.add(hBoxButtons, 0, 10);
 
         //horizontal gap in pixels
         gridPaneModel.setHgap(10);
@@ -204,6 +221,14 @@ public class ModelView extends View {
 
     public Button getNewModel() {
         return newModel;
+    }
+
+    public RadioButton getAscending() {
+        return ascending;
+    }
+
+    public RadioButton getDescending() {
+        return descending;
     }
 
     @Override

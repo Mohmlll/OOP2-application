@@ -3,6 +3,8 @@ package practicumopdracht.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import practicumopdracht.MainApplication;
+import practicumopdracht.comparators.BrandComparator;
+import practicumopdracht.comparators.ModelComparator;
 import practicumopdracht.data.DAO;
 import practicumopdracht.models.Brand;
 import practicumopdracht.models.Model;
@@ -58,8 +60,22 @@ public class ModelController extends Controller {
             clearFields();
         });
 
+        modelView.getAscending().setOnAction(actionEvent -> {
+            ModelComparator modelComparator =  new ModelComparator(false);
+            sort(modelComparator);
+        });
+
+        modelView.getDescending().setOnAction(actionEvent -> {
+            ModelComparator modelComparator =  new ModelComparator(true);
+            sort(modelComparator);
+        });
+
         //updates the ListView.
         updateListView(brand);
+
+        //Sorts list from A-Z on start up
+        ModelComparator startComparator = new ModelComparator(true);
+        sort(startComparator);
 
     }
 
@@ -138,6 +154,11 @@ public class ModelController extends Controller {
         modelView.getDatePicker().getEditor().clear();
         modelView.getSaleCheckBox().setSelected(false);
     }
+
+    public void sort(ModelComparator modelComparator) {
+        modelView.getModelListView().getItems().sort(modelComparator);
+    }
+
 
     //method that checks what input is valid and creates an alert string for the Alert in the ModelView
     private void validateModel(String modelName, String price, String color, LocalDate releaseDate) {
