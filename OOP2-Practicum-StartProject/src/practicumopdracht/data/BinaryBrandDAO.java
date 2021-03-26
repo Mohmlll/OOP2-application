@@ -1,8 +1,11 @@
 package practicumopdracht.data;
 
 import practicumopdracht.models.Brand;
-
 import java.io.*;
+
+/**
+ * @author Mohammed Malloul
+ */
 
 public class BinaryBrandDAO extends BrandDAO {
 
@@ -15,9 +18,9 @@ public class BinaryBrandDAO extends BrandDAO {
             FileOutputStream fileOutputStream = new FileOutputStream(FILENAME);
             DataOutputStream outputStream = new DataOutputStream(fileOutputStream);
 
-            outputStream.writeInt(this.objects.size());
+            outputStream.writeInt(this.brands.size());
 
-            for (Brand brand : this.objects) {
+            for (Brand brand : this.brands) {
                 outputStream.writeUTF(brand.getBrandName());
                 outputStream.writeUTF(brand.getCeo());
                 outputStream.writeUTF(brand.getNetWorth());
@@ -45,7 +48,8 @@ public class BinaryBrandDAO extends BrandDAO {
             DataInputStream dataInputStream = new DataInputStream(fileInputStream);
 
             int numberOfBrands = dataInputStream.readInt();
-
+            //clears the list before loading the new data from the file
+            this.brands.clear();
             for (int i = 0; i < numberOfBrands; i++) {
                 String nameBrand = dataInputStream.readUTF();
                 String nameCEO = dataInputStream.readUTF();
@@ -53,7 +57,7 @@ public class BinaryBrandDAO extends BrandDAO {
                 String description = dataInputStream.readUTF();
 
                 Brand brand = new Brand(nameBrand, nameCEO, networth, description);
-                this.objects.add(brand);
+                this.brands.add(brand);
             }
             //makes sure the file is closed and the file is free.
             dataInputStream.close();

@@ -5,30 +5,33 @@ import practicumopdracht.models.Brand;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Mohammed Malloul
+ */
 
 public abstract class BrandDAO implements DAO<Brand> {
 
-    protected List<Brand> objects;
+    protected List<Brand> brands;
 
     public BrandDAO() {
-        objects = new ArrayList<>();
+        brands = new ArrayList<>();
     }
 
     @Override
     public List<Brand> getAll() {
-        return objects;
+        return brands;
     }
 
     @Override
     public void addOrUpdate(Brand object) {
-        if (!objects.contains(object)) {
-            objects.add(object);
+        if (!brands.contains(object)) {
+            brands.add(object);
         }
     }
 
     @Override
     public void remove(Brand object) {
-        objects.remove(object);
+        brands.remove(object);
     }
 
     @Override
@@ -38,11 +41,11 @@ public abstract class BrandDAO implements DAO<Brand> {
     public abstract boolean load();
 
     public Brand getById(int i) {
-        return this.objects.get(i);
+        return this.brands.get(i);
     }
 
     public int getIdFor(Brand brand) {
-        return this.objects.indexOf(brand);
+        return this.brands.indexOf(brand);
     }
 
 }

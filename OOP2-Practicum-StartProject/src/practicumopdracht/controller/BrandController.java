@@ -12,23 +12,27 @@ import practicumopdracht.views.View;
 import java.util.List;
 
 /**
+ * Controller for the master items
+ *
  * @author Mohammed Malloul
  */
 
 public class BrandController extends Controller {
 
-    private List<Brand> brands;
     private final DAO<Brand> brandDAO;
     private final BrandView brandView;
     private ObservableList<Brand> brandObservableList;
+    private static ModelController modelController;
 
     public BrandController() {
         brandDAO = MainApplication.getBrandDAO();
         brandView = new BrandView();
+        modelController = new ModelController(selectedBrand());
 
         //adds a new brand name
+
         brandView.getSave().setOnAction(actionEvent -> {
-            onAddBrand();
+            onAddOrUpdateBrand();
         });
 
         //deletes a brand name from the list
@@ -39,7 +43,7 @@ public class BrandController extends Controller {
         });
         //Detail button gets disabled, listener added to selection and value is send to the setBrand method
         brandView.getListView().getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            brandView.setBrand(newValue);
+            brandView.setSelectedBrand(newValue);
 
         });
         //opens up the Model view
@@ -60,40 +64,68 @@ public class BrandController extends Controller {
         sort(comparator);
     }
 
+    /**
+     * Constructor chaining for a selected brand
+     *
+     * @param brands list of brands
+     */
     public BrandController(List<Brand> brands) {
         this();
         this.setBrand(brands);
     }
 
+    /**
+     * Methods calles the SetBrand() method from the BrandView Class
+     *
+     * @param brands list of brands
+     */
     public void setBrand(List<Brand> brands) {
-        this.brands = brands;
         this.brandView.setBrands(brands);
     }
 
-    //Checks if a brand is selected, if yes it allows acces to the switch controller
-    private void moveToDetails() {
-        Brand selectedBrand = brandView.getSelectedBrand();
-
-        if (selectedBrand != null) {
-            ModelController modelController;
-            modelController = new ModelController(selectedBrand);
-            MainApplication.switchController(modelController);
-        }
-    }
-
-    //updates the listView with the observable list
+    /**
+     * The observable list gets data from the DAO
+     * and updates it to the Listview
+     */
     private void updateListView() {
         brandObservableList = FXCollections.observableArrayList(brandDAO.getAll());
         brandView.getListView().setItems(brandObservableList);
     }
 
-    //refreshes listview
+    /**
+     * Calls the updateListView() method so the menu controller can use it.
+     */
     public void refresh() {
-        this.brandView.setBrands(MainApplication.getBrandDAO().getAll());
+        updateListView();
     }
 
+    /**
+     * Checks if a brand is selected,
+     * if yes it allows acces to the switch controller
+     */
+    private void moveToDetails() {
+        if (selectedBrand() != null) {
+            modelController = new ModelController(selectedBrand());
+            MainApplication.switchController(modelController);
+        }
+    }
 
-    //methods that deletes a brand (outdated)
+    /**
+     * Method that gets a selected brand from the brand view.
+     *
+     * @return a selected from the listview
+     */
+    private Brand selectedBrand() {
+        return brandView.getSelectedBrand();
+    }
+
+    /**
+     * This method removes a selected brand from the listview.
+     * The Brand selectedBrand gets the selected brand.
+     * getAlertDelete will show if there is no brand selected an alert will show to let the user know that there is no field selected.
+     * getAlertDeleteList will show If there is a brand selected and the user will have to confirm that he wants the brand deleted
+     * If the user wants the brand deleted the remove() method will remove the selected brand from the data.
+     */
     private void onRemoveBrand() {
         Brand selectedBrand = brandView.getListView().getSelectionModel().getSelectedItem();
 
@@ -107,9 +139,14 @@ public class BrandController extends Controller {
         updateListView();
     }
 
-    //method that adds a brand (outdated)
-    private void onAddBrand() {
-        Brand brand = brandView.getListView().getSelectionModel().getSelectedItem();
+    /**
+     * This method adds or updates a brand
+     * selectedBrand is a selected brand from the listView
+     * if selectedBrand is null, then a brand will be added.
+     * if selectedBrand is not null, then the selected brand will be updated
+     */
+    private void onAddOrUpdateBrand() {
+        Brand selectedBrand = brandView.getListView().getSelectionModel().getSelectedItem();
 
         String brandName = brandView.getBrandName().getText();
         String nameCEO = brandView.getNameCeo().getText();
@@ -118,18 +155,17 @@ public class BrandController extends Controller {
         validateBrand(brandName, networthCEO, nameCEO);
 
         if (!checkString(brandName) && !checkString(nameCEO) && checkDouble(networthCEO)) {
-
-            if (brand == null) {
+            if (selectedBrand == null) {
                 //if there is no selected brand a new brand will be added
                 Brand brandInput = new Brand(brandName, nameCEO, networthCEO, descriptrion);
 
                 brandDAO.addOrUpdate(brandInput);
             } else {
                 //if there is a selected brand than the new values of the brand wil be set here.
-                brand.setBrandName(brandName);
-                brand.setCeo(nameCEO);
-                brand.setNetWorth(networthCEO);
-                brand.setDescription(descriptrion);
+                selectedBrand.setBrandName(brandName);
+                selectedBrand.setCeo(nameCEO);
+                selectedBrand.setNetWorth(networthCEO);
+                selectedBrand.setDescription(descriptrion);
             }
             //clears textfield and checkbox after submit
             clearFields();
@@ -141,7 +177,9 @@ public class BrandController extends Controller {
         }
     }
 
-    //methode that clears field of model list.
+    /**
+     * this methods clears the input fields
+     */
     private void clearFields() {
         brandView.getListView().getSelectionModel().clearSelection();
         brandView.getBrandName().clear();
@@ -150,11 +188,24 @@ public class BrandController extends Controller {
         brandView.getTextArea().clear();
     }
 
+    /**
+     * This method sorts the list
+     *
+     * @param brandComparator -  Object from the BrandComparator Class
+     */
     public void sort(BrandComparator brandComparator) {
         brandView.getListView().getItems().sort(brandComparator);
     }
 
     //method that checks what input is valid and creates an alert string for the Alert in the BrandView
+
+    /**
+     * Methods validates the params and returns and adds and alertString to the saveAlert from the brandView
+     *
+     * @param brandName   - String name from brand
+     * @param networthCEO - String Networth from CEO
+     * @param nameCEO     -  String name from CEO
+     */
     private void validateBrand(String brandName, String networthCEO, String nameCEO) {
         String alertString = "";
 
@@ -172,14 +223,28 @@ public class BrandController extends Controller {
         }
     }
 
-    //method checks if date textfield is not empty
+    /**
+     * This methods checks if a String matches the regex
+     *
+     * @param text - String text that needs to be checked
+     * @return returns true if text matches, else it is false
+     */
     public boolean checkString(String text) {
         return text.matches("^$");
     }
 
-    //method checks if textfield input is not empty
+    /**
+     * This methods checks if a Double matches the regex
+     *
+     * @param text - Double that needs to be checked
+     * @return returns true if Double matches, else it is false
+     */
     public boolean checkDouble(String text) {
         return text.matches("^\\d+(\\.\\d+)+$");
+    }
+
+    public ModelController getModelController() {
+        return modelController;
     }
 
     public View getView() {

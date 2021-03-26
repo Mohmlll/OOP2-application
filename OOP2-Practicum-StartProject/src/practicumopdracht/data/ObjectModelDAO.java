@@ -7,6 +7,10 @@ import practicumopdracht.models.Model;
 import java.io.*;
 import java.time.LocalDate;
 
+/**
+ * @author Mohammed Malloul
+ */
+
 public class ObjectModelDAO extends ModelDAO {
     private final File FILENAME = new File("models.dat");
 
@@ -80,7 +84,7 @@ public class ObjectModelDAO extends ModelDAO {
             e.printStackTrace();
             System.out.println("Something went wrong while loading the Brand class!");
             return false;
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
             System.out.println("Index of brand from model is not correct!");
             return false;

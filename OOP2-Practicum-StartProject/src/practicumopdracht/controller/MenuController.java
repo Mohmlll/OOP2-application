@@ -4,7 +4,6 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import practicumopdracht.MainApplication;
 import practicumopdracht.comparators.BrandComparator;
-import practicumopdracht.comparators.ModelComparator;
 import practicumopdracht.data.BrandDAO;
 import practicumopdracht.data.ModelDAO;
 import practicumopdracht.views.MenuView;
@@ -12,18 +11,27 @@ import practicumopdracht.views.View;
 
 import java.util.Optional;
 
+/**
+ * Controller for the Menu
+ *
+ * @author Mohammed Malloul
+ */
+
 public class MenuController extends Controller {
 
+    private static ModelController modelController;
     private final MenuView view;
-    private BrandController brandController;
+    private final BrandController brandController;
 
     public MenuController(Stage window) {
         this.view = new MenuView();
         this.brandController = MainApplication.getBrandController();
+        modelController = brandController.getModelController();
 
         BrandDAO brand = MainApplication.getBrandDAO();
         ModelDAO model = MainApplication.getModelDAO();
 
+        //with confirmation from the alert the data from the brands and models will be saved into the DAOs
         this.view.getMenuSave().setOnAction(e -> {
             view.getMenuAlert().setTitle("Save");
             view.getMenuAlert().setContentText("are you sure you want to save?");
@@ -34,6 +42,7 @@ public class MenuController extends Controller {
             }
         });
 
+        //with confirmation from the alert the data from the brands and models will be loaded from the DAOs
         this.view.getMenuLoad().setOnAction(e -> {
             view.getMenuAlert().setTitle("Load");
             view.getMenuAlert().setContentText("are you sure you want to load?");
@@ -43,10 +52,12 @@ public class MenuController extends Controller {
                 brand.load();
                 model.load();
 
+                modelController.refresh();
                 brandController.refresh();
             }
         });
 
+        //with confirmation from the alert when exiting the data from the brands and models will be saved into the DAOs
         this.view.getMenuClose().setOnAction(e -> {
             view.getMenuAlert().setTitle("Exit");
             view.getMenuAlert().setContentText("Do you want to save before exiting?");
@@ -58,15 +69,15 @@ public class MenuController extends Controller {
             window.close();
         });
 
+        //sorts the brands in a ascending way
         this.view.getAscending().setOnAction(e -> {
             BrandComparator brandComparator = new BrandComparator(true);
-            ModelComparator modelComparator = new ModelComparator(true);
             brandController.sort(brandComparator);
         });
 
+        //sorts the brands in a descending way
         this.view.getDescending().setOnAction(e -> {
             BrandComparator brandComparator = new BrandComparator(false);
-            ModelComparator modelComparator = new ModelComparator(false);
             brandController.sort(brandComparator);
         });
     }

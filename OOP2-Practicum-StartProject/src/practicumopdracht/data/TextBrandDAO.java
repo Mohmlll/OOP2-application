@@ -6,6 +6,10 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * @author Mohammed Malloul
+ */
+
 public class TextBrandDAO extends BrandDAO {
 
     private final File FILENAME = new File("brands.txt");
@@ -16,7 +20,7 @@ public class TextBrandDAO extends BrandDAO {
         PrintWriter writer = null;
         try {
             writer = new PrintWriter(FILENAME);
-            for (Brand brand : this.objects) {
+            for (Brand brand : this.brands) {
                 writer.write(String.format("%s, %s, %s, %s\n",
                         brand.getBrandName(), brand.getCeo(), brand.getNetWorth(), brand.getDescription()));
             }
@@ -47,7 +51,7 @@ public class TextBrandDAO extends BrandDAO {
 
                 Brand brand = new Brand(parts[0], parts[1], parts[2], parts[3]);
 
-                this.objects.add(brand);
+                this.brands.add(brand);
             }
             return true;
         } catch (Exception ex) {
