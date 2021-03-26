@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 public class Main {
 
-    private static final boolean jaIkAccepteer = true;
+    private static boolean jaIkAccepteer = true;
     public static String studentNaam = "Mohammed Malloul";
     public static String studentNummer = "500760524";
     public static boolean launchedFromMain;

@@ -11,6 +11,8 @@ import practicumopdracht.models.Brand;
 import java.util.List;
 
 /**
+ * view from the Master called Brand
+ *
  * @author Mohammed Malloul
  */
 
@@ -22,11 +24,14 @@ public class BrandView extends View {
     private TextField nameCeo;
     private TextField networth;
     private TextArea textArea;
-    private Button save;
+
     private ListView<Brand> listView;
+
+    private Button save;
     private Button delete;
     private Button details;
     private Button newBrand;
+
     private Alert alertDelete;
     private Alert alertSave;
     private Alert alertDeleteList;
@@ -133,7 +138,7 @@ public class BrandView extends View {
     //    If brand is null then the details button will be disabled
     //    if brand is not null the the details button will not be disabled
     //    and the fields will be filled in with data from the brand
-    public void setBrand(Brand brand) {
+    public void setSelectedBrand(Brand brand) {
         if (brand == null) {
             this.details.setDisable(true);
         } else {
@@ -146,8 +151,7 @@ public class BrandView extends View {
     }
 
     public void setBrands(List<Brand> brands) {
-
-        this.setBrand(null);
+        this.setSelectedBrand(null);
         this.brands.getItems().clear();
         this.brands.getItems().addAll(brands);
 

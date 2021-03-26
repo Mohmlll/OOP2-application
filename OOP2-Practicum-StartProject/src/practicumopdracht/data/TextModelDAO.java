@@ -9,10 +9,14 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * @author Mohammed Malloul
+ */
+
 public class TextModelDAO extends ModelDAO {
 
     private final File FILENAME = new File("models.txt");
-    private final BrandDAO brandDAO = MainApplication.getBrandDAO();
+    private BrandDAO brandDAO = MainApplication.getBrandDAO();
 
     @Override
     public boolean save() {

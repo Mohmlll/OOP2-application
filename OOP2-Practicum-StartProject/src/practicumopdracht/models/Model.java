@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
  * @author Mohammed Malloul
  */
 
-
 public class Model implements Serializable {
 
     private String modelName;
@@ -18,6 +17,14 @@ public class Model implements Serializable {
     private LocalDate releaseDate;
     private Brand brand;
 
+    /**
+     * @param brand       - Brand brand from the model
+     * @param modelName   - String name from the model
+     * @param color       - String color from the model
+     * @param price       - double price from the model
+     * @param releaseDate - LocalDate releasedate from the model
+     * @param saleChoice  - boolean saleschoice from the model
+     */
     public Model(Brand brand, String modelName, String color, double price, LocalDate releaseDate, boolean saleChoice) {
         this.brand = brand;
         this.modelName = modelName;

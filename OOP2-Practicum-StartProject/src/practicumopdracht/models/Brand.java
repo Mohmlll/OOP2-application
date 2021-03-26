@@ -11,6 +11,12 @@ public class Brand {
     private String netWorth;
     private String description;
 
+    /**
+     * @param brandName   - String name of brand
+     * @param ceo         - String name of ceo
+     * @param netWorth    - String of networth of brand
+     * @param description - String of description from brand
+     */
     public Brand(String brandName, String ceo, String netWorth, String description) {
         this.brandName = brandName;
         this.ceo = ceo;

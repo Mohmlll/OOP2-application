@@ -7,6 +7,10 @@ import practicumopdracht.models.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Mohammed Malloul
+ */
+
 public abstract class ModelDAO implements DAO<Model> {
 
     protected List<Model> objects;

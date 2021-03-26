@@ -6,17 +6,24 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
+/**
+ * view from the Menu
+ *
+ * @author Mohammed Malloul
+ */
+
+
 public class MenuView extends View {
 
-    private final MenuItem menuLoad = new MenuItem("Load");
-    private final MenuItem menuSave = new MenuItem("Save");
-    private final MenuItem menuClose = new MenuItem("Exit");
+    private MenuItem menuLoad = new MenuItem("Load");
+    private MenuItem menuSave = new MenuItem("Save");
+    private MenuItem menuClose = new MenuItem("Exit");
 
-    private final MenuItem ascending = new MenuItem("A-Z");
-    private final MenuItem descending = new MenuItem("Z-A");
-    private final Alert menuAlert;
+    private MenuItem ascending = new MenuItem("A-Z");
+    private MenuItem descending = new MenuItem("Z-A");
+    private Alert menuAlert;
 
-    private final MenuBar root;
+    private MenuBar root;
 
     public MenuView() {
         Menu menu = new Menu("File", null, menuLoad, menuSave, menuClose);

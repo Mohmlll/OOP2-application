@@ -7,6 +7,10 @@ import practicumopdracht.models.Model;
 
 import java.time.LocalDate;
 
+/**
+ * @author Mohammed Malloul
+ */
+
 public class FakeModelDAO extends ModelDAO {
     @Override
     public boolean save() {

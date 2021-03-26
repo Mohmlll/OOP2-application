@@ -9,6 +9,12 @@ import javafx.scene.layout.VBox;
 import practicumopdracht.models.Brand;
 import practicumopdracht.models.Model;
 
+/**
+ * view from the Detail called Model
+ *
+ * @author Mohammed Malloul
+ */
+
 
 public class ModelView extends View {
 
