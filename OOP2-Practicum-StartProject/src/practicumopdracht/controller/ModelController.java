@@ -2,12 +2,15 @@ package practicumopdracht.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import practicumopdracht.Main;
 import practicumopdracht.MainApplication;
 import practicumopdracht.comparators.ModelComparator;
 import practicumopdracht.data.DAO;
 import practicumopdracht.models.Brand;
 import practicumopdracht.models.Model;
 import practicumopdracht.views.ModelView;
+import practicumopdracht.views.View;
+
 import java.time.LocalDate;
 
 /**
@@ -21,13 +24,14 @@ public class ModelController extends Controller {
     private DAO<Model> modelDAO;
     private ModelView modelView;
     private ObservableList<Model> modelObservableList;
-    private Brand brand;
+    private Brand selectedBrand;
     private Model model;
+    private BrandController brandController;
 
-    public ModelController(Brand selectedBrand) {
+    public ModelController() {
         modelDAO = MainApplication.getModelDAO();
         modelView = new ModelView();
-        brand = selectedBrand;
+        brandController = MainApplication.getBrandController();
 
         //Adds a model to the list.
         modelView.getSave().setOnAction(actionEvent -> onAddOrUpdateModel());
@@ -46,13 +50,13 @@ public class ModelController extends Controller {
             updateListView(newValue);
         });
 
-        //Sets the combobox with a brand from the DAO.
+        //Sets the combobox with a brands from the DAO.
         this.modelView.getComboBox().setItems(FXCollections.observableArrayList(MainApplication.getBrandDAO().getAll()));
-        this.modelView.getComboBox().setValue(this.brand);
+
 
         //Opens up the Model view
         modelView.getBackButton().setOnAction(actionEvent -> {
-            BrandController brandController = new BrandController();
+            brandController = new BrandController();
             MainApplication.switchController(brandController);
         });
 
@@ -74,7 +78,7 @@ public class ModelController extends Controller {
         });
 
         //updates the ListView.
-        updateListView(this.brand);
+        updateListView(this.selectedBrand);
 
         //Sorts list from A-Z on start up
         ModelComparator startComparator = new ModelComparator(true);
@@ -83,13 +87,26 @@ public class ModelController extends Controller {
     }
 
     /**
+     * Constructor chaining
+     *
+     * @param selectedBrand - Brand selected brand that gets selected in the BrandController
+     */
+    public ModelController(Brand selectedBrand) {
+        this();
+        this.selectedBrand = selectedBrand;
+        //sets the value of the combobox with the value from the selected brand
+        this.modelView.getComboBox().setValue(this.selectedBrand);
+    }
+
+    /**
      * The observable list gets data from the DAO
      * and updates it to the Listview
      * it only updates if there a brand selected in the comboBox
      * the models that are being updated into the listview have to have a relation with the brand
+     *
      * @param brand - a selected brand
      */
-    public void updateListView(Brand brand) {
+    private void updateListView(Brand brand) {
         modelObservableList = FXCollections.observableArrayList(MainApplication.getModelDAO().getAllFor(brand));
         modelView.getModelListView().setItems(modelObservableList);
     }
@@ -98,7 +115,7 @@ public class ModelController extends Controller {
      * Calls the updateListView() method so the menu controller can use it.
      */
     public void refresh() {
-        updateListView(this.brand);
+        updateListView(this.selectedBrand);
     }
 
     /**
@@ -117,7 +134,7 @@ public class ModelController extends Controller {
             modelView.getAlertDeleteList().setContentText("- No field selected");
             modelView.getAlertDeleteList().showAndWait();
         }
-        updateListView(this.brand);
+        updateListView(this.selectedBrand);
     }
 
     /**
@@ -156,7 +173,7 @@ public class ModelController extends Controller {
             //clears textfield and checkbox after submit
             clearFields();
             //updates list
-            updateListView(this.brand);
+            updateListView(this.selectedBrand);
         } else {
             //calls in the alert incase input is not valid
             modelView.getAlertSave().showAndWait();
@@ -189,9 +206,9 @@ public class ModelController extends Controller {
     /**
      * Methods validates the params and returns and adds and alertString to the saveAlert from the modelView
      *
-     * @param modelName -  String name of model
-     * @param price - Double price of model
-     * @param color - String color of model
+     * @param modelName   -  String name of model
+     * @param price       - Double price of model
+     * @param color       - String color of model
      * @param releaseDate - LocalDate release date of model
      */
     private void validateModel(String modelName, String price, String color, LocalDate releaseDate) {
@@ -217,6 +234,7 @@ public class ModelController extends Controller {
 
     /**
      * checks if the release date is not null
+     *
      * @param date - Localdate
      * @return boolean true if not null, false if null
      */
@@ -245,7 +263,7 @@ public class ModelController extends Controller {
     }
 
 
-    public ModelView getView() {
+    public View getView() {
         return modelView;
     }
 }

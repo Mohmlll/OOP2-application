@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import practicumopdracht.controller.BrandController;
 import practicumopdracht.controller.Controller;
 import practicumopdracht.controller.MenuController;
+import practicumopdracht.controller.ModelController;
 import practicumopdracht.data.BinaryBrandDAO;
 import practicumopdracht.data.BrandDAO;
 import practicumopdracht.data.ModelDAO;
@@ -21,9 +22,10 @@ public class MainApplication extends Application {
     private static BorderPane mainPane;
     private static MenuController menuController;
     private static BrandController brandController;
+    private static ModelController modelController;
 
-    private static final BrandDAO brandDAO = new BinaryBrandDAO();
-    private static final ModelDAO modelDAO = new ObjectModelDAO();
+    private static BrandDAO brandDAO = new BinaryBrandDAO();
+    private static ModelDAO modelDAO = new ObjectModelDAO();
 
 //    private static BrandDAO brandDAO = new TextBrandDAO();
 //    private static ModelDAO modelDAO = new TextModelDAO();
@@ -46,6 +48,10 @@ public class MainApplication extends Application {
         return brandController;
     }
 
+    public static ModelController getModelController() {
+        return modelController;
+    }
+
     @Override
     public void start(Stage stage) {
         if (!Main.launchedFromMain) {
@@ -60,6 +66,7 @@ public class MainApplication extends Application {
         brandDAO.load();
         modelDAO.load();
 
+        modelController = new ModelController();
         brandController = new BrandController(brandDAO.getAll());
         switchController(brandController);
 

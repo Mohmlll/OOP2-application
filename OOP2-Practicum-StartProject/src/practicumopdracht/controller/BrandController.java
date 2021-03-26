@@ -19,15 +19,15 @@ import java.util.List;
 
 public class BrandController extends Controller {
 
-    private final DAO<Brand> brandDAO;
-    private final BrandView brandView;
+    private DAO<Brand> brandDAO;
+    private BrandView brandView;
     private ObservableList<Brand> brandObservableList;
-    private static ModelController modelController;
+    private ModelController modelController;
 
     public BrandController() {
         brandDAO = MainApplication.getBrandDAO();
         brandView = new BrandView();
-        modelController = new ModelController(selectedBrand());
+        modelController = MainApplication.getModelController();
 
         //adds a new brand name
 

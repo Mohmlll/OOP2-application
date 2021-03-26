@@ -19,14 +19,14 @@ import java.util.Optional;
 
 public class MenuController extends Controller {
 
-    private static ModelController modelController;
+    private ModelController modelController;
     private final MenuView view;
     private final BrandController brandController;
 
     public MenuController(Stage window) {
         this.view = new MenuView();
         this.brandController = MainApplication.getBrandController();
-        modelController = brandController.getModelController();
+        this.modelController = MainApplication.getModelController();
 
         BrandDAO brand = MainApplication.getBrandDAO();
         ModelDAO model = MainApplication.getModelDAO();
@@ -50,10 +50,12 @@ public class MenuController extends Controller {
             if (alert.get() == ButtonType.OK) {
 
                 brand.load();
-                model.load();
-
-                modelController.refresh();
                 brandController.refresh();
+
+                model.load();
+                modelController.refresh();
+
+
             }
         });
 
