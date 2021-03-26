@@ -2,7 +2,6 @@ package practicumopdracht.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import practicumopdracht.Main;
 import practicumopdracht.MainApplication;
 import practicumopdracht.comparators.ModelComparator;
 import practicumopdracht.data.DAO;
@@ -25,6 +24,7 @@ public class ModelController extends Controller {
     private ModelView modelView;
     private ObservableList<Model> modelObservableList;
     private Brand selectedBrand;
+    private Brand currentBrand;
     private Model model;
     private BrandController brandController;
 
@@ -32,6 +32,7 @@ public class ModelController extends Controller {
         modelDAO = MainApplication.getModelDAO();
         modelView = new ModelView();
         brandController = MainApplication.getBrandController();
+
 
         //Adds a model to the list.
         modelView.getSave().setOnAction(actionEvent -> onAddOrUpdateModel());
@@ -54,9 +55,8 @@ public class ModelController extends Controller {
         this.modelView.getComboBox().setItems(FXCollections.observableArrayList(MainApplication.getBrandDAO().getAll()));
 
 
-        //Opens up the Model view
+        //Opens up the brand view
         modelView.getBackButton().setOnAction(actionEvent -> {
-            brandController = new BrandController();
             MainApplication.switchController(brandController);
         });
 
@@ -77,13 +77,9 @@ public class ModelController extends Controller {
             sort(modelComparator);
         });
 
-        //updates the ListView.
-        updateListView(this.selectedBrand);
-
         //Sorts list from A-Z on start up
         ModelComparator startComparator = new ModelComparator(true);
         sort(startComparator);
-
     }
 
     /**
@@ -115,7 +111,8 @@ public class ModelController extends Controller {
      * Calls the updateListView() method so the menu controller can use it.
      */
     public void refresh() {
-        updateListView(this.selectedBrand);
+        currentBrand = modelView.getComboBox().getValue();
+        updateListView(currentBrand);
     }
 
     /**
@@ -126,6 +123,7 @@ public class ModelController extends Controller {
      * If the user wants the model deleted the remove() method will remove the selected brand from the data.
      */
     private void onRemoveModel() {
+        currentBrand = modelView.getComboBox().getValue();
         Model selectedModel = modelView.getModelListView().getSelectionModel().getSelectedItem();
         if (selectedModel != null) {
             modelView.getAlertDelete().showAndWait();
@@ -134,7 +132,7 @@ public class ModelController extends Controller {
             modelView.getAlertDeleteList().setContentText("- No field selected");
             modelView.getAlertDeleteList().showAndWait();
         }
-        updateListView(this.selectedBrand);
+        updateListView(currentBrand);
     }
 
     /**
@@ -144,6 +142,7 @@ public class ModelController extends Controller {
      * if selectedModel is not null, then the selected model will be updated
      */
     private void onAddOrUpdateModel() {
+        currentBrand = modelView.getComboBox().getValue();
         Model selectedModel = modelView.getModelListView().getSelectionModel().getSelectedItem();
 
         String modelName = modelView.getModelName().getText();
@@ -173,7 +172,7 @@ public class ModelController extends Controller {
             //clears textfield and checkbox after submit
             clearFields();
             //updates list
-            updateListView(this.selectedBrand);
+            updateListView(currentBrand);
         } else {
             //calls in the alert incase input is not valid
             modelView.getAlertSave().showAndWait();
@@ -201,7 +200,6 @@ public class ModelController extends Controller {
     public void sort(ModelComparator modelComparator) {
         modelView.getModelListView().getItems().sort(modelComparator);
     }
-
 
     /**
      * Methods validates the params and returns and adds and alertString to the saveAlert from the modelView

@@ -58,7 +58,9 @@ public class TextBrandDAO extends BrandDAO {
             ex.printStackTrace();
             return false;
         } finally {
-            scanner.close();
+            if (scanner != null) {
+                scanner.close();
+            }
         }
     }
 }

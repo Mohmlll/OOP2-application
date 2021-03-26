@@ -20,8 +20,8 @@ import java.util.Optional;
 public class MenuController extends Controller {
 
     private ModelController modelController;
-    private final MenuView view;
-    private final BrandController brandController;
+    private MenuView view;
+    private BrandController brandController;
 
     public MenuController(Stage window) {
         this.view = new MenuView();

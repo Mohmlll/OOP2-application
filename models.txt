@@ -1,0 +1,6 @@
+0,Galaxy s20+,Black,999.0,2020-03-06,false
+0,Galaxy s10+,Silver,499.0,2018-02-20,true
+0,Galaxy Note 10,Gray,549.0,2018-08-07,true
+1,Iphone 10r,Red,345.0,2018-09-12,true
+1,IPhone 12,Green,729.0,2020-10-23,false
+1,Ipad air 4,Black,599.0,2020-10-23,false

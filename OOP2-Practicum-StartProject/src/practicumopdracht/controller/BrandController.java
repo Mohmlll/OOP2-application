@@ -154,7 +154,7 @@ public class BrandController extends Controller {
         String descriptrion = brandView.getTextArea().getText();
         validateBrand(brandName, networthCEO, nameCEO);
 
-        if (!checkString(brandName) && !checkString(nameCEO) && checkDouble(networthCEO)) {
+        if (!checkString(brandName) && !checkString(nameCEO) && !checkString(networthCEO)) {
             if (selectedBrand == null) {
                 //if there is no selected brand a new brand will be added
                 Brand brandInput = new Brand(brandName, nameCEO, networthCEO, descriptrion);
@@ -209,7 +209,7 @@ public class BrandController extends Controller {
     private void validateBrand(String brandName, String networthCEO, String nameCEO) {
         String alertString = "";
 
-        if (!checkDouble(networthCEO)) {
+        if (checkString(networthCEO)) {
             alertString = alertString + "- Networth is only valid with digits and is obligated\n";
             brandView.getAlertSave().setContentText(alertString);
         }
@@ -231,16 +231,6 @@ public class BrandController extends Controller {
      */
     public boolean checkString(String text) {
         return text.matches("^$");
-    }
-
-    /**
-     * This methods checks if a Double matches the regex
-     *
-     * @param text - Double that needs to be checked
-     * @return returns true if Double matches, else it is false
-     */
-    public boolean checkDouble(String text) {
-        return text.matches("^\\d+(\\.\\d+)+$");
     }
 
     public ModelController getModelController() {

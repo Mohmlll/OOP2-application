@@ -23,7 +23,7 @@ public class Model implements Serializable {
      * @param color       - String color from the model
      * @param price       - double price from the model
      * @param releaseDate - LocalDate releasedate from the model
-     * @param saleChoice  - boolean saleschoice from the model
+     * @param saleChoice  - boolean sales choice from the model
      */
     public Model(Brand brand, String modelName, String color, double price, LocalDate releaseDate, boolean saleChoice) {
         this.brand = brand;
@@ -40,11 +40,16 @@ public class Model implements Serializable {
 
     @Override
     public String toString() {
+        String saleText = "No";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
         String formattedDate = this.releaseDate.format(formatter);
 
-        return "Brand: " + this.brand.getBrandName() + ", Model: " + this.modelName + ", Color: " + this.color + ", Price: $"
-                + this.price + ", Releasedate: " + formattedDate + ", On sale: " + saleChoice;
+        if (saleChoice) {
+            saleText = "Yes";
+        }
+
+        return "Brand: " + this.brand.getBrandName() + ", Model: " + this.modelName + ", Color: " + this.color + "\nPrice: $"
+                + this.price + ", Releasedate: " + formattedDate + ", On sale: " + saleText;
     }
 
     public Brand getBrand() {

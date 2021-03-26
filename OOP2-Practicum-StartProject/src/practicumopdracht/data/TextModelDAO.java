@@ -34,6 +34,7 @@ public class TextModelDAO extends ModelDAO {
             ex.printStackTrace();
             return false;
         } finally {
+            //makes sure the file is closed and the file is free.
             if (writer != null) {
                 writer.close();
             }
@@ -66,7 +67,10 @@ public class TextModelDAO extends ModelDAO {
             ex.printStackTrace();
             return false;
         } finally {
-            scanner.close();
+            //makes sure the file is closed and the file is free.
+            if (scanner != null) {
+                scanner.close();
+            }
         }
     }
 }

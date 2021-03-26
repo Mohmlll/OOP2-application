@@ -22,16 +22,21 @@ public class ModelComparator implements Comparator<Model> {
     }
 
     /**
-     * @param o1 - Model model
-     * @param o2 -  Model model
+     * Methods compares using the toString()
+     *
+     * @param m1 - Model model 1
+     * @param m2 - Model model 2
      * @return returns a type of compare depending on the value of sortDescending
      */
     @Override
-    public int compare(Model o1, Model o2) {
+    public int compare(Model m1, Model m2) {
         if (sortDescending) {
-            return o1.toString().compareTo(o2.toString());
+            return m1.toString().compareTo(m2.toString());
         } else {
-            return o2.toString().compareTo(o1.toString());
+            return m2.toString().compareTo(m1.toString());
         }
     }
+
+
 }
+

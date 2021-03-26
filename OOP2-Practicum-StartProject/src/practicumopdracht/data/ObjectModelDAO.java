@@ -26,7 +26,7 @@ public class ObjectModelDAO extends ModelDAO {
 
             for (Model model : this.objects) {
                 int brandId = brandDAO.getIdFor(model.getBrand());
-                outputStream.writeObject(brandId);
+                outputStream.writeInt(brandId);
                 outputStream.writeUTF(model.getModelName());
                 outputStream.writeUTF(model.getColor());
                 outputStream.writeDouble(model.getPrice());
@@ -58,7 +58,9 @@ public class ObjectModelDAO extends ModelDAO {
             int numberOfModels = objectInputStream.readInt();
 
             for (int i = 0; i < numberOfModels; i++) {
-                Brand brand = brandDAO.getById((Integer) objectInputStream.readObject());
+
+                int brandId = objectInputStream.readInt();
+                Brand brand = brandDAO.getById(brandId);
 
                 String nameModel = objectInputStream.readUTF();
                 String color = objectInputStream.readUTF();

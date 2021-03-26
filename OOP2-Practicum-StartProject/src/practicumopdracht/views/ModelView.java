@@ -112,7 +112,7 @@ public class ModelView extends View {
         ascending = new RadioButton();
         ascending.setToggleGroup(radioButtonGroup);
         ascending.setText("Type #1 (Z-A)");
-        hBoxCheckBox.getChildren().addAll(sortLabel, descending, ascending);
+        hBoxRadioButtons.getChildren().addAll(sortLabel, descending, ascending);
 
         HBox hBoxButtons = new HBox();
         delete = new Button("Delete");
@@ -137,13 +137,13 @@ public class ModelView extends View {
 
         gridPaneModel.add(hBoxComboBox, 0, 1);
         gridPaneModel.add(hBoxModelName, 0, 2);
-        gridPaneModel.add(hBoxPrice, 0, 3);
-        gridPaneModel.add(hBoxColor, 0, 4);
+        gridPaneModel.add(hBoxColor, 0, 3);
+        gridPaneModel.add(hBoxPrice, 0, 4);
         gridPaneModel.add(hBoxDataPicker, 0, 5);
         gridPaneModel.add(hBoxCheckBox, 0, 6);
         gridPaneModel.add(hBoxSave, 0, 7);
         gridPaneModel.add(modelListView, 0, 8);
-        gridPaneModel.add(hBoxRadioButtons, 1, 9);
+        gridPaneModel.add(hBoxRadioButtons, 0, 9);
         gridPaneModel.add(hBoxButtons, 0, 10);
 
         //horizontal gap in pixels
