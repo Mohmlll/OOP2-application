@@ -19,8 +19,8 @@ public class MainApplication extends Application {
     private static BorderPane mainPane;
     private static MenuController menuController;
     private static BrandController brandController;
-    private static ModelController modelController;
-    
+
+
     private static BrandDAO brandDAO = new BinaryBrandDAO();
     private static ModelDAO modelDAO = new ObjectModelDAO();
 
@@ -37,16 +37,8 @@ public class MainApplication extends Application {
         return modelDAO;
     }
 
-    public static ModelController getModelController() {
-        return modelController;
-    }
-
     public static BrandController getBrandController() {
         return brandController;
-    }
-
-    public static void setModelController(ModelController modelController) {
-        MainApplication.modelController = modelController;
     }
 
     @Override

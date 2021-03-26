@@ -2,7 +2,6 @@ package practicumopdracht.controller;
 
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import practicumopdracht.Main;
 import practicumopdracht.MainApplication;
 import practicumopdracht.comparators.BrandComparator;
 import practicumopdracht.comparators.ModelComparator;
@@ -16,12 +15,10 @@ import java.util.Optional;
 public class MenuController extends Controller {
 
     private final MenuView view;
-    private ModelController modelController;
     private BrandController brandController;
 
     public MenuController(Stage window) {
         this.view = new MenuView();
-        modelController = MainApplication.getModelController();
         this.brandController = MainApplication.getBrandController();
 
         BrandDAO brand = MainApplication.getBrandDAO();
@@ -59,21 +56,18 @@ public class MenuController extends Controller {
                 model.save();
             }
             window.close();
-
         });
 
         this.view.getAscending().setOnAction(e -> {
             BrandComparator brandComparator = new BrandComparator(true);
             ModelComparator modelComparator = new ModelComparator(true);
             brandController.sort(brandComparator);
-//            modelController.sort(modelComparator);
         });
 
         this.view.getDescending().setOnAction(e -> {
             BrandComparator brandComparator = new BrandComparator(false);
             ModelComparator modelComparator = new ModelComparator(false);
             brandController.sort(brandComparator);
-//            modelController.sort(modelComparator);
         });
     }
 

@@ -2,16 +2,13 @@ package practicumopdracht.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import practicumopdracht.Main;
 import practicumopdracht.MainApplication;
 import practicumopdracht.comparators.BrandComparator;
 import practicumopdracht.data.DAO;
 import practicumopdracht.models.Brand;
-import practicumopdracht.models.Model;
 import practicumopdracht.views.BrandView;
 import practicumopdracht.views.View;
 
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -23,12 +20,9 @@ public class BrandController extends Controller {
     private List<Brand> brands;
     private final DAO<Brand> brandDAO;
     private final BrandView brandView;
-    private ModelController modelController;
     private ObservableList<Brand> brandObservableList;
 
-
     public BrandController() {
-        modelController = MainApplication.getModelController();
         brandDAO = MainApplication.getBrandDAO();
         brandView = new BrandView();
 
@@ -66,7 +60,6 @@ public class BrandController extends Controller {
         sort(comparator);
     }
 
-
     public BrandController(List<Brand> brands) {
         this();
         this.setBrand(brands);
@@ -82,6 +75,7 @@ public class BrandController extends Controller {
         Brand selectedBrand = brandView.getSelectedBrand();
 
         if (selectedBrand != null) {
+            ModelController modelController;
             modelController = new ModelController(selectedBrand);
             MainApplication.switchController(modelController);
         }
@@ -94,7 +88,7 @@ public class BrandController extends Controller {
     }
 
     //refreshes listview
-    public void refresh(){
+    public void refresh() {
         this.brandView.setBrands(MainApplication.getBrandDAO().getAll());
     }
 
@@ -141,7 +135,6 @@ public class BrandController extends Controller {
             clearFields();
             //updates list
             updateListView();
-
         } else {
             //calls in the alert incase input is not valid
             brandView.getAlertSave().showAndWait();
@@ -192,6 +185,4 @@ public class BrandController extends Controller {
     public View getView() {
         return brandView;
     }
-
-
 }

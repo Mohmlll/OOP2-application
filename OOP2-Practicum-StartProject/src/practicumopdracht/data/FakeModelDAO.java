@@ -22,6 +22,4 @@ public class FakeModelDAO extends ModelDAO {
         objects.add(new Model(indexOne, "IPhone 11", "Black", 700, LocalDate.of(2020, 9, 15), true));
         return true;
     }
-
-
 }
